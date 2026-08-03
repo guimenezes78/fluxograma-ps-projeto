@@ -1,0 +1,1327 @@
+{
+  "flows": [
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Agressão",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia",
+        "orto"
+      ],
+      "disc": "Trauma físico por agressão",
+      "esp": "Cirurgia/Ortopedia",
+      "just": "Qual mecanismo da agressão? Houve queda, pancada na cabeça, arma branca/fogo ou estrangulamento? Perdeu consciência? Tem dor onde? Há sangramento, deformidade, ferida ou déficit neurológico? Usa anticoagulante? É criança, idoso ou gestante?",
+      "obs": "GO se gestante ou violência sexual feminina; Cirurgia/Ortopedia (na dependencia do local)",
+      "mudar": "",
+      "ped": "Cirurgia/Ortopedia",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Autoagressão",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Autoagressão, tentativa de suicídio, lesão autoprovocada",
+      "esp": "Clínica/Pediatria",
+      "just": "Qual foi o método? Houve ingestão de medicamentos ou substâncias? Há ferimentos? Existe ideação suicida atual? Planejamento? Tentativas prévias? Está acompanhado? Tem doença psiquiátrica ou uso de álcool/drogas?",
+      "obs": "Cirurgia/Ortopedia se ferimento ou trauma predominante ( Mecanismo do trauma significativo, Hemorragia maior incontrilável);",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Alteração de comportamento",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Agitação, confusão, surto, delirium, alteração psiquiátrica ou orgânica",
+      "esp": "Clínica/Pediatria",
+      "just": "Início súbito ou progressivo? Febre? Trauma? Uso de álcool/drogas/medicamentos? Diabetes? Convulsão? Cefaleia? Déficit neurológico? História psiquiátrica? Risco para si ou terceiros?",
+      "obs": "",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Pediatria",
+      "flux": "Bebê chorando",
+      "spec": "pediatra",
+      "specs": [
+        "pediatra"
+      ],
+      "disc": "Choro persistente em lactente",
+      "esp": "Pediatria",
+      "just": "Idade? Febre? Aceita dieta? Vômitos? Diarreia? Queda/trauma? Irritabilidade inconsolável? Sonolência? Redução de diurese? História de engasgo? Vacina recente?",
+      "obs": "",
+      "mudar": "",
+      "ped": "Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Corpo estranho",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia",
+        "go"
+      ],
+      "disc": "Corpo estranho em pele, olho, ouvido, nariz, vias aéreas, trato digestivo ou genital",
+      "esp": "Cirurgia/GO",
+      "just": "Onde está o corpo estranho? Quando ocorreu? Qual material? Houve engasgo, dispneia, dor, sangramento, vômitos ou alteração visual/auditiva? Tentaram retirar? Criança?",
+      "obs": "GO se corpo estranho na vagina e em caso de contingência encaminhar para cirurgia",
+      "mudar": "",
+      "ped": "Clínica/pediatria/Cirurgia",
+      "atencao": false
+    },
+    {
+      "grupo": "Ginecologia/Obstetrícia",
+      "flux": "Trauma Vaginal",
+      "spec": "go",
+      "specs": [
+        "go"
+      ],
+      "disc": "Trauma direto, relação sexual violente, trauma indireto",
+      "esp": "Ginecologia/Obstetrícia",
+      "just": "Mecanismo do trauma? Sintomas associados? Outros traumas?",
+      "obs": "GO independente da idade",
+      "mudar": "",
+      "ped": "Cirurgia",
+      "atencao": true
+    },
+    {
+      "grupo": "Pediatria",
+      "flux": "Criança abusada ou negligenciada",
+      "spec": "pediatra",
+      "specs": [
+        "pediatra",
+        "go"
+      ],
+      "disc": "Suspeita de violência, abuso ou negligência",
+      "esp": "Pediatria/GO",
+      "just": "Quem trouxe? Qual relato? Há versões divergentes? Lesões incompatíveis com história? Queixa genital? Sangramento? Mudança de comportamento? A criança está segura? Há responsável legal?",
+      "obs": "GO em violência sexual feminina independente da idade",
+      "mudar": "",
+      "ped": "Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Pediatria",
+      "flux": "Criança mancando",
+      "spec": "pediatra",
+      "specs": [
+        "pediatra",
+        "orto"
+      ],
+      "disc": "Claudicação infantil",
+      "esp": "Pediatria/Ortopedia",
+      "just": "Houve trauma? Febre? Dor no quadril/joelho/pé? Recusa de apoiar? Início súbito? Teve infecção recente? Dor noturna? Edema ou vermelhidão? História de anemia falciforme?",
+      "obs": "Ortopedia se trauma evidente, deformidade, fratura suspeita ou dor osteoarticular localizada importante. Pediatria se sintomas ou sinais sistemicos.",
+      "mudar": "",
+      "ped": "",
+      "atencao": false
+    },
+    {
+      "grupo": "Ortopedia",
+      "flux": "Dor articular",
+      "spec": "orto",
+      "specs": [
+        "orto",
+        "clinico"
+      ],
+      "disc": "Dor a movimentação ativa ou passiva, trauma presente, sinais flogísticos, presença de cirurgia no membro ou presença de protese",
+      "esp": "Ortopedia/Clínica",
+      "just": "Em uma articulação ou mais de uma? Tempo de sintomas? Sinal flogístico? Procedimento prévio? Tratamento para doença nesta articulação com ortopedista?A dor é em uma articulação ou em mais de uma?Houve trauma?Existe febre, perda de peso, manchas na pele, rigidez matinal prolongada, edema em várias articulações ou outro sintoma sistêmico? A dor é bilateral/simétrica?",
+      "obs": "Ortopedia se dor localizada em uma única grande articulação (parte do corpo), sem sinais de doença sistêmica (exemplo: Dor no joelho, Dor no ombro.Dor no tornozelo.Dor na mão ou punho isoladamente). Clínica se dor em duas ou mais articulações (poliartralgia), principalmente quando simétrica ou acompanhada de outros sintomas sugestivos de doença sistêmica. Lembrando que dor no membro, sem sinas flogisticos ou histíria de doença vascular, também é da ortopedia (ex: dor na perna)",
+      "mudar": "",
+      "ped": "Clínica",
+      "atencao": true
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Desmaio",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Síncope / perda transitória de consciência",
+      "esp": "Clínica/pediatria",
+      "just": "Foi desmaio ou convulsão? Já tem convulsão? Teve pródromos? Dor torácica, palpitação, dispneia? Trauma na queda? Recuperou rápido? Usa medicações? Tem cardiopatia? Gestante? Diabetes?",
+      "obs": "Cirurgia se TCE grave/trauma predominante com ferida; GO se gestante",
+      "mudar": "",
+      "ped": "Clínica/pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Doença sexualmente transmissível",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "go"
+      ],
+      "disc": "IST: corrimento, úlcera, verruga, disúria pós-relação",
+      "esp": "Clínica/GO",
+      "just": "Qual sintoma: secreção, ferida, verruga, dor testicular/pélvica? Teve relação desprotegida? Parceiro sintomático? Gestante? Febre? Dor abdominal? Lesão traumática?",
+      "obs": "Clínica (homem)/GO (mulher)",
+      "mudar": "",
+      "ped": "Clínica",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Embriaguez aparente",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Intoxicação alcoólica ou por outras substâncias",
+      "esp": "Clínica/pediatria",
+      "just": "O que ingeriu? Horário e quantidade? Usou drogas/medicamentos? Houve queda ou agressão? Perda de consciência? Vômitos? Ideação suicida? Está sozinho?",
+      "obs": "Se embriaguez seguida de queda com sutura, encaminhar para cirurgia",
+      "mudar": "",
+      "ped": "Clínica/pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Hemorragia digestiva",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Hematêmese, melena, hematoquezia",
+      "esp": "Clínica/Pediatria",
+      "just": "Sangue vivo ou escuro? Vômito com sangue? Fezes pretas? Quantidade? Tontura/síncope? Dor abdominal? Usa anticoagulante/AINE? História de úlcera, cirrose ou câncer?",
+      "obs": "Sangramento anal sem queixa anal (dor, fissura, abaulamento)",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Problemas dentários",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia",
+        "clinico"
+      ],
+      "disc": "Dor dentária, abscesso odontogênico, trauma dentário",
+      "esp": "Cirurgia/Clinica",
+      "just": "Dor isolada ou edema facial? Febre? Trismo? Dificuldade de engolir ou respirar? Trauma? Sangramento? Relizou procedimento? Sangramento ativo?",
+      "obs": "Cirurgia (se queixa pós procedimento ou trauma, relacionado ao procedimento)",
+      "mudar": "",
+      "ped": "Clínica",
+      "atencao": false
+    },
+    {
+      "grupo": "Ortopedia",
+      "flux": "Problemas de extremidade",
+      "spec": "orto",
+      "specs": [
+        "orto",
+        "clinico",
+        "cirurgia"
+      ],
+      "disc": "Dor, trauma, edema, ferida ou alteração em membros",
+      "esp": "Ortopedia/Clínica/Cirurgia",
+      "just": "Houve trauma? Local da dor? Consegue apoiar/mover? Deformidade? Ferida? Febre? Edema unilateral? Alteração de cor/temperatura? Pulsos? Diabetes?",
+      "obs": "Cirurgia para feridas, abscessos, pé diabético e partes moles; Clínica se TVP/Erisipela; Ortopedia se dor monoarticular e trauma ou sem sinais de infecção.",
+      "mudar": "",
+      "ped": "",
+      "atencao": true
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Problemas em face",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia",
+        "clinico"
+      ],
+      "disc": "Trauma, dor, edema, ferida ou paralisia facial",
+      "esp": "Cirurgia/Clínica",
+      "just": "Houve trauma? Ferida? Edema/abscesso? Dor dentária? Alteração visual? Paralisia facial? Febre? Dificuldade de abrir boca ou engolir?",
+      "obs": "Cirurgia se trauma(ortopedia na contingência se trauma)",
+      "mudar": "",
+      "ped": "Ortopedia/clínica",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Problemas em olhos",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra",
+        "cirurgia"
+      ],
+      "disc": "Dor ocular, trauma ocular, alteração visual, corpo estranho",
+      "esp": "Clínica/Pediatria/Cirurgia",
+      "just": "Houve trauma ou produto químico? Dor? Perda visual? Fotofobia? Corpo estranho? Secreção? Usa lente de contato? Cefaleia/vômitos?",
+      "obs": "Cirurgia se trauma ou corpo estranho (qualquer idade)",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Lesão ocular quimica aguda",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Produto caiu nos olhos nas ultimas 12h causando sintomas local (dor, irritação, diminuição acuidade visual)",
+      "esp": "Cirurgia",
+      "just": "Inicio dos sintomas? Qual agente quimico? Sintoma associado?",
+      "obs": "Justificativa de ir para o cirurgião é que a conduta é procedimento",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Problemas em ouvidos",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra",
+        "cirurgia"
+      ],
+      "disc": "Otalgia, otorreia, perda auditiva, corpo estranho, pós operatório",
+      "esp": "Clínica/Pediatria/Cirurgia",
+      "just": "Dor? Febre? Secreção? Perda auditiva súbita? Tontura? Trauma? Corpo estranho? Mastoidalgia? Criança?",
+      "obs": "Cirurgia se trauma, corpo estranho",
+      "mudar": "",
+      "ped": "clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Problemas urinários",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Disúria, polaciúria, hematúria, retenção, dor em flanco",
+      "esp": "Clínica/Pediatria",
+      "just": "Disúria? Hematúria? Febre? Dor lombar/flanco? Náuseas/vômitos? Retenção urinária? Gestante? Cálculo prévio? Homem com queixa genital?",
+      "obs": "GO se gestante ou queixa ginecológica; Cirurgia se parafimose/fimose complicada/retenção mecânica genital ,trauma ou pós operatório de cirurgia urológica",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "sangramento ou dor de origem anorretal",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia",
+        "pediatra",
+        "clinico"
+      ],
+      "disc": "Coloração do sangue, queixa associada, presença de abaulamento, doença conhecida",
+      "esp": "Cirurgia/Pediatria/Clínica",
+      "just": "Dor anal? Sangue vivo no papel?Sangue após evacuação?Hemorroida conhecida? Abaulamento anal?",
+      "obs": "Hemorroida, fissura e abscesso são predominantemente cirúrgicos. Sangramento anal sem dor ou abaulamento local ou sem doença anal conhecida , deverá ser direcionado para clinica/pediatria",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": true
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Dor torácica",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "cirurgia"
+      ],
+      "disc": "Dor torácica atual, irradiação, dispneia, sudorese, síncope, fatores de risco",
+      "esp": "Clínica/Cirurgia",
+      "just": "Início? Tipo? Irradia? Dispneia? Sudorese? Náuseas? IAM prévio?",
+      "obs": "Se trauma torácico, cirurgião | Quando mudar: Hemodinâmica/cardiologia conforme protocolo; cirurgia se trauma torácico predominante",
+      "mudar": "Hemodinâmica/cardiologia conforme protocolo; cirurgia se trauma torácico predominante",
+      "ped": "Clínica",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Flebite",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Queixa pós punção venosa",
+      "esp": "Cirurgia Geral",
+      "just": "Inicio? Já ocorreu antes? Tem algum sintoma associado?",
+      "obs": "Entra no mesmo fluxo de drenos, sondas e ostomias",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": true
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "AVC / déficit neurológico",
+      "spec": "clinico",
+      "specs": [
+        "clinico"
+      ],
+      "disc": "Déficit focal, alteração fala, face, força, sensibilidade, tempo de início",
+      "esp": "Clínica Médica",
+      "just": "Última vez visto bem? Face? Fala? Força? Anticoagulação?",
+      "obs": "Protocolo AVC prevalece. (Realizar Cincinnati + BE FAST) | Quando mudar: Neurologia sobreaviso conforme fluxo; cirurgia se TCE/trauma grave",
+      "mudar": "Neurologia sobreaviso conforme fluxo; cirurgia se TCE/trauma grave",
+      "ped": "Clínica",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Cefaleia",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Início súbito, pior da vida, déficit, meningismo, febre, imunossupressão",
+      "esp": "Clínica/Pediatria",
+      "just": "Início em segundos/minutos? Febre? Rigidez nuca? Déficit? Trauma?",
+      "obs": "Quando mudar: Cirurgia se TCE predominante; GO se gestante/puerpério com sinais obstétricos",
+      "mudar": "Cirurgia se TCE predominante; GO se gestante/puerpério com sinais obstétricos",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Dispneia / asma / DPOC",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Esforço respiratório, SatO2, FR, fala entrecortada, uso musculatura acessória",
+      "esp": "Clínica/Pediatria",
+      "just": "Chiado? Tosse? Febre? Dor torácica? Saturação? Uso de bombinha?",
+      "obs": "Paciente com queixa respiratória (tosse, coriza, falta de ar) sempre usar o fluxo de asma | Quando mudar: Pediatria se criança; GO se gestante com queixa obstétrica concomitante",
+      "mudar": "Pediatria se criança; GO se gestante com queixa obstétrica concomitante",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Febre / mal-estar adulto",
+      "spec": "clinico",
+      "specs": [
+        "clinico"
+      ],
+      "disc": "Temperatura, imunossupressão, sepse possível, foco infeccioso",
+      "esp": "Clínica Médica",
+      "just": "Febre há quanto tempo? Calafrios? Tosse? Urina? Dor abdominal? Ferida?",
+      "obs": "Quando mudar: Cirurgia se foco cirúrgico claro; GO se foco ginecológico/gestacional; ortopedia se infecção de prótese/membro operado",
+      "mudar": "Cirurgia se foco cirúrgico claro; GO se foco ginecológico/gestacional; ortopedia se infecção de prótese/membro operado",
+      "ped": "Clínica",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Dor abdominal adulto",
+      "spec": "clinico",
+      "specs": [
+        "clinico"
+      ],
+      "disc": "Localização, peritonismo, vômitos, febre, gestação, sangramento",
+      "esp": "Clínica Médica",
+      "just": "Onde dói? Migrou? Febre? Vômitos? Diarreia? Gestante (se sim outro fluxo)? Urina?",
+      "obs": "Cirrugia se pós operatório de cirurgia abdominal (até 30 dias) | Quando mudar: GO se gestante/dor pélvica/sangramento vaginal; Clínica se gastroenterite, pielonefrite, CAD, hepatite",
+      "mudar": "GO se gestante/dor pélvica/sangramento vaginal; Clínica se gastroenterite, pielonefrite, CAD, hepatite",
+      "ped": "Clínica Médica",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Vômitos / diarreia",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Desidratação, sangue, dor abdominal importante, idade, comorbidades",
+      "esp": "Clínica/Pediatria",
+      "just": "Quantas vezes? Sangue? Dor localizada? Febre? Diurese? Gestante?",
+      "obs": "Quando mudar: Cirurgia se abdome agudo; GO se gestante com sinais obstétricos; Pediatria se criança",
+      "mudar": "Cirurgia se abdome agudo; GO se gestante com sinais obstétricos; Pediatria se criança",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Dor lombar",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "orto"
+      ],
+      "disc": "Trauma, déficit neurológico, febre, sintomas urinários, hematúria, dor em flanco",
+      "esp": "Clínica/Ortopedia",
+      "just": "Teve esforço/trauma? Irradia perna? Febre? Ardor urinar? Sangue urina? Dor em cólica?",
+      "obs": "Ortopedia se trauma evidente, deformidade, fratura suspeita ou tratamento com especialista. | Quando mudar: Cirurgia se abdome agudo/aneurisma suspeito; neuro/ortopedia se déficit grave",
+      "mudar": "Cirurgia se abdome agudo/aneurisma suspeito; neuro/ortopedia se déficit grave",
+      "ped": "Clínica",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Dorsalgia",
+      "spec": "clinico",
+      "specs": [
+        "clinico"
+      ],
+      "disc": "Dor mecânica versus dor torácica/respiratória,",
+      "esp": "Clínica Médica",
+      "just": "Piora ao movimento? Doi APENAS quando respira? Falta de ar? Dor torácica? Febre? Tosse? Trauma? Sintomas associados?",
+      "obs": "Importante caracterizar a dor. Ortopedia se trauma na coluna | Quando mudar: Cirurgia se trauma; clínica se pneumonia, IAM, TEP, dissecção suspeita",
+      "mudar": "Cirurgia se trauma; clínica se pneumonia, IAM, TEP, dissecção suspeita",
+      "ped": "Clínica Médica",
+      "atencao": true
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Cervicalgia / torcicolo",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "orto"
+      ],
+      "disc": "Trauma, febre, rigidez de nuca, déficit neurológico",
+      "esp": "Clínica/Ortopedia",
+      "just": "Houve trauma? Febre? Rigidez nuca? Fraqueza? Dor ao movimento? Sintomas associados?",
+      "obs": "Cefaleia + meningismo ou cervicalgia é clínica. Ortopedia se trauma ou dor a mivimentação; | Quando mudar: Cirurgia se trauma grave",
+      "mudar": "Cirurgia se trauma grave",
+      "ped": "Clínica Médica",
+      "atencao": true
+    },
+    {
+      "grupo": "Ortopedia",
+      "flux": "Dor em ombro / membro superior",
+      "spec": "orto",
+      "specs": [
+        "orto"
+      ],
+      "disc": "Trauma, limitação, dor torácica irradiada, dispneia",
+      "esp": "Ortopedia",
+      "just": "Caiu? Piora movimento? Dor peito? Falta ar? Formigamento?",
+      "obs": "Investigar dor referida antes de direcionar para afastar dor toracica que irradia para ombro (clínica). Na contingência se trauma Cirurgia/ sem trauma Clínica | Quando mudar: Clínica se dor torácica/dispneia; cirurgia se ferida complexa",
+      "mudar": "Clínica se dor torácica/dispneia; cirurgia se ferida complexa",
+      "ped": "Cirurgia/Clínica",
+      "atencao": false
+    },
+    {
+      "grupo": "Ortopedia",
+      "flux": "Trauma / queda",
+      "spec": "orto",
+      "specs": [
+        "orto",
+        "cirurgia",
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Mecanismo, local acometido, TCE, sangramento, deformidade, anticoagulação",
+      "esp": "Ortopedia/Cirurgia/Clínica/Peditria",
+      "just": "Como caiu? Bateu cabeça? Perdeu consciência? Usa anticoagulante? Dor onde? Caiu de quantos metros?Passou mal antes da queda?",
+      "obs": "Ortopedia para trauma osteoarticular; Cirurgia para feridas/TCE/trauma abdominal/torácico ou Trauma MAIOR E Clinica e Peditria se passou mal antes de quada. Peditria, TCE sem corte, é sempre peditria | Quando mudar: Clínica se síncope causou queda e TCE leve; cirurgia se TCE predominante/alto risco",
+      "mudar": "Clínica se síncope causou queda e TCE leve; cirurgia se TCE predominante/alto risco",
+      "ped": "Ortopedia/Cirurgia",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "TCE",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia",
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Perda consciência, vômitos, amnésia, anticoagulante, déficit, Glasgow",
+      "esp": "Cirurgia/Clínica/Peditria",
+      "just": "Desmaiou antes ou depois? Vômitos? Sonolência? Anticoagulante? Déficit?",
+      "obs": "Clínica se sincope ou mal estar antes do TCE e Peditria se não tiver corte | Quando mudar: Clínica se TCE leve secundário à síncope sem sinais de trauma grave",
+      "mudar": "Clínica se TCE leve secundário à síncope sem sinais de trauma grave",
+      "ped": "Ortopedia/Clinica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Síncope / lipotimia",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Pródromos, dor torácica, dispneia, palpitação, trauma secundário",
+      "esp": "Clínica/pediatria",
+      "just": "Desmaiou? Quanto tempo? Dor peito? Palpitação? Bateu cabeça?",
+      "obs": "Quando mudar: Cirurgia se trauma/TCE relevante predominante",
+      "mudar": "Cirurgia se trauma/TCE relevante predominante",
+      "ped": "Clínica/pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Feridas / lesões de pele",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Profundidade, contaminação, mordedura, perda tecidual, sangramento, diabetes",
+      "esp": "Cirurgia Geral",
+      "just": "Corte? Profundidade? Mordida? Diabético? Sai pus? Sangra?",
+      "obs": "Ferida aberta em pé diabético ou não: cirurgia avalia desbridamento/profundidade. Na contingência se necessidade de sutura é do ortopedista | Quando mudar: Ortopedia se fratura/exposição óssea/lesão tendínea de extremidade; clínica para controle comorbidades",
+      "mudar": "Ortopedia se fratura/exposição óssea/lesão tendínea de extremidade; clínica para controle comorbidades",
+      "ped": "Clínica/Pediatria/Ortopedia",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Abscesso / infecção partes moles",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia",
+        "pediatra"
+      ],
+      "disc": "Flutuação, extensão, febre, imunossupressão, localização",
+      "esp": "Cirurgia Geral/Peditria",
+      "just": "Tem pus? Febre? Aumentando? Diabético? Local?",
+      "obs": "Abscesso geralmente é cirúrgico por possibilidade de drenagem.], assim comopé diabético se o que trouxe o paciente ao atendimento foi a ferida. | Quando mudar: Clínica se celulite extensa/sepsis/sem necessidade de drenagem; GO se Bartholin/vulva",
+      "mudar": "Clínica se celulite extensa/sepsis/sem necessidade de drenagem; GO se Bartholin/vulva",
+      "ped": "Clínica/pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Picada/mordedura animal peçonhento",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia",
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Tipo animal, tempo, sinais sistêmicos, dor local, edema",
+      "esp": "Cirurgia/Clinica/Peditria",
+      "just": "Animal? Horário? Edema? Sangramento? Falta ar? Dor?",
+      "obs": "Fluxo de toxicologia/soro quando aplicável. Se apenas reação alergica, prurido sem dor, com suspeita de picada de insetor, direcionar para clínica/peditria | Quando mudar: Cirurgia se necrose/ferida complexa/compartimental",
+      "mudar": "Cirurgia se necrose/ferida complexa/compartimental",
+      "ped": "Clínica/pediatria",
+      "atencao": true
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Queimaduras",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Extensão, profundidade, face/mãos/genital, inalação, elétrica/química",
+      "esp": "Cirurgia Geral",
+      "just": "Como queimou? Área? Face/mãos/genital? Fumaça? Dor?",
+      "obs": "Quando mudar: Clínica se intoxicação/inalação predominante",
+      "mudar": "Clínica se intoxicação/inalação predominante",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Dor testicular / escroto agudo",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Início súbito, náusea/vômito, trauma, edema, febre",
+      "esp": "Cirurgia Geral",
+      "just": "Início? Testículo alto? Trauma? Febre? Urina ardendo? Alteração no local? Dor irradia?",
+      "obs": "Atenção a dor testicular sem alteração local com irradiação, pois provavel cólica renal, encaminhar para clínico ou pediatria | Quando mudar: Clínica se uretrite sem dor testicular; GO não se aplica",
+      "mudar": "Clínica se uretrite sem dor testicular; GO não se aplica",
+      "ped": "Clínica/Pediatria",
+      "atencao": true
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Lesão genital masculina",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia",
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "parafimose, priapismo, abscesso, laceração",
+      "esp": "Cirurgia/Clínica/Pediatria",
+      "just": "Machucou? Inchaço? Não consegue reduzir prepúcio? Ereção prolongada? Pus? Uso de sonda?",
+      "obs": "Clínica/peditria se queixa de secreção (Fluxo de Secreção peniana / IST) | Quando mudar: Clínica se secreção peniana/IST sem complicação cirúrgica",
+      "mudar": "Clínica se secreção peniana/IST sem complicação cirúrgica",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "TRAUMA PENIANO",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "parafimose, priapismo, abscesso, laceração",
+      "esp": "Cirurgia Geral",
+      "just": "Machucou? Inchaço? Não consegue reduzir prepúcio? Ereção prolongada? Mecanismo do trauma? Uso de sonda?",
+      "obs": "",
+      "mudar": "",
+      "ped": "Clínica/peditria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Secreção peniana / IST",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Secreção uretral, disúria, relação sexual, lesões ulceradas",
+      "esp": "Clínica/Pediatria",
+      "just": "Corrimento? Ardor? Relação sem preservativo? Feridas? Dor testicular?",
+      "obs": "Síndrome infecciosa/IST é clínica. | Quando mudar: Cirurgia se dor testicular, abscesso, parafimose, Fournier",
+      "mudar": "Cirurgia se dor testicular, abscesso, parafimose, Fournier",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Ginecologia/Obstetrícia",
+      "flux": "Dor pélvica / sangramento vaginal",
+      "spec": "go",
+      "specs": [
+        "go"
+      ],
+      "disc": "Gestação, DUM, sangramento, corrimento, febre, dor localizada",
+      "esp": "Ginecologia/Obstetrícia",
+      "just": "Gestante? DUM? Sangramento? Corrimento? Febre? Dor unilateral?",
+      "obs": "Dor pélvica e sangramento vaginal são GO. | Quando mudar: Clínica se queixa claramente clínica não relacionada ao trato genital",
+      "mudar": "Clínica se queixa claramente clínica não relacionada ao trato genital",
+      "ped": "Clínica Médica/Pediatria/Cirurgia se gestante",
+      "atencao": false
+    },
+    {
+      "grupo": "Ginecologia/Obstetrícia",
+      "flux": "Gestante",
+      "spec": "go",
+      "specs": [
+        "go"
+      ],
+      "disc": "Idade gestacional, queixa respiratória, urinária, hipertensão, cefaleia. Queixas relacionadas e não relacionadas",
+      "esp": "Ginecologia/Obstetrícia",
+      "just": "Queixa é da gestação? Sangramento? Perda líquido? Contrações? PA?",
+      "obs": "Em contingência, gestante resfriada/queixa clínica pode ser clínica com sinalização. Avaliação do binomio - ginecoEste fluxo deve ser utilizado se a queixa tem relação com a gestação | Quando mudar: GO deve ser acionada se sinais obstétricos",
+      "mudar": "GO deve ser acionada se sinais obstétricos",
+      "ped": "Clinica/Cirurgia",
+      "atencao": false
+    },
+    {
+      "grupo": "Ginecologia/Obstetrícia",
+      "flux": "Dor mamária / lesão de mama",
+      "spec": "go",
+      "specs": [
+        "go"
+      ],
+      "disc": "Mastalgia, nódulo, mastite, abscesso, lactação, trauma",
+      "esp": "Ginecologia/Obstetrícia",
+      "just": "Lactante? Vermelhidão? Febre? Secreção? Nódulo? Trauma?",
+      "obs": "Quando mudar: Clínica se dor torácica não mamária; cirurgia se abscesso com necessidade de drenagem conforme fluxo",
+      "mudar": "Clínica se dor torácica não mamária; cirurgia se abscesso com necessidade de drenagem conforme fluxo",
+      "ped": "Clínica/Peditria",
+      "atencao": false
+    },
+    {
+      "grupo": "Ginecologia/Obstetrícia",
+      "flux": "Pós-operatório Ginecológico/obstétrico",
+      "spec": "go",
+      "specs": [
+        "go"
+      ],
+      "disc": "Dor sítio cirúrgico, secreção, febre, vômitos, distensão, sangramento, hematoma de parede",
+      "esp": "Ginecologia/Obstetrícia",
+      "just": "Qual cirurgia? Quando? Dor local? Febre? Secreção? Vômitos?",
+      "obs": "Queixa relacionada ao procedimento vai à especialidade que operou. Puerpério com queixa obstétrica é GO. | Quando mudar: Clínica se queixa clínica sem relação com procedimento",
+      "mudar": "Clínica se queixa clínica sem relação com procedimento",
+      "ped": "Cirurgia Geral",
+      "atencao": true
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Pós-operatório cirurgia geral e demais especialidades",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Dor sítio cirúrgico, secreção, febre, vômitos, distensão, sangramento",
+      "esp": "Cirurgia Geral",
+      "just": "Qual cirurgia? Quando? Dor local? Febre? Secreção? Vômitos?",
+      "obs": "Queixa relacionada ao procedimento vai à especialidade que operou. | Quando mudar: Clínica se queixa clínica sem relação com procedimento",
+      "mudar": "Clínica se queixa clínica sem relação com procedimento",
+      "ped": "Clínica Médica",
+      "atencao": true
+    },
+    {
+      "grupo": "Ortopedia",
+      "flux": "Pós-operatório ortopédico",
+      "spec": "orto",
+      "specs": [
+        "orto"
+      ],
+      "disc": "Dor no membro operado, sangramento, edema, gesso, prótese, febre",
+      "esp": "Ortopedia",
+      "just": "Qual cirurgia? Dor local? Febre? Queda? Ferida? Gesso apertado?",
+      "obs": "TEP/dor torácica pós-op é clínica inicialmente. | Quando mudar: Clínica se dispneia, dor torácica, pneumonia, TEP, HAS, DM",
+      "mudar": "Clínica se dispneia, dor torácica, pneumonia, TEP, HAS, DM",
+      "ped": "Cirurgia Geral",
+      "atencao": true
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Pós-operatório",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Pós operatório se queixas não relacionadas a cirurgia (queixas respiratóriasm queixas gerais)",
+      "esp": "Clínica/Pediatria",
+      "just": "Tempo di cirrugia? Qual cirurgia? Sintomas associdos?",
+      "obs": "",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": true
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Sintomas urinários / hematúria",
+      "spec": "clinico",
+      "specs": [
+        "clinico"
+      ],
+      "disc": "Disúria, polaciúria, febre, dor lombar/flanco, hematúria",
+      "esp": "Clínica Médica",
+      "just": "Arde? Sangue? Febre? Dor lombar/flanco? Gestante?",
+      "obs": "Sintomas urinários em paciente com Duplo J deverá ser direcionado para a cirurgia | Quando mudar: GO se gestante com queixa obstétrica; cirurgia/urologia se retenção/escroto agudo",
+      "mudar": "GO se gestante com queixa obstétrica; cirurgia/urologia se retenção/escroto agudo",
+      "ped": "Clínica",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Crise psiquiátrica / ideação suicida",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Risco atual, plano, meio, tentativa, agitação, intoxicação",
+      "esp": "Clínica/Pediatria",
+      "just": "Pensou em se matar? Plano? Tentou? Usou substância? Está acompanhado?",
+      "obs": "Usar SAD PERSONS ou ferramenta institucional. | Quando mudar: Psiquiatria/psicologia conforme rota; segurança se risco",
+      "mudar": "Psiquiatria/psicologia conforme rota; segurança se risco",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Reação alérgica / anafilaxia",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Urticária, edema face, dispneia, hipotensão, exposição",
+      "esp": "Clínica/Pediatria",
+      "just": "Falta ar? Inchaço boca? Pressão caiu? O que ingeriu/usou?",
+      "obs": "Anafilaxia é emergência clínica. | Quando mudar: Pediatria se criança; GO se gestante com instabilidade sinalizar",
+      "mudar": "Pediatria se criança; GO se gestante com instabilidade sinalizar",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Alteração glicêmica / diabetes",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Hipoglicemia, cetoacidose, vômitos, alteração consciência",
+      "esp": "Clínica/Pediatria",
+      "just": "Glicemia? Insulina? Vômitos? Sonolência? Infecção?",
+      "obs": "Quando mudar: Pediatria se criança",
+      "mudar": "Pediatria se criança",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Ferimentos do tronco (tórax/abdome)",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Ferida penetrante; instabilidade hemodinâmica; dispneia; dor abdominal pós-trauma; evisceração.",
+      "esp": "Cirurgião Geral",
+      "just": "Quando aconteceu? Mais de uma lesão? Lesão feita com qual objeto? Sintomas associados?",
+      "obs": "Clinica se instabilidade associada junto com cirurgia e ortopedia",
+      "mudar": "",
+      "ped": "Ortopedia/Clinica",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Palpitações",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Pulso irregular; síncope/pré-síncope; dor torácica associada; dispneia.",
+      "esp": "Clínica/Pediatria",
+      "just": "Inicio dos sintomas? Sintomas associados? Usoo de drogas lícitas e ilicitas?",
+      "obs": "",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Convulsões",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Crise ativa; estado de mal epiléptico; pós-ictal prolongado; primeira crise; trauma associado.",
+      "esp": "Clínica/Pediatria",
+      "just": "Já faz tratamento? Uso de medicação? Quando iniciou?",
+      "obs": "",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Comportamento estranho / alteração aguda",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Confusão aguda; desorientação; agitação; flutuação do nível de consciência.",
+      "esp": "Clínica/Pediatria",
+      "just": "Inicio dos sintomas? Sintomas clinicos associados? Uso de medicação?",
+      "obs": "",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Doença mental / saúde mental",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Risco de auto/heteroagressão; agitação psicomotora; ideação suicida; psicose aguda.",
+      "esp": "Clínica/Pediatria",
+      "just": "Inicio dos sintomas? Sintomas clinicos associados? Uso de medicação?",
+      "obs": "",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Overdose e envenenamento",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra"
+      ],
+      "disc": "Rebaixamento; depressão respiratória; exposição a tóxico/medicamento; convulsão.",
+      "esp": "Clínica/Pediatria",
+      "just": "Tempo de sintomas? Qual substância?",
+      "obs": "",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Clínica Médica",
+      "flux": "Exposição a agentes químicos",
+      "spec": "clinico",
+      "specs": [
+        "clinico",
+        "pediatra",
+        "cirurgia"
+      ],
+      "disc": "Exposição cutânea/inalatória; queimadura química; sintomas sistêmicos.",
+      "esp": "Clínica/Peditria/Cirurgia",
+      "just": "Tempo de exposição? Qual agente quimíco? Queis respiratórias? Lesoes na pele?",
+      "obs": "Cirurgia se exposição a pele, queimadura quimica ou ocular e Clinica de inalatório",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Drenos, sondas e ostomias",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Disfunção, deslocamento, obstrução, vazamento, exteriorização, sangramento, infecção ou complicação relacionada ao dispositivo",
+      "esp": "Cirurgia",
+      "just": "Qual dispositivo (SVD, SNE, gastrostomia, traqueostomia, colostomia, dreno)? Foi colocado em cirurgia recente? Quando? Houve saída acidental? Está funcionando? Há dor intensa, febre, secreção purulenta, sangramento, exteriorização de alças, dificuldade respiratória (traqueostomia) ou retenção urinária? O motivo da vinda é apenas troca programada?",
+      "obs": "",
+      "mudar": "",
+      "ped": "Clínica/Pediatria",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Curativos",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia",
+        "go",
+        "orto"
+      ],
+      "disc": "Ferida cirúrgica ou traumática com sangramento, deiscência, secreção, sinais de infecção ou necessidade de avaliação médica",
+      "esp": "Cirurgia/GO/Ortopedia",
+      "just": "O curativo é apenas troca programada? A ferida é operatória? Há quanto tempo foi a cirurgia? Existe sangramento ativo, abertura dos pontos, secreção, mau odor, febre, aumento da dor ou necrose? Houve trauma?",
+      "obs": "Caso de cutarivo relacionado a procedimento ortopedico encaminhar para ortopedia e GO encaminhar para GO",
+      "mudar": "",
+      "ped": "Clínica/Cirurgia",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Queixas mamárias em pós operatório local",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Dor, hematoma, seroma, deiscência, secreção, infecção, abscesso ou sangramento após mamoplastia, prótese mamária, reconstrução ou cirurgia por câncer de mama",
+      "esp": "Cirurgia",
+      "just": "A paciente realizou cirurgia na mama recentemente (prótese, mamoplastia, reconstrução ou cirurgia por câncer de mama)? A queixa é na cicatriz ou no local da cirurgia (dor, abertura dos pontos, secreção, vermelhidão, calor, hematoma ou inchaço)? Está no pós-parto ou amamentando? Apresenta febre, vermelhidão, endurecimento ou saída de secreção pelo mamilo? Existe trauma na mama? Há apenas dor ou nódulo sem sinais de infecção ou trauma?",
+      "obs": "Essa única pergunta resolve a maior parte dos casos: Sim, relacionada à cirurgia → Cirurgia Sim, relacionada ao puerpério/amamentação → GO Não → GO (na ausência de sinais de trauma ou complicação cirúrgica)",
+      "mudar": "",
+      "ped": "Ginecologia/obstetrícia",
+      "atencao": true
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Trauma mamário",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Tempo do trauma, áreas associdas, outros sintomas.",
+      "esp": "Cirurgia",
+      "just": "A paciente realizou cirurgia na mama recentemente (prótese, mamoplastia, reconstrução ou cirurgia por câncer de mama)? A queixa é na cicatriz ou no local da cirurgia (dor, abertura dos pontos, secreção, vermelhidão, calor, hematoma ou inchaço)? Está no pós-parto ou amamentando? Apresenta febre, vermelhidão, endurecimento ou saída de secreção pelo mamilo? Existe trauma na mama? Há apenas dor ou nódulo sem sinais de infecção ou trauma?",
+      "obs": "Essa única pergunta resolve a maior parte dos casos: Sim, relacionada à cirurgia → Cirurgia Sim, relacionada ao puerpério/amamentação → GO Não → GO (na ausência de sinais de trauma ou complicação cirúrgica)",
+      "mudar": "",
+      "ped": "Ginecologia/obstetrícia",
+      "atencao": true
+    },
+    {
+      "grupo": "Ginecologia/Obstetrícia",
+      "flux": "Dor na mama",
+      "spec": "go",
+      "specs": [
+        "go"
+      ],
+      "disc": "Mastite puerperal, ingurgitamento mamário, fissura mamilar, abscesso relacionado à amamentação ou não. Dor mamária sem cirurgia prévia e sem relação com gestação/lactação",
+      "esp": "Ginecologia/obstetrícia",
+      "just": "A paciente realizou cirurgia na mama recentemente (prótese, mamoplastia, reconstrução ou cirurgia por câncer de mama)? A queixa é na cicatriz ou no local da cirurgia (dor, abertura dos pontos, secreção, vermelhidão, calor, hematoma ou inchaço)? Está no pós-parto ou amamentando? Apresenta febre, vermelhidão, endurecimento ou saída de secreção pelo mamilo? Existe trauma na mama? Há apenas dor ou nódulo sem sinais de infecção ou trauma?",
+      "obs": "Essa única pergunta resolve a maior parte dos casos: Sim, relacionada à cirurgia → Cirurgia Sim, relacionada ao puerpério/amamentação → GO Não → GO (na ausência de sinais de trauma ou complicação cirúrgica)",
+      "mudar": "",
+      "ped": "Clínica",
+      "atencao": true
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Epistaxe",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Sangramento nasal ativo",
+      "esp": "Cirurgia",
+      "just": "O sangramento está ativo? É unilateral ou bilateral? Houve trauma na face ou nariz? O sangramento iniciou após cirurgia nasal? Usa anticoagulante ou possui distúrbio de coagulação? Apresenta tontura, síncope ou sinais de instabilidade? O sangramento cessou com compressão?",
+      "obs": "SE epistaxe não relacionado a trauma ou pós operatório, deverá mesmo assim, ser encaminhado para cirurgião para estabilizar o sangramento e este posteriormente direcionará para clniica.",
+      "mudar": "",
+      "ped": "Clinica",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Corte (ferimento)",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Ferimento corto-contuso, laceração, avulsão, amputação, mordedura ou sangramento",
+      "esp": "Cirurgia",
+      "just": "Qual o mecanismo do ferimento (faca, vidro, máquina, mordida, arma)? Em qual região do corpo? Há sangramento ativo? Existe perda de sensibilidade ou dificuldade para movimentar o membro? Há exposição de tendão, músculo ou osso? O ferimento é decorrente de cirurgia recente?",
+      "obs": "Ortopedia se trauma com suspeita de fratura exposta. Na dúvida sempre direcionar para cirurgia",
+      "mudar": "",
+      "ped": "Ortopedia",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Bexigoma",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Dor suprapúbica, globo vesical, incapacidade de urinar",
+      "esp": "Cirurgia",
+      "just": "Há quanto tempo está sem urinar? Apresenta dor intensa na parte inferior do abdome? Usa sonda vesical? A retenção ocorreu após cirurgia ou procedimento urológico recente? Há febre, hematúria ou trauma? Possui história de hiperplasia prostática, estenose uretral ou doença neurológica?",
+      "obs": "Cirurgia (caso relacionado a complicação pós-operatória ou necessidade de avaliação cirúrgica após atendimento inicial)",
+      "mudar": "",
+      "ped": "Clínica",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Caroço",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia",
+        "clinico"
+      ],
+      "disc": "Nodulo único, com ou sem alteração infecciosa",
+      "esp": "Cirurgia/Clínica",
+      "just": "Tempo de evolução? Dor? Vermelhidão? Calor?",
+      "obs": "Clínica se ausencia de sinais flogísticos",
+      "mudar": "",
+      "ped": "Cirurgia/Clínica",
+      "atencao": true
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Pé diabético",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Ferida do pé diabético: Fluxograma de ferida",
+      "esp": "Cirurgia",
+      "just": "Tempo de evolução? Sintomas associados? Tem secreção? Dor?",
+      "obs": "Cirurgia se o motivo que levou o paciente ao atendimento for a ferida",
+      "mudar": "",
+      "ped": "Clínica",
+      "atencao": false
+    },
+    {
+      "grupo": "Cirurgia Geral",
+      "flux": "Corpo estranho (nariz/ouvido/olho)",
+      "spec": "cirurgia",
+      "specs": [
+        "cirurgia"
+      ],
+      "disc": "Trauma ocular?, Ingestão de objeto perigoso?Inflamação local? Hemorragia?",
+      "esp": "Cirurgia",
+      "just": "Local do corpo estranho? Mecanismo? Tempo de evolução?Qual objeto?",
+      "obs": "Corpo estranho que tem possibilidade de ser retirada pelo plantonista de cirurgia sem a necessidade e especialista fora",
+      "mudar": "",
+      "ped": "Clínica/Peditria",
+      "atencao": false
+    },
+    {
+      "grupo": "Pediatria",
+      "flux": "Corpo estranho (ingestão)",
+      "spec": "pediatra",
+      "specs": [
+        "pediatra",
+        "cirurgia"
+      ],
+      "disc": "Ingestão de objeto perigoso?IDor? Hemorragia?",
+      "esp": "Pediatria/Cirurgia",
+      "just": "Local do corpo estranho? Mecanismo do trauma? Tempo de evolução?Qual objeto?",
+      "obs": "Cirurgia em caso de adulto",
+      "mudar": "",
+      "ped": "Pediatria/Clínica",
+      "atencao": false
+    }
+  ],
+  "casos": [
+    {
+      "sit": "Ferida aberta no pé sem diabetes",
+      "esp": "Cirurgia Geral",
+      "just": "Avaliação de profundidade, necessidade de sutura, limpeza, desbridamento e risco de infecção.",
+      "perg": "Tempo? Profundidade? Contaminação? Exposição óssea/tendínea? Sangramento?",
+      "mudar": "Avaliação em conjunto Ortopedia se fratura/exposição óssea/lesão tendínea; Clínica se sepse/comorbidades graves.",
+      "obs": "Não é queixa clínica apenas por necessitar antibiótico.",
+      "specs": [
+        "cirurgia"
+      ]
+    },
+    {
+      "sit": "Ferida aberta no pé em diabético",
+      "esp": "Cirurgia Geral",
+      "just": "Pé diabético exige avaliação de profundidade, desbridamento, necrose e necessidade cirúrgica. Clínica auxilia controle glicêmico e ATB.",
+      "perg": "Diabético? Controle glicêmico? Febre? Necrose? Pus? Dor? Perfusão?",
+      "mudar": "Clínica se descompensação metabólica/sepse; vascular/sobreaviso conforme fluxo.",
+      "obs": "Evitar encaminhar automaticamente para clínica por ser diabético.",
+      "specs": [
+        "cirurgia"
+      ]
+    },
+    {
+      "sit": "Lesão genital masculina",
+      "esp": "Cirurgia Geral",
+      "just": "Na ausência de urologia, lesões genitais com possibilidade de procedimento são cirúrgicas.",
+      "perg": "Trauma? Laceração? Parafimose? Hematoma? Abscesso? Priapismo?",
+      "mudar": "Clínica se secreção peniana/IST sem complicação cirúrgica.",
+      "obs": "Urologia é especialidade cirúrgica; no PA, cirurgia geral é melhor porta.",
+      "specs": [
+        "cirurgia"
+      ]
+    },
+    {
+      "sit": "Secreção peniana após relação sexual",
+      "esp": "Clínica Médica",
+      "just": "Síndrome infecciosa/IST, geralmente com tratamento clínico e orientações de parceiros.",
+      "perg": "Corrimento? Disúria? Lesões? Dor testicular? Febre? Relação sem preservativo?",
+      "mudar": "Cirurgia se dor testicular aguda, abscesso, parafimose, Fournier.",
+      "obs": "Separar queixa infecciosa de urgência urológica cirúrgica.",
+      "specs": [
+        "clinico"
+      ]
+    },
+    {
+      "sit": "Dor testicular aguda",
+      "esp": "Cirurgia Geral",
+      "just": "Torção testicular deve ser excluída rapidamente; urgência cirúrgica.",
+      "perg": "Início súbito? Náusea/vômito? Testículo alto? Trauma? Febre?",
+      "mudar": "Clínica se uretrite isolada sem dor testicular; pediatria se criança conforme idade/fluxo.",
+      "obs": "Não tratar inicialmente como simples IST.",
+      "specs": [
+        "cirurgia"
+      ]
+    },
+    {
+      "sit": "Queixas anais",
+      "esp": "Cirurgia Geral",
+      "just": "Hemorroida trombosada, fissura, abscesso e dor anal são predominantemente cirúrgicas.",
+      "perg": "Dor? Sangramento? Caroço? Pus? Febre? Constipação?",
+      "mudar": "Clínica se sangramento digestivo importante/anemia/instabilidade.",
+      "obs": "Regra simples para triagem: dor/lesão anal → cirurgia.",
+      "specs": [
+        "cirurgia"
+      ]
+    },
+    {
+      "sit": "Dor lombar mecânica",
+      "esp": "Clínica Médica",
+      "just": "Dor ligada a movimento/esforço sem sintomas sistêmicos é osteomuscular.",
+      "perg": "Esforço? Piora movimento? Irradia para perna? Sem febre/urinário?",
+      "mudar": "Contingência ortopedia",
+      "obs": "Ortopedia se tratamento regular com ortopedista ou trauma recente. Precisa de perguntas estratégicas.",
+      "specs": [
+        "clinico"
+      ]
+    },
+    {
+      "sit": "Dor lombar com hematúria/disúria/flanco",
+      "esp": "Clínica Médica",
+      "just": "Síndrome urinária/cólica renal/pielonefrite é clínica inicialmente.",
+      "perg": "Sangue urina? Ardor? Febre? Náuseas? Dor em cólica?",
+      "mudar": "Urologia/sobreaviso se obstrução, rim único, sepse, dor refratária.",
+      "obs": "Não direcionar pela palavra lombar apenas.",
+      "specs": [
+        "clinico"
+      ]
+    },
+    {
+      "sit": "Dorsalgia mecânica",
+      "esp": "Clínica Médica",
+      "just": "Se dor reproduzida por movimento/palpação e sem sintomas respiratórios/cardiológicos, é osteomuscular.",
+      "perg": "Piora movimento? Trauma? Palpação? Sem febre/tosse/dor torácica?",
+      "mudar": "",
+      "obs": "Enfermagem deve diferenciar dor mecânica de clínica por perguntas.",
+      "specs": [
+        "clinico"
+      ]
+    },
+    {
+      "sit": "Síncope com TCE leve",
+      "esp": "Clínica Médica",
+      "just": "Síncope é a síndrome principal; TCE leve é consequência, se sem sinais de gravidade.",
+      "perg": "Desmaiou antes de cair? Dor torácica? Palpitação? Glasgow? Vômitos? Anticoagulação?",
+      "mudar": "Cirurgia se TCE predominante, Glasgow alterado, déficit, vômitos, anticoagulado ou trauma importante.",
+      "obs": "Quando o trauma for mais grave que a síncope, cirurgia primeiro.",
+      "specs": [
+        "clinico"
+      ]
+    },
+    {
+      "sit": "TCE primário/queda com trauma relevante",
+      "esp": "Cirurgia Geral",
+      "just": "Trauma craniano é avaliação cirúrgica/trauma quando predominante.",
+      "perg": "Mecanismo? Perda consciência? Vômitos? Amnésia? Anticoagulante?",
+      "mudar": "Clínica se síncope clínica clara e trauma leve.",
+      "obs": "Definir síndrome predominante na classificação.",
+      "specs": [
+        "cirurgia"
+      ]
+    },
+    {
+      "sit": "Gestante com síndrome gripal",
+      "esp": "Ginecologia/Obstetrícia",
+      "just": "Queixa clínica respiratória sem sinais obstétricos pode ser avaliada pela clínica, com sinalização da gestação.",
+      "perg": "IG? Contrações? Perda líquido? Sangramento? Dispneia? Febre?",
+      "mudar": "Clinica se queixas clínicas e queixas relacionadas a gesta",
+      "obs": "Na contingência, gestante clínica não deve sobrecarregar cirurgia.",
+      "specs": [
+        "go"
+      ]
+    },
+    {
+      "sit": "Lesão genital feminina / corrimento / mastalgia",
+      "esp": "Ginecologia/Obstetrícia",
+      "just": "Queixa do sistema genital feminino/mama é da GO, salvo quadro clínico sistêmico predominante.",
+      "perg": "Dor pélvica? Corrimento? Lesão? Sangramento? Gestante? Lactante?",
+      "mudar": "ao será direconado para cirurgia na contingência",
+      "obs": "Lesão genital/mama não faz sentido ir para clínica como regra.",
+      "specs": [
+        "go"
+      ]
+    },
+    {
+      "sit": "Pós-operatório com dor na ferida/área operada",
+      "esp": "Cirurgia/Ortopedia/GO",
+      "just": "Queixa relacionada ao procedimento deve ser avaliada pela especialidade cirúrgica correspondente.",
+      "perg": "Qual cirurgia? Data? Dor local? Secreção? Sangramento? Febre?",
+      "mudar": "Clínica se queixa clínica geral não relacionada ao procedimento.",
+      "obs": "Evita perda de tempo e duplicidade de avaliação.",
+      "specs": [
+        "cirurgia",
+        "orto",
+        "go"
+      ]
+    }
+  ]
+}
