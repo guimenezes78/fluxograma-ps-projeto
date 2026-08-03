@@ -2,7 +2,7 @@ from pathlib import Path
 from PIL import Image
 d=Path(r"C:/Users/guime/dev/fluxograma-ps-projeto/public/brand")
 logo=Image.open(d/"logo-huvr.png").convert("RGBA")
-mark=logo.crop((70,5,380,220))
+mark=logo.crop((55,0,395,210))
 mark.save(d/"logo-mark.png")
 print("mark", mark.size)
 for s,name in [(512,"icon-512.png"),(192,"icon-192.png"),(180,"apple-touch-icon.png"),(64,"favicon-64.png"),(32,"favicon-32.png")]:
