@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.1",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "manchester-triagem-mcp",
+      "version": "0.1.0",
+      "title": "Sistema Manchester · Encaminhamento"
+    },
+    "tools": [
+      {
+        "name": "list_flowcharts",
+        "title": "Listar fluxogramas",
+        "description": "Lista os fluxogramas do Sistema Manchester com o grupo e a especialidade de encaminhamento. Aceita busca por texto livre e filtro por grupo ou especialidade.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "search": {
+              "description": "Texto livre buscado no nome do fluxograma, discriminadores e especialidade.",
+              "type": "string"
+            },
+            "grupo": {
+              "description": "Filtra por grupo, ex.: 'Cardio', 'Neuro', 'Trauma'.",
+              "type": "string"
+            },
+            "spec": {
+              "description": "Filtra pela chave de especialidade, ex.: 'cirurgia', 'cardiologista'.",
+              "type": "string"
+            },
+            "limit": {
+              "description": "Máximo de resultados (padrão 50).",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_flowchart",
+        "title": "Detalhar fluxograma",
+        "description": "Retorna o detalhe completo de um fluxograma do Sistema Manchester: discriminadores, especialidade de encaminhamento, justificativa, observações e conduta pediátrica.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "flux": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Nome (ou parte do nome) do fluxograma, ex.: 'Dor torácica'."
+            }
+          },
+          "required": [
+            "flux"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "suggest_flowchart",
+        "title": "Sugerir fluxograma (IA)",
+        "description": "A partir de uma queixa inespecífica em texto livre, sugere o fluxograma Manchester mais adequado e a especialidade de encaminhamento. Não faz diagnóstico.",
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": true
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "symptoms": {
+              "type": "string",
+              "minLength": 3,
+              "description": "Queixa relatada pelo paciente, em texto livre."
+            },
+            "age": {
+              "description": "Idade do paciente em anos.",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 120
+            }
+          },
+          "required": [
+            "symptoms"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manchester · Encaminhamento por Especialidade</title>
+<style>
+:root{
+  /* Verde Unimed (aproximado) + branco — tema claro */
+  --green:#009A5C; --green-dark:#00794A; --green-light:#6CBB45;
+  --tint:#EAF5EE; --tint2:#F3F9F5; --tint3:#FBFDFC;
+  --card:#FFFFFF; --surface:#F6FAF7; --line:#D7E6DC; --line-strong:#BFDCC9;
+  --ink:#123528; --ink-dim:#42604F; --ink-faint:#7B9284;
+  --red:#D64A3D; --orange:#E08A2E; --yellow:#EAC64A; --blue:#2F8FD0;
+  --spec-clinico:#2F8FD0; --spec-cirurgia:#D64A3D; --spec-orto:#8A6FC4;
+  --spec-go:#D16AA0; --spec-pediatra:#2E9E5B; --spec-depende:#B07E1F;
+  --shadow:0 6px 22px rgba(18,53,40,.10);
+  --hh:112px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:
+    radial-gradient(1100px 560px at 82% -12%, #E6F4EC 0%, transparent 60%),
+    linear-gradient(180deg,#F6FAF7 0%, #EEF6F0 100%);
+  color:var(--ink);
+  font-family:"Montserrat","Segoe UI",Roboto,-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;
+  font-size:15px; line-height:1.5; min-height:100vh;
+}
+h1,h2,h3,.display{font-family:"Cinzel","Montserrat",Georgia,serif;letter-spacing:.03em}
+a{color:var(--green-dark)}
+
+/* ---------- Top bar ---------- */
+header{
+  position:sticky; top:0; z-index:40;
+  background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(255,255,255,.92));
+  border-bottom:2px solid var(--green);
+  backdrop-filter:blur(6px);
+}
+.bar{max-width:1220px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.mono{
+  width:42px;height:42px;flex:0 0 42px;border:1.5px solid var(--green);border-radius:9px;
+  display:grid;place-items:center;color:var(--green);font-family:"Cinzel",serif;font-weight:700;
+  position:relative;background:var(--tint)
+}
+.mono span{font-size:17px;line-height:1}
+.mono::after{content:"↑";position:absolute;top:2px;right:5px;font-size:11px;color:var(--green-light)}
+.brand h1{font-size:16px;margin:0;line-height:1.15;color:var(--green-dark)}
+.brand .tag{font-size:10px;color:var(--green);letter-spacing:.22em;text-transform:uppercase;margin-top:2px}
+.spacer{flex:1}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{
+  appearance:none;border:1px solid var(--line-strong);background:#fff;color:var(--ink-dim);
+  padding:8px 14px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer;transition:.15s
+}
+.tab:hover{border-color:var(--green);color:var(--green-dark)}
+.tab[aria-selected="true"]{background:var(--green);color:#fff;border-color:var(--green);font-weight:600}
+.tab:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+/* ---------- Config strip (corte etário) ---------- */
+.config{background:var(--tint);border-bottom:1px solid var(--line)}
+.config-in{max-width:1220px;margin:0 auto;padding:9px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-dim)}
+.config label{color:var(--green-dark);letter-spacing:.06em;text-transform:uppercase;font-size:11px;font-weight:700}
+.config input{width:62px;padding:5px 8px;border-radius:8px;border:1px solid var(--line-strong);background:#fff;color:var(--ink);font:inherit;font-size:14px;font-weight:700;text-align:center}
+.config input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(0,154,92,.16)}
+.config .rule-txt{color:var(--ink-faint)}
+.config .rule-txt b{color:var(--ink)}
+.config .badge{margin-left:auto;font-size:11px;color:var(--green-dark);border:1px solid var(--green-light);background:#fff;padding:3px 10px;border-radius:999px;white-space:nowrap;font-weight:600}
+
+/* ---------- Layout ---------- */
+main{max-width:1220px;margin:0 auto;padding:22px 20px 80px}
+.view{display:none}
+.view.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ---------- Toolbar ---------- */
+.toolbar{
+  position:sticky;top:var(--hh);z-index:30;margin:-4px 0 18px;padding:14px;border:1px solid var(--line);
+  border-radius:14px;background:#fff;box-shadow:var(--shadow);
+  display:flex;gap:12px;flex-wrap:wrap;align-items:center
+}
+@media (max-width: 720px){
+  .toolbar{position:static;top:auto}
+}
+.search{flex:1 1 280px;position:relative;min-width:220px}
+.search input{
+  width:100%;padding:11px 14px 11px 40px;border-radius:10px;border:1px solid var(--line-strong);
+  background:#fff;color:var(--ink);font:inherit;font-size:14px
+}
+.search input::placeholder{color:var(--ink-faint)}
+.search input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(0,154,92,.16)}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--green)}
+.selwrap{display:flex;gap:10px;flex-wrap:wrap}
+select{
+  padding:10px 12px;border-radius:10px;border:1px solid var(--line-strong);background:#fff;color:var(--ink);
+  font:inherit;font-size:13px;cursor:pointer;max-width:230px
+}
+select:focus{outline:none;border-color:var(--green)}
+.count{font-size:12px;color:var(--ink-faint);white-space:nowrap}
+.btn-ghost{background:#fff;border:1px solid var(--line-strong);color:var(--green-dark);padding:10px 12px;border-radius:10px;font:inherit;font-size:13px;cursor:pointer;font-weight:600}
+.btn-ghost:hover{border-color:var(--green);background:var(--tint)}
+
+/* ---------- Legend ---------- */
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px;font-size:11.5px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;border:1px solid var(--line-strong);color:var(--ink-dim);background:#fff}
+.dot{width:10px;height:10px;border-radius:50%}
+
+/* ---------- Group ---------- */
+.group{margin-bottom:14px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.group>summary{
+  list-style:none;cursor:pointer;padding:13px 16px;display:flex;align-items:center;gap:12px;
+  background:var(--tint);border-bottom:1px solid transparent
+}
+.group[open]>summary{border-bottom:1px solid var(--line)}
+.group>summary::-webkit-details-marker{display:none}
+.group h3{margin:0;font-size:13.5px;color:var(--green-dark);letter-spacing:.06em;text-transform:uppercase}
+.group .g-count{margin-left:auto;font-size:11px;color:var(--green-dark);background:#fff;border:1px solid var(--green-light);padding:2px 9px;border-radius:999px;font-weight:600}
+.chev{width:14px;height:14px;transition:.2s;stroke:var(--green)}
+.group[open] .chev{transform:rotate(90deg)}
+.g-body{padding:12px;background:var(--tint3)}
+
+/* ---------- Card ---------- */
+.card{
+  border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;
+  padding:14px 16px;margin-bottom:10px;background:#fff;box-shadow:0 2px 8px rgba(18,53,40,.05)
+}
+.card:last-child{margin-bottom:0}
+.card-head{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:9px}
+.flux{font-family:"Cinzel","Montserrat",serif;font-size:16px;font-weight:600;color:var(--green-dark);flex:1 1 auto;min-width:0}
+.chip{
+  font-size:11.5px;font-weight:700;padding:5px 11px;border-radius:999px;white-space:nowrap;
+  color:#fff;letter-spacing:.02em
+}
+.field{display:grid;grid-template-columns:150px 1fr;gap:10px;padding:6px 0;border-top:1px dashed var(--line)}
+.field:first-of-type{border-top:none}
+.field .k{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--green);padding-top:2px;font-weight:600}
+.field .v{font-size:13.5px;color:var(--ink);line-height:1.5}
+.field.obs .v{color:var(--ink-dim)}
+.ped{font-size:12.5px;color:var(--spec-pediatra);font-weight:600}
+mark{background:#CFEBD9;color:#0c2b1e;padding:0 2px;border-radius:3px}
+
+/* ---------- Badges "novo/atualizado" ---------- */
+.badge-new,.badge-upd{
+  font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;white-space:nowrap;line-height:1;
+  display:inline-flex;align-items:center;gap:4px
+}
+.badge-new{background:var(--green);color:#fff}
+.badge-upd{background:#fff;color:var(--green-dark);border:1px solid var(--green)}
+.card.is-new{box-shadow:0 2px 8px rgba(18,53,40,.05),0 0 0 2px rgba(0,154,92,.18)}
+
+/* ---------- Simulador ---------- */
+.sim-wrap{max-width:820px;margin:0 auto}
+.sim-stepper{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+.sim-step-dot{
+  flex:1 1 90px;min-width:70px;text-align:center;
+  padding:8px 6px;border-radius:10px;border:1px solid var(--line-strong);
+  background:#fff;color:var(--ink-faint);font-size:11.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em
+}
+.sim-step-dot.done{background:var(--tint);color:var(--green-dark);border-color:var(--green-light)}
+.sim-step-dot.active{background:var(--green);color:#fff;border-color:var(--green)}
+.sim-panel{
+  border:1px solid var(--line);border-radius:14px;background:#fff;
+  padding:20px;box-shadow:var(--shadow);margin-bottom:14px
+}
+.sim-panel h2{margin:0 0 4px;font-size:17px;color:var(--green-dark)}
+.sim-panel .hint{margin:0 0 16px;color:var(--ink-faint);font-size:13px}
+.sim-opts{display:grid;gap:8px}
+.sim-opt{
+  display:flex;align-items:center;gap:10px;padding:12px 14px;
+  border:1px solid var(--line-strong);border-radius:10px;background:#fff;
+  cursor:pointer;font:inherit;font-size:14px;color:var(--ink);text-align:left;
+  transition:.15s;width:100%
+}
+.sim-opt:hover{border-color:var(--green);background:var(--tint2)}
+.sim-opt.selected{border-color:var(--green);background:var(--tint);color:var(--green-dark);font-weight:600}
+.sim-opt input{margin:0}
+.sim-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.sim-btn{
+  appearance:none;font:inherit;font-size:14px;font-weight:600;cursor:pointer;
+  padding:10px 18px;border-radius:10px;border:1px solid var(--green);
+  background:var(--green);color:#fff;transition:.15s
+}
+.sim-btn:hover{background:var(--green-dark);border-color:var(--green-dark)}
+.sim-btn:disabled{opacity:.5;cursor:not-allowed}
+.sim-btn.ghost{background:#fff;color:var(--green-dark)}
+.sim-btn.ghost:hover{background:var(--tint)}
+.sim-input{
+  width:120px;padding:10px 12px;border-radius:10px;border:1px solid var(--line-strong);
+  background:#fff;color:var(--ink);font:inherit;font-size:16px;font-weight:700;text-align:center
+}
+.sim-input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(0,154,92,.16)}
+.sim-result{border:1px solid var(--line);border-radius:14px;background:#fff;padding:0;overflow:hidden;box-shadow:var(--shadow)}
+.sim-prio-band{padding:18px 22px;color:#fff;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.sim-prio-band .label{font-family:"Cinzel",serif;font-size:22px;font-weight:700;letter-spacing:.08em}
+.sim-prio-band .time{margin-left:auto;font-size:13px;opacity:.95;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.sim-result-body{padding:18px 22px;display:grid;gap:12px}
+.sim-result-row{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:start}
+.sim-result-row .rk{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--green);font-weight:700}
+.sim-result-row .rv{font-size:14px;color:var(--ink);line-height:1.5}
+
+/* Countdown & reavaliação */
+.sim-countdown{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:14px 22px;background:var(--tint2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)
+}
+.sim-countdown .cd-label{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--green);font-weight:700}
+.sim-countdown .cd-time{font-family:"Cinzel",serif;font-size:26px;font-weight:700;color:var(--ink);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.sim-countdown .cd-time.warn{color:var(--orange)}
+.sim-countdown .cd-time.over{color:var(--red)}
+.sim-countdown .cd-bar{flex:1 1 200px;height:8px;background:#fff;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden;min-width:160px}
+.sim-countdown .cd-fill{height:100%;background:var(--green);transition:width .5s linear,background-color .3s}
+.sim-countdown .cd-fill.warn{background:var(--orange)}
+.sim-countdown .cd-fill.over{background:var(--red)}
+.sim-reeval{padding:14px 22px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--line);background:#fff}
+.sim-reeval .re-label{font-size:12px;color:var(--ink-dim);font-weight:600;letter-spacing:.04em}
+.re-btn{
+  appearance:none;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;
+  padding:7px 14px;border-radius:999px;border:1px solid var(--line-strong);
+  background:#fff;color:var(--green-dark);transition:.15s
+}
+.re-btn:hover{border-color:var(--green);background:var(--tint)}
+.re-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+.sim-reeval .re-status{margin-left:auto;font-size:12.5px;color:var(--ink-dim)}
+.sim-reeval .re-status.on{color:var(--green-dark);font-weight:600}
+@keyframes reevalPulse{0%,100%{box-shadow:0 0 0 0 rgba(214,74,61,.7)}50%{box-shadow:0 0 0 14px rgba(214,74,61,0)}}
+.sim-reeval.firing{background:#fdecea;animation:reevalPulse 1.2s ease-in-out infinite}
+@media (max-width:680px){
+  .sim-result-row{grid-template-columns:1fr;gap:2px}
+  .sim-panel{padding:14px}
+}
+
+/* ---------- Prose (Leia / Perguntas) ---------- */
+.prose{max-width:900px}
+.callout{border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 16px;background:#fff;box-shadow:0 2px 8px rgba(18,53,40,.05)}
+.callout.warn{border-left:4px solid var(--red)}
+.callout.rule{border-left:4px solid var(--green)}
+.callout h3{margin:0 0 8px;font-size:14px;color:var(--green-dark);text-transform:uppercase;letter-spacing:.08em}
+.callout p{margin:0 0 8px;color:var(--ink-dim);font-size:14px}
+.callout p:last-child{margin-bottom:0}
+.callout strong{color:var(--ink)}
+.prio-table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:13.5px}
+.prio-table td{padding:7px 10px;border:1px solid var(--line-strong)}
+.prio-c{font-weight:700;color:#fff;text-align:center;width:120px;white-space:nowrap}
+.acc{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:10px;background:#fff}
+.acc>summary{list-style:none;cursor:pointer;padding:13px 16px;display:flex;align-items:center;gap:10px;background:var(--tint);font-family:"Cinzel","Montserrat",serif;font-size:14px;color:var(--green-dark)}
+.acc>summary::-webkit-details-marker{display:none}
+.acc[open]>summary{border-bottom:1px solid var(--line)}
+.acc .chev{margin-left:auto}
+.acc-body{padding:6px 8px}
+.qrow{display:grid;grid-template-columns:210px 1fr;gap:12px;padding:10px 8px;border-top:1px dashed var(--line)}
+.qrow:first-child{border-top:none}
+.qrow .qk{font-size:12.5px;font-weight:700;color:var(--green-dark)}
+.qrow .qv{font-size:13.5px;color:var(--ink);white-space:pre-line;line-height:1.55}
+
+.empty{text-align:center;color:var(--ink-faint);padding:50px 20px;border:1px dashed var(--line-strong);border-radius:14px;background:#fff}
+.footer{max-width:1220px;margin:0 auto;padding:0 20px 40px;color:var(--ink-faint);font-size:11.5px;line-height:1.6}
+.footer a{color:var(--green-dark)}
+
+@media (max-width:680px){
+  .field{grid-template-columns:1fr;gap:2px}
+  .field .k{padding-top:0}
+  .qrow{grid-template-columns:1fr;gap:3px}
+  .toolbar .selwrap{width:100%}
+  select{flex:1 1 45%;max-width:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{
+  header,.toolbar,.tabs,.btn-ghost,.footer{display:none!important}
+  body{background:#fff;color:#000}
+  .view{display:block!important}
+  .card,.group,.callout,.acc{break-inside:avoid;border-color:#999;background:#fff!important;color:#000;box-shadow:none}
+  .flux,.field .v,.qrow .qv{color:#000}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="config">
+    <div class="config-in">
+      <label for="corteIdade">Corte etário pediátrico</label>
+      <input id="corteIdade" type="number" min="0" max="18" step="1" value="14" inputmode="numeric" aria-label="Idade de corte pediátrico, em anos">
+      <span>anos</span>
+      <span class="rule-txt">— pacientes com menos de <b><span id="corteTxt">14</span> anos</b> → Pediatra em 1ª linha</span>
+      <span class="badge" id="corteBadge">Pediatria: &lt; 14 anos</span>
+    </div>
+  </div>
+  <div class="bar">
+    <div class="brand">
+      <div>
+        <h1>Sistema Manchester · Encaminhamento</h1>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <nav class="tabs" role="tablist" aria-label="Seções">
+      <button class="tab" role="tab" aria-selected="false" data-view="leia">Leia primeiro</button>
+      <button class="tab" role="tab" aria-selected="true" data-view="mapa">Mapa de encaminhamento</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="sim">Simulador</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="perguntas">Perguntas-chave</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ============ MAPA ============ -->
+  <section class="view active" id="view-mapa" role="tabpanel">
+    <div class="toolbar">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Buscar queixa, fluxograma, discriminador, especialidade…" autocomplete="off" aria-label="Buscar">
+      </div>
+      <div class="selwrap">
+        <select id="fGrupo" aria-label="Filtrar por grupo"><option value="">Todos os grupos</option></select>
+        <select id="fEsp" aria-label="Filtrar por especialidade">
+          <option value="">Todas as especialidades</option>
+          <option value="clinico">Clínico Geral</option>
+          <option value="cirurgia">Cirurgião Geral</option>
+          <option value="orto">Ortopedista</option>
+          <option value="go">Ginecologista/Obstetra</option>
+          <option value="pediatra">Pediatra</option>
+          <option value="depende">Depende / múltiplas</option>
+        </select>
+      </div>
+      <button class="btn-ghost" id="expandAll" type="button">Expandir tudo</button>
+      <span class="count" id="count"></span>
+    </div>
+
+    <div class="legend" aria-label="Legenda de especialidades">
+      <span class="pill"><span class="dot" style="background:var(--spec-clinico)"></span>Clínico Geral</span>
+      <span class="pill"><span class="dot" style="background:var(--spec-cirurgia)"></span>Cirurgião Geral</span>
+      <span class="pill"><span class="dot" style="background:var(--spec-orto)"></span>Ortopedista</span>
+      <span class="pill"><span class="dot" style="background:var(--spec-go)"></span>Gineco/Obstetra</span>
+      <span class="pill"><span class="dot" style="background:var(--spec-pediatra)"></span>Pediatra</span>
+      <span class="pill"><span class="dot" style="background:var(--spec-depende)"></span>Depende / múltiplas</span>
+    </div>
+
+    <div id="cards"></div>
+    <div class="empty" id="empty" style="display:none">Nenhum fluxograma encontrado. Ajuste a busca ou os filtros.</div>
+  </section>
+
+  <!-- ============ LEIA PRIMEIRO ============ -->
+  <section class="view" id="view-leia" role="tabpanel">
+    <div class="prose">
+      <div class="callout warn">
+        <h3>Aviso técnico crítico</h3>
+        <p>O Sistema Manchester classifica <strong>prioridade clínica</strong> (gravidade e tempo-alvo de espera), <strong>não</strong> define especialidade. O GBCR orienta que não cabe ao enfermeiro classificador definir conduta ou abrir protocolos assistenciais.</p>
+        <p>Esta página é um <strong>protocolo institucional local</strong>, sobreposto ao MTS, para organizar o encaminhamento no seu pronto atendimento. Ela <strong>não</strong> substitui o julgamento médico e deve ser formalmente validada e assinada pelo corpo clínico e pela direção técnica antes do uso.</p>
+      </div>
+
+      <div class="callout">
+        <h3>Como resolver o atrito relatado</h3>
+        <p>As queixas do grupo médico sobre "encaminhamento errado" costumam vir de um mal-entendido de função: o classificador prioriza risco, não faz diagnóstico nem escolhe especialista. Recomenda-se: (1) formalizar este mapa como protocolo assinado; (2) definir que casos vermelho/laranja vão primeiro ao médico de porta / equipe de emergência para estabilização, com a especialidade entrando como interconsulta; (3) usar as perguntas-chave da aba correspondente para reduzir ambiguidade na escolha do fluxograma.</p>
+      </div>
+
+      <div class="callout rule">
+        <h3>Regra-mestre 1 — Gravidade tem precedência</h3>
+        <p><strong>Vermelho (imediato)</strong> e <strong>laranja (~10 min)</strong>: paciente é atendido primeiro pelo médico de porta / equipe de emergência para estabilização (ABCDE). A especialidade é acionada como interconsulta, não como "porta de entrada".</p>
+      </div>
+      <div class="callout rule">
+        <h3>Regra-mestre 2 — Pediatria</h3>
+        <p>Todo paciente pediátrico (&lt; <b><span id="corteRule">14</span> anos</b>, conforme configurado no topo da tela) é atendido em primeira linha pelo <strong>Pediatra</strong>, independentemente do fluxograma. Casos cirúrgicos, ortopédicos ou obstétricos em criança = Pediatra em conjunto com o especialista pertinente. Equipe: 3 pediatras.</p>
+      </div>
+      <div class="callout rule">
+        <h3>Regra-mestre 3 — Especialidades ausentes</h3>
+        <p>Não há na equipe: cardiologista, neurologista, psiquiatra, urologista, oftalmologista, otorrino, dermatologista, bucomaxilo/dentista, cirurgião vascular. Nesses temas, o <strong>Clínico Geral</strong> faz a abordagem inicial do adulto (e o <strong>Pediatra</strong>, da criança), com transferência para serviço de referência quando indicado.</p>
+        <p style="color:var(--ink-faint)"><strong>Equipe disponível:</strong> 1 Ortopedista · 1 Gineco/Obstetra · 1 Cirurgião Geral · 3 Pediatras · 5 Clínicos Gerais.</p>
+      </div>
+
+      <div class="callout">
+        <h3>Níveis de prioridade (cores) — tempo-alvo de referência</h3>
+        <table class="prio-table">
+          <tr><td class="prio-c" style="background:var(--red)">VERMELHO</td><td>Emergência — atendimento imediato (0 min)</td></tr>
+          <tr><td class="prio-c" style="background:var(--orange)">LARANJA</td><td>Muito urgente — ~10 minutos</td></tr>
+          <tr><td class="prio-c" style="background:var(--yellow);color:#1a1a1a">AMARELO</td><td>Urgente — ~60 minutos</td></tr>
+          <tr><td class="prio-c" style="background:var(--green)">VERDE</td><td>Pouco urgente — ~120 minutos</td></tr>
+          <tr><td class="prio-c" style="background:var(--blue)">AZUL</td><td>Não urgente — ~240 minutos</td></tr>
+          <tr><td class="prio-c" style="background:#6c6c6c">BRANCO</td><td>Não-urgência / eletivo (retorno, exames) — categoria adotada no Brasil/Portugal</td></tr>
+        </table>
+        <p style="color:var(--ink-faint);margin-top:8px">Os tempos-alvo são a referência clássica do MTS; confirme os valores na edição vigente do manual GBCR adotada pela sua instituição — há pequenas variações entre edições.</p>
+      </div>
+
+      <div class="callout">
+        <h3>Discriminadores gerais (aplicam-se a todos os fluxogramas)</h3>
+        <p>Risco de morte · Dor · Hemorragia · Nível/estado de consciência · Temperatura · Agravamento (piora). Além destes, cada fluxograma tem discriminadores específicos.</p>
+      </div>
+
+      <div class="callout warn">
+        <h3>Fontes e limites de precisão</h3>
+        <p>• <strong>Nº de fluxogramas:</strong> o site oficial do GBCR informa 53; fontes acadêmicas citam 52 (7 pediátricos + 2 de catástrofe) e alguns portais citam 55 — a contagem varia conforme edição.</p>
+        <p>• Os nomes de fluxogramas e os discriminadores aqui são <strong>representativos</strong>, redigidos em linguagem clínica própria — <strong>não</strong> são a transcrição literal do manual (protegido por direitos autorais do Manchester Triage Group / GBCR). A redação oficial e a lista completa de discriminadores devem ser conferidas no manual GBCR 2ª edição da sua instituição.</p>
+        <p>• Não é possível confirmar, item a item, que cada discriminador consta com essa redação exata na sua edição. Use como guia de organização e valide no manual oficial.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SIMULADOR ============ -->
+  <section class="view" id="view-sim" role="tabpanel">
+    <div class="sim-wrap">
+      <div class="sim-stepper" id="simStepper"></div>
+      <div id="simPanel"></div>
+    </div>
+  </section>
+
+  <!-- ============ PERGUNTAS ============ -->
+  <section class="view" id="view-perguntas" role="tabpanel">
+    <div class="prose">
+      <p style="color:var(--ink-dim);margin:0 0 16px">Objetivo: escolher o <strong style="color:var(--ink)">fluxograma</strong> e o <strong style="color:var(--ink)">discriminador</strong> corretos — não diagnosticar. Foco em risco, tempo, sintomas associados e fatores de risco.</p>
+      <div id="perguntas"></div>
+    </div>
+  </section>
+</main>
+
+<div class="footer">
+  Protocolo institucional local de apoio à classificação de risco · baseado no Sistema Manchester (GBCR, 2ª ed.). Conteúdo representativo, não transcrição do manual oficial. Requer validação e assinatura do corpo clínico e da direção técnica antes do uso. Documento de apoio — não substitui o julgamento médico. Referência oficial: <a href="https://www.gbcr.org.br" target="_blank" rel="noopener">gbcr.org.br</a>.
+</div>
+
+<script>
+"use strict";
+
+const SPEC_META = {
+  clinico:{label:"Clínico Geral", color:"var(--spec-clinico)"},
+  cirurgia:{label:"Cirurgião Geral", color:"var(--spec-cirurgia)"},
+  orto:{label:"Ortopedista", color:"var(--spec-orto)"},
+  go:{label:"Gineco/Obstetra", color:"var(--spec-go)"},
+  pediatra:{label:"Pediatra", color:"var(--spec-pediatra)"},
+  depende:{label:"Depende / múltiplas", color:"var(--spec-depende)"}
+};
+
+// spec = categoria para cor/filtro (a mais indicada no adulto)
+const DATA = [
+ {grupo:"Trauma / risco imediato", flux:"Grande traumatismo (trauma maior)", spec:"cirurgia",
+  disc:"Comprometimento de via aérea; choque/instabilidade hemodinâmica; rebaixamento de consciência; mecanismo de alto impacto; hemorragia exsanguinante.",
+  esp:"Cirurgião Geral (líder) + Ortopedista",
+  just:"Trauma maior é conduzido pela cirurgia (controle de sangramento/lesões de tronco); ortopedia entra nas lesões osteomusculares.",
+  obs:"Vermelho/laranja: estabilização imediata pela equipe (ABCDE) antes de qualquer especialidade. Considerar transferência a centro de trauma.",
+  ped:"Pediatra + Cirurgião (co-manejo)."},
+ {grupo:"Trauma / risco imediato", flux:"Trauma cranioencefálico (cabeça)", spec:"clinico",
+  disc:"Rebaixamento de consciência; vômitos; convulsão pós-trauma; anisocoria; afundamento; uso de anticoagulante.",
+  esp:"Clínico Geral (estabilização) / Cirurgião Geral",
+  just:"Sem neurocirurgião: foco em estabilizar, indicar TC e transferir TCE grave.",
+  obs:"Sinais de gravidade → vermelho/laranja. Destino depende de referência neurocirúrgica; TCE leve pode ser observação clínica.",
+  ped:"Pediatra (+ referência neurocirúrgica se grave)."},
+ {grupo:"Trauma / risco imediato", flux:"Ferimentos do tronco (tórax/abdome)", spec:"cirurgia",
+  disc:"Ferida penetrante; instabilidade hemodinâmica; dispneia; dor abdominal pós-trauma; evisceração.",
+  esp:"Cirurgião Geral",
+  just:"Lesões penetrantes de tórax/abdome são cirúrgicas (pneumotórax, hemorragia intracavitária).",
+  obs:"Vermelho/laranja → estabilização imediata. Pneumotórax hipertensivo/tamponamento exigem conduta antes da imagem.",
+  ped:"Pediatra + Cirurgião."},
+ {grupo:"Trauma / risco imediato", flux:"Agressão (vítima de agressão)", spec:"depende",
+  disc:"Lesões traumáticas; TCE; ferida penetrante; instabilidade; sinais de estrangulamento.",
+  esp:"Conforme lesão: Cirurgião / Ortopedista / Clínico",
+  just:"É tratado como trauma; a especialidade segue o tipo de lesão predominante.",
+  obs:"Atenção à notificação compulsória e à segurança. Violência sexual → acionar GO e protocolo específico.",
+  ped:"Pediatra + especialista conforme lesão; ativar proteção à criança."},
+
+ {grupo:"Cardiorrespiratório", flux:"Dor torácica", spec:"clinico",
+  disc:"Dor precordial; irradiação p/ MSE/mandíbula; sudorese; dispneia; dor pleurítica; síncope associada.",
+  esp:"Clínico Geral",
+  just:"Sem cardiologista: o clínico faz ECG e abordagem inicial de SCA/emergências torácicas.",
+  obs:"Suspeita de SCA costuma cair em laranja/vermelho → atendimento imediato. Institua protocolo de dor torácica; IAMCSST → transferência para hemodinâmica.",
+  ped:"Pediatra (dor torácica em criança raramente é isquêmica)."},
+ {grupo:"Cardiorrespiratório", flux:"Dispneia / falta de ar no adulto", spec:"clinico",
+  disc:"SpO2 baixa; tiragem/uso de musculatura acessória; incapacidade de completar frases; cianose; estridor.",
+  esp:"Clínico Geral",
+  just:"Asma, DPOC, ICC, pneumonia, TEP — abordagem clínica de porta.",
+  obs:"Dessaturação/insuficiência respiratória → laranja/vermelho. Estridor/via aérea ameaçada = prioridade máxima.",
+  ped:"Pediatra (ver fluxo pediátrico de falta de ar)."},
+ {grupo:"Cardiorrespiratório", flux:"Asma", spec:"clinico",
+  disc:"Sibilância; dificuldade para falar; SpO2 baixa; ausência de resposta ao broncodilatador.",
+  esp:"Clínico Geral", just:"Crise asmática do adulto é conduzida pelo clínico.",
+  obs:"Crise grave/silêncio respiratório → laranja/vermelho.", ped:"Pediatra."},
+ {grupo:"Cardiorrespiratório", flux:"Palpitações", spec:"clinico",
+  disc:"Pulso irregular; síncope/pré-síncope; dor torácica associada; dispneia.",
+  esp:"Clínico Geral", just:"Arritmias exigem ECG e manejo clínico inicial (sem cardiologista).",
+  obs:"Instabilidade hemodinâmica com arritmia → vermelho/laranja.", ped:"Pediatra."},
+
+ {grupo:"Neurológico", flux:"Cefaleia", spec:"clinico",
+  disc:"Início súbito ('pior dor da vida'); déficit neurológico focal; rigidez de nuca + febre; alteração de consciência; vômitos.",
+  esp:"Clínico Geral", just:"Sem neurologista: clínico investiga HSA, AVC, meningite.",
+  obs:"Sinais de alarme → laranja/vermelho. Déficit focal → protocolo AVC/janela; cefaleia + febre + rigidez → suspeita de meningite.",
+  ped:"Pediatra."},
+ {grupo:"Neurológico", flux:"Convulsões", spec:"clinico",
+  disc:"Crise ativa; estado de mal epiléptico; pós-ictal prolongado; primeira crise; trauma associado.",
+  esp:"Clínico Geral", just:"Manejo clínico da crise e investigação de causa.",
+  obs:"Estado de mal → vermelho. Diferenciar de crise febril na criança.", ped:"Pediatra."},
+ {grupo:"Neurológico", flux:"Comportamento estranho / alteração aguda", spec:"clinico",
+  disc:"Confusão aguda; desorientação; agitação; flutuação do nível de consciência.",
+  esp:"Clínico Geral", just:"Delirium tem causas orgânicas que precisam ser descartadas primeiro.",
+  obs:"SEMPRE descartar hipoglicemia, hipóxia, AVC, sepse, intoxicação antes de rotular como transtorno psiquiátrico.",
+  ped:"Pediatra."},
+
+ {grupo:"Saúde mental / Tóxico", flux:"Doença mental / saúde mental", spec:"clinico",
+  disc:"Risco de auto/heteroagressão; agitação psicomotora; ideação suicida; psicose aguda.",
+  esp:"Clínico Geral", just:"Sem psiquiatra: clínico faz estabilização clínica e manejo de segurança.",
+  obs:"Priorizar segurança (contenção conforme protocolo). Sempre excluir causa orgânica. Acionar referência em saúde mental (CAPS/psiquiatria).",
+  ped:"Pediatra + referência em saúde mental infantojuvenil."},
+ {grupo:"Saúde mental / Tóxico", flux:"Autoagressão (comportamento autolesivo)", spec:"clinico",
+  disc:"Lesão autoprovocada; tentativa recente; risco atual elevado; intoxicação associada.",
+  esp:"Clínico Geral (+ Cirurgião/Ortopedista se lesão física)",
+  just:"Trata-se a lesão física e o risco clínico; a lesão define o especialista de apoio.",
+  obs:"Avaliar risco de suicídio; garantir segurança; referência psiquiátrica. Lesão profunda/tendínea → cirurgia/ortopedia.",
+  ped:"Pediatra + saúde mental."},
+ {grupo:"Saúde mental / Tóxico", flux:"Overdose e envenenamento", spec:"clinico",
+  disc:"Rebaixamento; depressão respiratória; exposição a tóxico/medicamento; convulsão.",
+  esp:"Clínico Geral", just:"Estabilização e manejo toxicológico do adulto.",
+  obs:"Contatar Centro de Informação Toxicológica (CIATox). Rebaixamento/depressão respiratória → vermelho/laranja.",
+  ped:"Pediatra."},
+ {grupo:"Saúde mental / Tóxico", flux:"Embriaguez aparente", spec:"clinico",
+  disc:"Rebaixamento; traumatismo associado; alteração de glicemia; hálito etílico.",
+  esp:"Clínico Geral", just:"Estabilização e diferenciação de outras causas.",
+  obs:"NÃO presumir álcool: descartar TCE, hipoglicemia, AVC, intoxicação. Rebaixamento → prioridade alta.",
+  ped:"Pediatra."},
+ {grupo:"Saúde mental / Tóxico", flux:"Exposição a agentes químicos", spec:"clinico",
+  disc:"Exposição cutânea/inalatória; queimadura química; sintomas sistêmicos.",
+  esp:"Clínico Geral / Cirurgião (se queimadura extensa)",
+  just:"Descontaminação e suporte clínico; lesão extensa é cirúrgica.",
+  obs:"Descontaminação imediata (irrigação). Comprometimento respiratório → prioridade alta.",
+  ped:"Pediatra (+ cirurgião se lesão)."},
+
+ {grupo:"Abdome / GI / GU", flux:"Dor abdominal no adulto", spec:"depende",
+  disc:"Sinais de peritonite/defesa; massa pulsátil; instabilidade; dor intensa; vômitos com sangue; parada de eliminação.",
+  esp:"DEPENDE — ver observações",
+  just:"Abdome agudo cirúrgico → Cirurgião; dor clínica (gastrite, cólica) → Clínico; mulher em idade fértil → considerar GO.",
+  obs:"EXEMPLO CLÁSSICO DE AMBIGUIDADE. Sempre βhCG em mulher em idade fértil (ectópica/DIP → GO). Sinais peritoneais/obstrução → Cirurgião. Sem gravidade → Clínico.",
+  ped:"Pediatra (+ Cirurgião se abdome cirúrgico; ex.: apendicite)."},
+ {grupo:"Abdome / GI / GU", flux:"Hemorragia gastrointestinal", spec:"cirurgia",
+  disc:"Hematêmese; melena; hematoquezia volumosa; instabilidade hemodinâmica; palidez.",
+  esp:"Cirurgião Geral (+ Clínico p/ estabilização)",
+  just:"HDA/HDB pode exigir endoscopia/cirurgia; clínico apoia na estabilização.",
+  obs:"Sangramento volumoso/instável → laranja/vermelho. Necessita de EDA/colono — verificar disponibilidade e referência.",
+  ped:"Pediatra (+ cirurgião)."},
+ {grupo:"Abdome / GI / GU", flux:"Diarreia e vômitos", spec:"clinico",
+  disc:"Sinais de desidratação; sinais de choque; sangue nas fezes; incapacidade de ingerir líquidos.",
+  esp:"Clínico Geral", just:"Gastroenterite e desidratação do adulto são manejo clínico.",
+  obs:"Desidratação grave/choque → prioridade alta. Diferenciar de abdome cirúrgico.",
+  ped:"Pediatra (criança desidrata mais rápido)."},
+ {grupo:"Abdome / GI / GU", flux:"Problemas urinários", spec:"clinico",
+  disc:"Retenção urinária aguda; cólica renal; hematúria; febre com dor lombar (pielonefrite); anúria.",
+  esp:"Clínico Geral; obstrução/retenção → Cirurgião Geral",
+  just:"Sem urologista: clínico conduz cólica/ITU; retenção/uropatia obstrutiva pode exigir sondagem/cirurgia.",
+  obs:"Cólica renal simples → Clínico. Retenção aguda → alívio (sondagem). Sepse urinária → prioridade alta.",
+  ped:"Pediatra."},
+ {grupo:"Abdome / GI / GU", flux:"Dor testicular", spec:"cirurgia",
+  disc:"Dor súbita e intensa; edema; início < 6 h; náusea/vômito; abdome agudo escrotal.",
+  esp:"Cirurgião Geral (sem urologista)",
+  just:"Torção testicular é emergência cirúrgica tempo-dependente.",
+  obs:"TORÇÃO = laranja/vermelho, janela crítica (~6 h). Priorizar avaliação cirúrgica imediata.",
+  ped:"Pediatra + Cirurgião (torção também ocorre em adolescentes)."},
+
+ {grupo:"Gineco-obstétrico", flux:"Gravidez (problemas na gravidez)", spec:"go",
+  disc:"Sangramento; dor abdominal; contrações/trabalho de parto; redução de movimentos fetais; PA elevada/cefaleia/escotomas; convulsão (eclâmpsia).",
+  esp:"Ginecologista / Obstetra", just:"Emergências obstétricas são competência direta do GO.",
+  obs:"Pré-eclâmpsia grave/eclâmpsia → vermelho/laranja. Trauma em gestante → GO + Cirurgião. Priorizar bem-estar materno-fetal.",
+  ped:"N/A (gestação); recém-nascido → Pediatra."},
+ {grupo:"Gineco-obstétrico", flux:"Sangramento vaginal", spec:"go",
+  disc:"Sangramento intenso; instabilidade; gravidez conhecida/possível; dor pélvica intensa.",
+  esp:"Ginecologista / Obstetra", just:"Sangramento uterino/abortamento/ectópica são do GO.",
+  obs:"Sempre descartar gravidez ectópica (βhCG). Instabilidade → laranja/vermelho.",
+  ped:"Pediatra + GO se adolescente."},
+ {grupo:"Gineco-obstétrico", flux:"Doenças sexualmente transmissíveis (ISTs)", spec:"clinico",
+  disc:"Corrimento; úlcera genital; dor pélvica; febre; sintomas sistêmicos.",
+  esp:"Clínico Geral; dor pélvica/DIP em mulher → GO",
+  just:"IST não complicada é clínica; DIP e complicações ginecológicas → GO.",
+  obs:"Geralmente verde/azul. DIP com sinais sistêmicos sobe de prioridade.",
+  ped:"Pediatra + avaliar proteção à criança/adolescente."},
+
+ {grupo:"Osteomuscular / Trauma", flux:"Problemas em extremidades (membros)", spec:"orto",
+  disc:"Deformidade; incapacidade de sustentar peso/usar o membro; déficit neurovascular distal; dor intensa; fratura exposta.",
+  esp:"Ortopedista", just:"Fraturas, luxações e lesões de membro são ortopédicas.",
+  obs:"Comprometimento neurovascular ou fratura exposta → laranja. Ferida com exposição óssea → Ortopedia.",
+  ped:"Pediatra + Ortopedista."},
+ {grupo:"Osteomuscular / Trauma", flux:"Quedas", spec:"depende",
+  disc:"TCE associado; incapacidade de deambular; deformidade; uso de anticoagulante; síncope como causa.",
+  esp:"Ortopedista (lesão) / Clínico (causa) / Cirurgião (tronco)",
+  just:"A especialidade depende do que a queda causou E do que a causou.",
+  obs:"Idoso anticoagulado + TCE = atenção redobrada. Investigar CAUSA da queda (síncope, arritmia, AVC) → pode ser clínico.",
+  ped:"Pediatra + especialista conforme lesão."},
+ {grupo:"Osteomuscular / Trauma", flux:"Dor cervical (pescoço)", spec:"depende",
+  disc:"Trauma cervical; déficit neurológico; rigidez de nuca com febre; dor intensa.",
+  esp:"Traumática → Ortopedista; clínica/febril → Clínico Geral",
+  just:"Trauma raquimedular é ortopédico; rigidez de nuca febril sugere causa clínica (meningite).",
+  obs:"SEPARAR causa traumática de clínica. Trauma com suspeita de lesão medular → imobilizar, prioridade alta.",
+  ped:"Pediatra + especialista pertinente."},
+ {grupo:"Osteomuscular / Trauma", flux:"Dor lombar (costas)", spec:"depende",
+  disc:"Trauma; déficit neurológico de MMII; retenção urinária/anestesia em sela (cauda equina); febre; dor incapacitante.",
+  esp:"Ortopedista (mecânica/traumática) / Clínico (sistêmica)",
+  just:"Lombalgia mecânica é ortopédica; causas sistêmicas (pielonefrite, aneurisma) são clínicas/cirúrgicas.",
+  obs:"Síndrome da cauda equina → EMERGÊNCIA (laranja). Lombar + febre → pielonefrite (Clínico). Dor + massa pulsátil → aneurisma (Cirurgião).",
+  ped:"Pediatra (lombalgia na criança sempre investigar)."},
+
+ {grupo:"Pele / Tecidos moles", flux:"Feridas", spec:"cirurgia",
+  disc:"Sangramento não controlado; exposição de estruturas profundas (tendão/osso); ferida penetrante; contaminação grave.",
+  esp:"Cirurgião Geral; osteotendíneo → Ortopedista; laceração simples → Clínico",
+  just:"A complexidade da ferida define o especialista.",
+  obs:"Laceração simples suturável → Clínico. Ferida complexa/estruturas nobres → Cirurgia/Ortopedia. Sangramento ativo importante → prioridade alta.",
+  ped:"Pediatra + especialista conforme complexidade."},
+ {grupo:"Pele / Tecidos moles", flux:"Queimaduras", spec:"cirurgia",
+  disc:"Extensão (% SCQ); queimadura de face/inalação/via aérea; profundidade; elétrica/química; circunferencial.",
+  esp:"Cirurgião Geral", just:"Grande queimado e desbridamento são cirúrgicos.",
+  obs:"Via aérea (fumaça/face) ou grande extensão → vermelho/laranja + transferência a centro de queimados.",
+  ped:"Pediatra + Cirurgião (limiar de gravidade menor na criança)."},
+ {grupo:"Pele / Tecidos moles", flux:"Infecções locais e abscessos", spec:"cirurgia",
+  disc:"Flutuação/coleção; celulite extensa; sinais sistêmicos (febre, taquicardia); crepitação (fasceíte).",
+  esp:"Cirurgião Geral (drenagem) / Clínico (celulite sem coleção)",
+  just:"Abscesso precisa de drenagem cirúrgica; celulite sem coleção é clínica.",
+  obs:"Suspeita de fasceíte necrosante → EMERGÊNCIA cirúrgica. Sinais de sepse → prioridade alta.",
+  ped:"Pediatra (+ Cirurgião se drenagem)."},
+ {grupo:"Pele / Tecidos moles", flux:"Mordeduras e picadas", spec:"clinico",
+  disc:"Sinais de envenenamento sistêmico; anafilaxia; ferida extensa/infectada; acidente com animal peçonhento.",
+  esp:"Clínico Geral; ferida cirúrgica → Cirurgião",
+  just:"Acidentes ofídico/escorpiônico e reações são manejo clínico (soroterapia).",
+  obs:"Anafilaxia → vermelho. Acidente peçonhento com sinais sistêmicos → prioridade alta + soro específico.",
+  ped:"Pediatra."},
+ {grupo:"Pele / Tecidos moles", flux:"Erupções cutâneas (exantemas)", spec:"clinico",
+  disc:"Púrpura/petéquias; sinais de sepse; comprometimento de mucosas; sinais de anafilaxia; febre alta.",
+  esp:"Clínico Geral", just:"Sem dermatologista: clínico avalia e trata as causas sistêmicas.",
+  obs:"Púrpura + febre → suspeita de meningococcemia = vermelho. Comprometimento de mucosas → suspeita de SSJ/NET (grave).",
+  ped:"Pediatra (exantemas são muito comuns na criança)."},
+ {grupo:"Pele / Tecidos moles", flux:"Alergia", spec:"clinico",
+  disc:"Estridor/edema de glote; hipotensão; dispneia; urticária generalizada; angioedema.",
+  esp:"Clínico Geral", just:"Reação alérgica/anafilaxia é manejo clínico imediato.",
+  obs:"Anafilaxia → vermelho, adrenalina IM imediata. Urticária isolada → prioridade baixa.",
+  ped:"Pediatra."},
+
+ {grupo:"Cabeça e pescoço", flux:"Problemas nos olhos", spec:"clinico",
+  disc:"Perda súbita de visão; trauma/queimadura ocular; dor ocular intensa; corpo estranho; hifema.",
+  esp:"Clínico Geral (abordagem inicial)",
+  just:"Sem oftalmologista: clínico faz medidas iniciais e encaminha.",
+  obs:"Queimadura química ocular → irrigação IMEDIATA (não esperar). Trauma penetrante/perda de visão → prioridade alta + referência oftalmológica.",
+  ped:"Pediatra (+ referência oftalmológica)."},
+ {grupo:"Cabeça e pescoço", flux:"Problemas nos ouvidos", spec:"clinico",
+  disc:"Trauma; otorragia; corpo estranho; dor intensa; vertigem incapacitante.",
+  esp:"Clínico Geral", just:"Sem otorrino: clínico faz abordagem inicial e encaminha.",
+  obs:"Otorragia pós-TCE → avaliar como trauma craniano. Corpo estranho → referência.",
+  ped:"Pediatra."},
+ {grupo:"Cabeça e pescoço", flux:"Problemas faciais", spec:"depende",
+  disc:"Trauma facial; comprometimento de via aérea; assimetria facial aguda (paralisia); epistaxe volumosa.",
+  esp:"Trauma → Cirurgião Geral; causa clínica → Clínico",
+  just:"Sem bucomaxilo/otorrino: trauma facial grave é estabilizado pela cirurgia; paralisia facial isolada é clínica.",
+  obs:"Via aérea ameaçada por trauma facial → vermelho. Epistaxe com instabilidade → prioridade alta.",
+  ped:"Pediatra + especialista conforme causa."},
+ {grupo:"Cabeça e pescoço", flux:"Problemas de garganta", spec:"clinico",
+  disc:"Dificuldade para respirar/engolir; estridor; sialorreia; voz abafada; abscesso/trismo.",
+  esp:"Clínico Geral", just:"Sem otorrino: clínico avalia e prioriza via aérea.",
+  obs:"Epiglotite/abscesso com via aérea ameaçada → laranja/vermelho. NÃO manipular garganta da criança com suspeita de epiglotite.",
+  ped:"Pediatra."},
+ {grupo:"Cabeça e pescoço", flux:"Problemas dentários", spec:"clinico",
+  disc:"Trauma dentário; sangramento; dor intensa; abscesso com sinais sistêmicos/celulite cervical.",
+  esp:"Clínico Geral (dor/infecção)",
+  just:"Sem dentista: clínico controla dor/infecção e encaminha à odontologia.",
+  obs:"Abscesso com celulite cervical/Ludwig → risco de via aérea = prioridade alta. Demais casos costumam ser verde/azul.",
+  ped:"Pediatra + odontopediatria (referência)."},
+ {grupo:"Cabeça e pescoço", flux:"Corpo estranho", spec:"depende",
+  disc:"Obstrução de via aérea (engasgo); localização (via aérea, TGI, ocular, ouvido, nariz); sangramento.",
+  esp:"DEPENDE do sítio — ver observações",
+  just:"Via aérea = emergência de qualquer médico; TGI = Cirurgião; olho/ouvido/nariz = Clínico + referência.",
+  obs:"Engasgo/obstrução de via aérea → vermelho (manobras imediatas). Ingestão de objeto pontiagudo/pilha botão → Cirurgia/endoscopia.",
+  ped:"Pediatra (aspiração/ingestão são comuns; pilha botão = urgência).", updated:"2026-07"},
+
+ {grupo:"Metabólico / Geral", flux:"Diabetes", spec:"clinico",
+  disc:"Hipoglicemia sintomática; hiperglicemia com desidratação; respiração de Kussmaul (cetoacidose); rebaixamento.",
+  esp:"Clínico Geral", just:"Sem endocrinologista: emergências glicêmicas são manejo clínico.",
+  obs:"CAD/estado hiperosmolar/hipoglicemia com rebaixamento → laranja/vermelho. Sempre glicemia capilar na triagem.",
+  ped:"Pediatra (CAD é apresentação comum de DM1 na criança)."},
+ {grupo:"Metabólico / Geral", flux:"Estado geral do adulto doente / indisposição", spec:"clinico",
+  disc:"Sinais vitais alterados; rebaixamento; palidez; sinais de sepse (qSOFA); prostração.",
+  esp:"Clínico Geral", just:"Fluxograma 'guarda-chuva' para queixas inespecíficas do adulto.",
+  obs:"Buscar foco. Sinais de sepse/choque → prioridade alta. Usado quando a queixa não se encaixa em fluxo específico.",
+  ped:"Pediatra (ver 'estado geral da criança doente')."},
+ {grupo:"Metabólico / Geral", flux:"Lesões por mergulho", spec:"clinico",
+  disc:"Doença descompressiva; dispneia; déficit neurológico; dor articular pós-mergulho.",
+  esp:"Clínico Geral", just:"Estabilização clínica e acionamento de câmara hiperbárica (referência).",
+  obs:"Raro; requer serviço de medicina hiperbárica. Priorizar suporte e transferência.", ped:"Pediatra."},
+
+ {grupo:"Catástrofe / múltiplas vítimas", flux:"Grandes catástrofes (triagem primária e secundária)", spec:"depende",
+  disc:"Múltiplas vítimas; triagem por gravidade em cena; recursos limitados.",
+  esp:"Não se aplica (protocolo próprio)",
+  just:"Nesses eventos usa-se triagem de múltiplas vítimas (ex.: START), não a alocação individual por especialidade.",
+  obs:"Ativar Plano de Contingência/Catástrofe. A lógica é maximizar sobrevida com recursos escassos, não encaminhar por especialidade.",
+  ped:"Triagem pediátrica de catástrofe conforme protocolo (ex.: JumpSTART)."},
+
+ {grupo:"Pediátrico específico", flux:"Bebê que chora / criança irritadiça", spec:"pediatra",
+  disc:"Choro inconsolável; letargia; recusa alimentar; febre; sinais de dor.",
+  esp:"Pediatra", just:"Apresentação pediátrica específica.",
+  obs:"Letargia/irritabilidade paradoxal → sinal de alarme. Sempre medir sinais vitais e glicemia.", ped:"—"},
+ {grupo:"Pediátrico específico", flux:"Estado geral da criança doente / indisposição", spec:"pediatra",
+  disc:"Prostração; sinais de sepse; desidratação; alteração de consciência; enchimento capilar lentificado.",
+  esp:"Pediatra", just:"Fluxograma 'guarda-chuva' pediátrico.",
+  obs:"Criança descompensa rápido; limiar baixo para prioridade alta. Sinais de sepse → laranja/vermelho.", ped:"—"},
+ {grupo:"Pediátrico específico", flux:"Dor abdominal na criança", spec:"pediatra",
+  disc:"Dor intensa; vômitos biliosos; defesa/peritonite; recusa a andar/pular.",
+  esp:"Pediatra (+ Cirurgião se cirúrgico)",
+  just:"Apendicite/invaginação exigem cirurgia; pediatra conduz a linha de frente.",
+  obs:"Sinais peritoneais → acionar Cirurgião. Vômito bilioso no lactente = alarme (obstrução).", ped:"—"},
+ {grupo:"Pediátrico específico", flux:"Falta de ar na criança (dispneia pediátrica)", spec:"pediatra",
+  disc:"Tiragem; batimento de asa de nariz; SpO2 baixa; estridor; sibilância; incapacidade de mamar/falar.",
+  esp:"Pediatra", just:"Via aérea/respiração pediátrica é do pediatra.",
+  obs:"Estridor/esforço grave → prioridade máxima. Suspeita de epiglotite → não manipular via aérea.", ped:"—"}
+  ,{grupo:"Pediátrico específico", flux:"Febre sem foco na criança pequena", spec:"pediatra",
+   disc:"Idade < 3 meses; temperatura ≥ 39°C; prostração; petéquias; recusa alimentar; enchimento capilar lentificado.",
+   esp:"Pediatra", just:"Lactente febril tem risco alto de infecção grave/bacteriemia; requer avaliação pediátrica imediata.",
+   obs:"< 3 meses com febre = laranja/vermelho por padrão. Petéquias + febre → suspeita de meningococcemia = vermelho.",
+   ped:"—", isNew:true}
+];
+
+const PERGUNTAS = [
+ {sec:"A) Risco de morte — sempre primeiro (abordagem tipo ABCDE)", items:[
+   ["Via aérea / respiração","• Está respirando com dificuldade, fazendo barulho (estridor/chiado) ou muito ofegante?\n• Consegue falar frases completas? Lábios/extremidades roxos (cianose)?\n• Qual a saturação de O2?"],
+   ["Circulação / hemorragia","• Está sangrando agora? Para com compressão ou é intenso/incontrolável?\n• Está pálido, suado, com pulso muito rápido/lento? PA e FC?"],
+   ["Consciência","• Está acordado e orientado? Houve desmaio, confusão ou sonolência anormal?\n• Escala AVPU/Glasgow, se aplicável."],
+   ["Temperatura / glicemia","• Está com febre? Há quanto tempo? Tremores?\n• Glicemia capilar (obrigatória em rebaixamento, diabético, criança prostrada)."]
+ ]},
+ {sec:"B) Dor — caracterização (define discriminador de dor)", items:[
+   ["Intensidade e local","• Numa escala de 0 a 10, quanto dói agora? (escala validada; em criança, escala de faces)\n• Onde dói exatamente? Irradia para algum lugar?"],
+   ["Início e evolução","• Começou de repente (súbita) ou foi aumentando aos poucos?\n• Há quanto tempo? Primeira vez ou já teve antes?\n• Está piorando, melhorando ou estável?"],
+   ["Característica","• É em aperto/pressão, queimação, pontada, cólica?\n• Piora com respiração, movimento, esforço ou alimentação?"]
+ ]},
+ {sec:"C) Tempo de início e fatores de risco (desempate de prioridade)", items:[
+   ["Tempo é crítico","• Quando exatamente começaram os sintomas? (janela importa em: AVC, dor torácica, torção testicular, olho vermelho agudo)\n• Foi presenciado o início?"],
+   ["Fatores de risco","• Idade? Está grávida ou com atraso menstrual?\n• Doenças conhecidas (diabetes, cardíaco, imunossupressão)?\n• Usa anticoagulante/antiagregante?\n• Alergias? Uso recente de medicamento/substância?"]
+ ]},
+ {sec:"D) Sintomas associados / bandeiras vermelhas por sistema", items:[
+   ["Neurológico","• Fraqueza/dormência súbita em face, braço ou perna? Fala enrolada? Perda de visão?\n• Cefaleia súbita e intensa ('a pior da vida')? Rigidez de nuca com febre? Convulsão?"],
+   ["Cardiorrespiratório","• Dor no peito com sudorese, falta de ar, náusea? Palpitações com desmaio?"],
+   ["Abdominal","• Vômito com sangue? Fezes pretas ou com sangue? Barriga muito rígida/dolorosa ao toque?\n• (Mulher) dor pélvica + atraso menstrual + sangramento?"],
+   ["Pele / alérgico","• Manchas roxas que não somem à digitopressão + febre? Inchaço de lábios/língua, chiado (anafilaxia)?"]
+ ]},
+ {sec:"E) Perguntas de desambiguação (quando há dúvida entre fluxos)", items:[
+   ["Dor abdominal → qual fluxo?","• Mulher em idade fértil? → possibilidade de gravidez/ectópica pesa na prioridade.\n• Sinais de peritonite/abdome rígido? → gravidade alta (perfil cirúrgico).\n• Homem com dor irradiando p/ bolsa escrotal / dor testicular súbita? → fluxo de dor testicular."],
+   ["Costas/pescoço → traumática ou clínica?","• Houve trauma? → fluxo de trauma/extremidades.\n• Febre + rigidez de nuca? → suspeita clínica (meningismo).\n• Dificuldade p/ urinar/evacuar ou dormência 'em sela'? → bandeira vermelha (cauda equina)."],
+   ["Trauma → maior ou menor?","• Mecanismo de alto impacto (colisão, queda de altura, atropelamento)? → trauma maior.\n• Lesão isolada de um membro sem instabilidade? → fluxo de extremidades."],
+   ["Alteração de comportamento → orgânica ou psíquica?","• Diabético? Glicemia medida? Febre? Início súbito? → descartar causa orgânica antes do fluxo de saúde mental."],
+   ["Criança → confirmar via pediátrica","• Idade (aplicar corte etário institucional)?\n• Está mamando/bebendo normalmente? Fralda molhada nas últimas horas (diurese)?\n• Está ativo ou muito quietinho/moleza (prostração)?"]
+ ]},
+ {sec:"F) Fechamento da classificação", items:[
+   ["Antes de liberar","• Sinais vitais completos registrados? Dor pontuada? Glicemia quando indicada?\n• A cor escolhida reflete o PIOR discriminador presente? (na dúvida entre duas cores, assumir a mais grave)\n• Reavaliar quem aguarda se houver piora referida."],
+   ["Lembrete","Estas perguntas apoiam a escolha de fluxograma/discriminador e a prioridade. Não são para diagnosticar nem definir especialidade — isso é atribuição médica, conforme orientação do GBCR."]
+ ]}
+];
+
+/* ---------- Render ---------- */
+const $ = s => document.querySelector(s);
+const chevSVG = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>';
+
+function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+function hi(text, q){
+  const e = esc(text);
+  if(!q) return e;
+  const rx = new RegExp("("+q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig");
+  return e.replace(rx,"<mark>$1</mark>");
+}
+
+// grupos únicos em ordem de aparição
+const GRUPOS = [...new Set(DATA.map(d=>d.grupo))];
+const gSel = $("#fGrupo");
+GRUPOS.forEach(g=>{const o=document.createElement("option");o.value=g;o.textContent=g;gSel.appendChild(o);});
+
+function chip(spec){
+  const m = SPEC_META[spec];
+  return `<span class="chip" style="background:${m.color}">${m.label}</span>`;
+}
+
+function cardHTML(d,q){
+  const badges = [
+    d.isNew ? '<span class="badge-new">● Novo</span>' : '',
+    d.updated ? `<span class="badge-upd">Atualizado ${d.updated}</span>` : ''
+  ].join('');
+  const cls = 'card' + ((d.isNew||d.updated)?' is-new':'');
+  return `<div class="${cls}" style="border-left-color:${SPEC_META[d.spec].color}">
+    <div class="card-head">
+      <div class="flux">${hi(d.flux,q)}</div>
+      ${badges}
+      ${chip(d.spec)}
+    </div>
+    <div class="field"><div class="k">Discriminadores</div><div class="v">${hi(d.disc,q)}</div></div>
+    <div class="field"><div class="k">Especialidade</div><div class="v">${hi(d.esp,q)}</div></div>
+    <div class="field"><div class="k">Justificativa</div><div class="v">${hi(d.just,q)}</div></div>
+    <div class="field obs"><div class="k">Observações</div><div class="v">${hi(d.obs,q)}</div></div>
+    <div class="field"><div class="k">Se pediátrico</div><div class="v ped">${hi(d.ped,q)}</div></div>
+  </div>`;
+}
+
+let forceOpen = false;
+
+function render(){
+  const q = $("#q").value.trim().toLowerCase();
+  const fg = gSel.value, fe = $("#fEsp").value;
+  const filtered = DATA.filter(d=>{
+    if(fg && d.grupo!==fg) return false;
+    if(fe && d.spec!==fe) return false;
+    if(q){
+      const hay = (d.flux+" "+d.disc+" "+d.esp+" "+d.just+" "+d.obs+" "+d.ped+" "+d.grupo).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const cont = $("#cards");
+  cont.innerHTML="";
+  const empty = $("#empty");
+  empty.style.display = filtered.length? "none":"block";
+
+  const byGroup = {};
+  filtered.forEach(d=>{(byGroup[d.grupo]=byGroup[d.grupo]||[]).push(d);});
+  const openIt = forceOpen || !!q || !!fe;
+
+  GRUPOS.filter(g=>byGroup[g]).forEach(g=>{
+    const det = document.createElement("details");
+    det.className="group";
+    if(openIt) det.open = true; else det.open = false;
+    det.innerHTML = `<summary>${chevSVG}<h3>${g}</h3><span class="g-count">${byGroup[g].length}</span></summary>
+      <div class="g-body">${byGroup[g].map(d=>cardHTML(d,q)).join("")}</div>`;
+    cont.appendChild(det);
+  });
+
+  $("#count").textContent = `${filtered.length} de ${DATA.length} fluxogramas`;
+}
+
+function renderPerguntas(){
+  const c = $("#perguntas");
+  c.innerHTML = PERGUNTAS.map((p,i)=>`
+    <details class="acc" ${i===0?"open":""}>
+      <summary>${p.sec}${chevSVG}</summary>
+      <div class="acc-body">
+        ${p.items.map(([k,v])=>`<div class="qrow"><div class="qk">${esc(k)}</div><div class="qv">${esc(v)}</div></div>`).join("")}
+      </div>
+    </details>`).join("");
+}
+
+/* ---------- Tabs ---------- */
+document.querySelectorAll(".tab").forEach(t=>{
+  t.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected","false"));
+    t.setAttribute("aria-selected","true");
+    document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+    $("#view-"+t.dataset.view).classList.add("active");
+    window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});
+  });
+});
+
+/* ---------- Events ---------- */
+$("#q").addEventListener("input",render);
+gSel.addEventListener("change",render);
+$("#fEsp").addEventListener("change",render);
+$("#expandAll").addEventListener("click",e=>{
+  forceOpen=!forceOpen;
+  e.target.textContent = forceOpen? "Recolher tudo":"Expandir tudo";
+  render();
+});
+
+/* ---------- Corte etário (topo) ---------- */
+const corteInput = document.getElementById("corteIdade");
+function applyCorte(){
+  let v = parseInt(corteInput.value,10);
+  if(isNaN(v)) v = 14;
+  if(v<0) v = 0; if(v>18) v = 18;
+  document.getElementById("corteTxt").textContent = v;
+  const r = document.getElementById("corteRule"); if(r) r.textContent = v;
+  document.getElementById("corteBadge").textContent = "Pediatria: < "+v+" anos";
+  setHH();
+}
+corteInput.addEventListener("input",applyCorte);
+corteInput.addEventListener("change",()=>{ if(corteInput.value==="") corteInput.value=14; applyCorte(); });
+
+/* ---------- Altura real do header para os elementos fixos ---------- */
+function setHH(){
+  const h = document.querySelector("header").offsetHeight;
+  document.documentElement.style.setProperty("--hh", h+"px");
+}
+window.addEventListener("resize",setHH);
+window.addEventListener("load",setHH);
+
+applyCorte();
+render();
+renderPerguntas();
+
+/* ==================== SIMULADOR ==================== */
+const PRIO = {
+  vermelho:{label:"VERMELHO",bg:"var(--red)",fg:"#fff",time:"Imediato (0 min)",txt:"Emergência — atendimento imediato",targetMin:0},
+  laranja: {label:"LARANJA", bg:"var(--orange)",fg:"#fff",time:"~10 minutos",txt:"Muito urgente",targetMin:10},
+  amarelo: {label:"AMARELO", bg:"var(--yellow)",fg:"#1a1a1a",time:"~60 minutos",txt:"Urgente",targetMin:60},
+  verde:   {label:"VERDE",   bg:"var(--green)",fg:"#fff",time:"~120 minutos",txt:"Pouco urgente",targetMin:120},
+  azul:    {label:"AZUL",    bg:"var(--blue)",fg:"#fff",time:"~240 minutos",txt:"Não urgente",targetMin:240}
+};
+
+const simState = { step:0, age:null, isPed:false, grupo:null, flux:null, discSel:[], prio:null };
+
+function simDiscList(fluxObj){
+  return fluxObj.disc.split(";").map(s=>s.trim()).filter(Boolean);
+}
+
+// heurística simples: cada discriminador com palavra de alarme puxa cor
+const RED_RX   = /instabilidade|choque|via aérea|estridor|obstru|exsanguin|convuls|coma|anafilaxia|hipertensivo|eviscera|glote|apneia|parada|rebaixamento|"pior/i;
+const ORAN_RX  = /grave|intens|sepse|peritonite|penetrante|isquem|torção|fratura exposta|neurovascular|hemorragia|petéquias|púrpura|dispneia|cauda equina|meningi|súbit|hipotens|SpO2 baixa|tiragem/i;
+const YEL_RX   = /moderad|febre|vômito|dor|desidrat|deformidade|edema|sangramento|cólica|palpitaç|tontura/i;
+
+function inferPrio(selectedDiscs){
+  if(selectedDiscs.length===0) return "verde";
+  const joined = selectedDiscs.join(" ; ");
+  if(RED_RX.test(joined)) return "vermelho";
+  if(ORAN_RX.test(joined)) return "laranja";
+  if(YEL_RX.test(joined)) return "amarelo";
+  return "verde";
+}
+
+function simRenderStepper(){
+  const steps = ["Idade","Grupo","Fluxograma","Discriminadores","Resultado"];
+  $("#simStepper").innerHTML = steps.map((s,i)=>{
+    let cls="sim-step-dot";
+    if(i<simState.step) cls+=" done";
+    if(i===simState.step) cls+=" active";
+    return `<div class="${cls}">${i+1}. ${s}</div>`;
+  }).join("");
+}
+
+function simGo(step){ simState.step = step; renderSim(); }
+
+function renderSim(){
+  simRenderStepper();
+  const panel = $("#simPanel");
+  const corte = parseInt(document.getElementById("corteIdade").value,10) || 14;
+
+  if(simState.step===0){
+    panel.innerHTML = `
+      <div class="sim-panel">
+        <h2>1. Qual a idade do paciente?</h2>
+        <p class="hint">Corte pediátrico atual: <b>&lt; ${corte} anos</b> → 1ª linha Pediatra.</p>
+        <label class="hint" style="display:block;margin-bottom:6px">Idade (anos)</label>
+        <input class="sim-input" type="number" min="0" max="120" id="simAge" value="${simState.age??''}" placeholder="ex.: 34">
+        <div class="sim-actions">
+          <button class="sim-btn" id="simNext0">Avançar →</button>
+          <button class="sim-btn ghost" id="simReset">Reiniciar</button>
+        </div>
+      </div>`;
+    $("#simAge").focus();
+    $("#simNext0").onclick = ()=>{
+      const v = parseInt($("#simAge").value,10);
+      if(isNaN(v)||v<0||v>120){ $("#simAge").focus(); return; }
+      simState.age = v;
+      simState.isPed = v < corte;
+      simGo(1);
+    };
+    $("#simReset").onclick = simResetAll;
+    return;
+  }
+
+  if(simState.step===1){
+    const opts = GRUPOS.map(g=>{
+      const sel = simState.grupo===g?" selected":"";
+      return `<button class="sim-opt${sel}" data-g="${esc(g)}">${esc(g)}</button>`;
+    }).join("");
+    const aiSel = simState.grupo==='__ai__'?" selected":"";
+    panel.innerHTML = `
+      <div class="sim-panel">
+        <h2>2. Qual o grupo da queixa principal?</h2>
+        <p class="hint">Escolha a categoria mais próxima do motivo do atendimento.</p>
+        <div class="sim-opts">
+          ${opts}
+          <button class="sim-opt${aiSel}" data-g="__ai__" style="border-style:dashed;color:var(--green-dark);font-weight:600">
+            🤖 Inespecífico / não sei — usar IA para sugerir fluxograma
+          </button>
+        </div>
+        <div id="aiBox" style="display:${simState.grupo==='__ai__'?'block':'none'};margin-top:14px">
+          <label class="hint" style="display:block;margin-bottom:6px"><b>Descreva a queixa livremente</b> (ex.: "está muito cansado, sem apetite e com tontura há 2 dias"):</label>
+          <textarea id="aiSymptoms" rows="3" style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line-strong);font:inherit;font-size:14px;resize:vertical" placeholder="Descreva sinais, sintomas, tempo de início…"></textarea>
+          <div class="sim-actions" style="margin-top:10px">
+            <button class="sim-btn" id="aiRun">Analisar com IA →</button>
+          </div>
+          <div id="aiStatus" style="margin-top:10px;font-size:13px;color:var(--ink-dim)"></div>
+        </div>
+        <div class="sim-actions">
+          <button class="sim-btn ghost" id="simBack">← Voltar</button>
+          <button class="sim-btn" id="simNext1" ${simState.grupo && simState.grupo!=='__ai__'?'':'disabled'}>Avançar →</button>
+        </div>
+      </div>`;
+    panel.querySelectorAll(".sim-opt").forEach(b=>{
+      b.onclick=()=>{
+        simState.grupo = b.dataset.g;
+        simState.flux=null; simState.discSel=[];
+        renderSim();
+      };
+    });
+    const aiRun = document.getElementById("aiRun");
+    if(aiRun){
+      aiRun.onclick = async ()=>{
+        const txt = document.getElementById("aiSymptoms").value.trim();
+        const status = document.getElementById("aiStatus");
+        if(!txt){ status.textContent = "Descreva a queixa antes de analisar."; return; }
+        aiRun.disabled = true;
+        status.innerHTML = '<span style="color:var(--green-dark)">⏳ Consultando IA…</span>';
+        try{
+          const catalog = DATA.map(d=>({grupo:d.grupo, flux:d.flux, disc:d.disc}));
+          const r = await fetch("/api/triage-route",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({age:simState.age, symptoms:txt, catalog})
+          });
+          if(!r.ok){ throw new Error(await r.text()); }
+          const j = await r.json();
+          if(j.error){ status.innerHTML = '<span style="color:var(--red)">'+esc(j.error)+'</span>'; aiRun.disabled=false; return; }
+          simState.grupo = j.grupo;
+          simState.flux = j.flux;
+          simState.discSel = [];
+          simState.aiReason = j.reason || "";
+          simGo(3);
+        }catch(e){
+          status.innerHTML = '<span style="color:var(--red)">Falha: '+esc(String(e.message||e))+'</span>';
+          aiRun.disabled=false;
+        }
+      };
+    }
+    $("#simBack").onclick=()=>simGo(0);
+    $("#simNext1").onclick=()=>simGo(2);
+    return;
+  }
+
+  if(simState.step===2){
+    const fluxos = DATA.filter(d=>d.grupo===simState.grupo);
+    const opts = fluxos.map(d=>{
+      const sel = simState.flux===d.flux?" selected":"";
+      return `<button class="sim-opt${sel}" data-f="${esc(d.flux)}">${esc(d.flux)}</button>`;
+    }).join("");
+    panel.innerHTML = `
+      <div class="sim-panel">
+        <h2>3. Qual fluxograma se aplica?</h2>
+        <p class="hint">Grupo: <b>${esc(simState.grupo)}</b></p>
+        <div class="sim-opts">${opts}</div>
+        <div class="sim-actions">
+          <button class="sim-btn ghost" id="simBack">← Voltar</button>
+          <button class="sim-btn" id="simNext2" ${simState.flux?'':'disabled'}>Avançar →</button>
+        </div>
+      </div>`;
+    panel.querySelectorAll(".sim-opt").forEach(b=>{
+      b.onclick=()=>{ simState.flux = b.dataset.f; simState.discSel=[]; renderSim(); };
+    });
+    $("#simBack").onclick=()=>simGo(1);
+    $("#simNext2").onclick=()=>simGo(3);
+    return;
+  }
+
+  if(simState.step===3){
+    const fluxObj = DATA.find(d=>d.grupo===simState.grupo && d.flux===simState.flux);
+    const discs = simDiscList(fluxObj);
+    const aiNote = simState.aiReason
+      ? `<div class="hint" style="background:var(--tint);border:1px dashed var(--green);padding:10px 12px;border-radius:10px;margin-bottom:12px;color:var(--green-dark)"><b>🤖 Sugestão da IA:</b> ${esc(simState.aiReason)}</div>`
+      : '';
+    const opts = discs.map((s,i)=>{
+      const checked = simState.discSel.includes(s)?' checked':'';
+      const sel = simState.discSel.includes(s)?' selected':'';
+      return `<label class="sim-opt${sel}"><input type="checkbox" data-d="${i}"${checked}> <span>${esc(s)}</span></label>`;
+    }).join("");
+    panel.innerHTML = `
+      <div class="sim-panel">
+        <h2>4. Quais discriminadores estão presentes?</h2>
+        <p class="hint">Fluxograma: <b>${esc(simState.flux)}</b>. Marque todos que se aplicam — a prioridade adotará o pior discriminador.</p>
+        ${aiNote}
+        <div class="sim-opts">${opts}</div>
+        <div class="sim-actions">
+          <button class="sim-btn ghost" id="simBack">← Voltar</button>
+          <button class="sim-btn" id="simNext3">Classificar →</button>
+        </div>
+      </div>`;
+    panel.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+      cb.onchange=()=>{
+        const s = discs[+cb.dataset.d];
+        if(cb.checked) simState.discSel.push(s);
+        else simState.discSel = simState.discSel.filter(x=>x!==s);
+        cb.closest(".sim-opt").classList.toggle("selected", cb.checked);
+      };
+    });
+    $("#simBack").onclick=()=>simGo(2);
+    $("#simNext3").onclick=()=>{ simState.prio = inferPrio(simState.discSel); simGo(4); };
+    return;
+  }
+
+  // step 4 — resultado
+  const fluxObj = DATA.find(d=>d.grupo===simState.grupo && d.flux===simState.flux);
+  const p = PRIO[simState.prio];
+  const especialidade = simState.isPed
+    ? `<b>Pediatra</b> em 1ª linha${fluxObj.spec!=='pediatra'?` (em conjunto com: ${esc(fluxObj.esp)})`:''}`
+    : esc(fluxObj.esp);
+  const alertHi = (simState.prio==='vermelho'||simState.prio==='laranja')
+    ? `<div class="rv" style="color:var(--red);font-weight:600;margin-top:4px">⚠ Prioridade alta: estabilização imediata pelo médico de porta / equipe de emergência (ABCDE). A especialidade entra como interconsulta.</div>`
+    : '';
+  panel.innerHTML = `
+    <div class="sim-result">
+      <div class="sim-prio-band" style="background:${p.bg};color:${p.fg}">
+        <span class="label">${p.label}</span>
+        <span>${p.txt}</span>
+        <span class="time">Tempo-alvo: ${p.time}</span>
+      </div>
+      ${p.targetMin>0 ? `
+      <div class="sim-countdown" id="cdBox">
+        <div>
+          <div class="cd-label">Tempo-alvo restante</div>
+          <div class="cd-time" id="cdTime">--:--</div>
+        </div>
+        <div class="cd-bar"><div class="cd-fill" id="cdFill" style="width:100%"></div></div>
+        <div class="cd-label" id="cdMeta" style="text-align:right">alvo ${p.targetMin} min</div>
+      </div>` : ''}
+      <div class="sim-result-body">
+        <div class="sim-result-row"><div class="rk">Idade</div><div class="rv">${simState.age} anos ${simState.isPed?'(pediátrico)':'(adulto)'}</div></div>
+        <div class="sim-result-row"><div class="rk">Fluxograma</div><div class="rv">${esc(simState.flux)} <span style="color:var(--ink-faint)">· ${esc(simState.grupo)}</span></div></div>
+        <div class="sim-result-row"><div class="rk">Discriminadores</div><div class="rv">${simState.discSel.length?simState.discSel.map(esc).join('<br>'):'<span style="color:var(--ink-faint)">Nenhum marcado</span>'}</div></div>
+        <div class="sim-result-row"><div class="rk">Especialidade sugerida</div><div class="rv">${especialidade}${alertHi}</div></div>
+        <div class="sim-result-row"><div class="rk">Justificativa</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.just)}</div></div>
+        <div class="sim-result-row"><div class="rk">Observações</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.obs)}</div></div>
+      </div>
+      <div class="sim-reeval" id="reBox">
+        <span class="re-label">🔁 Reavaliar em</span>
+        <button class="re-btn" data-min="5">5 min</button>
+        <button class="re-btn" data-min="10">10 min</button>
+        <button class="re-btn" data-min="15">15 min</button>
+        <button class="re-btn" data-min="30">30 min</button>
+        <button class="re-btn" id="reCancel" style="display:none">Cancelar</button>
+        <span class="re-status" id="reStatus">Nenhum lembrete ativo.</span>
+      </div>
+    </div>
+    <div class="sim-panel" style="margin-top:14px">
+      <p class="hint" style="margin:0 0 12px"><b>Aviso:</b> a prioridade sugerida é uma estimativa a partir dos discriminadores marcados. O julgamento clínico do enfermeiro classificador (MTS) sempre prevalece.</p>
+      <div class="sim-actions" style="margin-top:0">
+        <button class="sim-btn ghost" id="simBack">← Ajustar discriminadores</button>
+        <button class="sim-btn" id="simReset">Nova classificação</button>
+      </div>
+    </div>`;
+  $("#simBack").onclick=()=>simGo(3);
+  const goBack = $("#simBack").onclick;
+  $("#simBack").onclick=()=>{ stopCountdown(); stopReeval(); goBack(); };
+  $("#simReset").onclick=()=>{ stopCountdown(); stopReeval(); simResetAll(); };
+  startCountdown(p.targetMin);
+  wireReeval();
+}
+
+function simResetAll(){
+  simState.step=0; simState.age=null; simState.isPed=false;
+  simState.grupo=null; simState.flux=null; simState.discSel=[]; simState.prio=null; simState.aiReason=null;
+  renderSim();
+}
+
+/* ---------- Countdown (tempo-alvo) ---------- */
+let cdInterval = null;
+function stopCountdown(){ if(cdInterval){ clearInterval(cdInterval); cdInterval=null; } }
+function startCountdown(targetMin){
+  stopCountdown();
+  if(!targetMin) return;
+  const totalMs = targetMin*60*1000;
+  const start = Date.now();
+  const el = document.getElementById("cdTime");
+  const fill = document.getElementById("cdFill");
+  const meta = document.getElementById("cdMeta");
+  if(!el) return;
+  const tick = ()=>{
+    const elapsed = Date.now()-start;
+    const rem = totalMs - elapsed;
+    const over = rem<0;
+    const absRem = Math.abs(rem);
+    const mm = Math.floor(absRem/60000);
+    const ss = Math.floor((absRem%60000)/1000);
+    el.textContent = (over?"+ ":"") + String(mm).padStart(2,"0")+":"+String(ss).padStart(2,"0");
+    const pct = Math.max(0, Math.min(100, (rem/totalMs)*100));
+    fill.style.width = pct+"%";
+    el.classList.remove("warn","over"); fill.classList.remove("warn","over");
+    if(over){ el.classList.add("over"); fill.classList.add("over"); fill.style.width="100%"; meta.textContent="⚠ ATRASADO"; }
+    else if(pct<25){ el.classList.add("warn"); fill.classList.add("warn"); }
+  };
+  tick();
+  cdInterval = setInterval(tick, 1000);
+}
+
+/* ---------- Reavaliação (lembrete) ---------- */
+let reTimeout = null;
+let reCountdown = null;
+function stopReeval(){
+  if(reTimeout){ clearTimeout(reTimeout); reTimeout=null; }
+  if(reCountdown){ clearInterval(reCountdown); reCountdown=null; }
+  const box = document.getElementById("reBox");
+  if(box) box.classList.remove("firing");
+}
+function beep(){
+  try{
+    const AC = window.AudioContext||window.webkitAudioContext;
+    const ctx = new AC();
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type="sine"; o.frequency.value=880;
+    g.gain.setValueAtTime(0.001,ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.35,ctx.currentTime+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.8);
+    o.connect(g).connect(ctx.destination);
+    o.start(); o.stop(ctx.currentTime+0.85);
+  }catch(e){}
+}
+function wireReeval(){
+  const box = document.getElementById("reBox");
+  if(!box) return;
+  const status = document.getElementById("reStatus");
+  const cancel = document.getElementById("reCancel");
+  box.querySelectorAll(".re-btn[data-min]").forEach(b=>{
+    b.onclick = ()=>{
+      stopReeval();
+      box.querySelectorAll(".re-btn").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      const mins = parseInt(b.dataset.min,10);
+      if("Notification"in window && Notification.permission==="default") Notification.requestPermission();
+      let rem = mins*60;
+      const upd = ()=>{
+        const mm = Math.floor(rem/60), ss = rem%60;
+        status.classList.add("on");
+        status.textContent = `⏰ Reavaliação em ${String(mm).padStart(2,"0")}:${String(ss).padStart(2,"0")}`;
+      };
+      upd();
+      cancel.style.display="";
+      reCountdown = setInterval(()=>{ rem--; if(rem<=0){ clearInterval(reCountdown); reCountdown=null; } else upd(); }, 1000);
+      reTimeout = setTimeout(()=>{
+        box.classList.add("firing");
+        status.textContent = "⚠ Hora de reavaliar o paciente!";
+        beep(); setTimeout(beep,900); setTimeout(beep,1800);
+        if("Notification"in window && Notification.permission==="granted"){
+          try{ new Notification("Reavaliação Manchester", {body:`Reavaliar paciente (${simState.flux||""})`}); }catch(e){}
+        }
+      }, mins*60*1000);
+    };
+  });
+  cancel.onclick = ()=>{
+    stopReeval();
+    box.querySelectorAll(".re-btn").forEach(x=>x.classList.remove("active"));
+    cancel.style.display="none";
+    status.classList.remove("on");
+    status.textContent = "Lembrete cancelado.";
+  };
+}
+
+renderSim();
+</script>
+</body>
+</html>
