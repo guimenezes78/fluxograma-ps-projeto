@@ -10,6 +10,9 @@
 <link rel="icon" type="image/png" href="/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
 <meta name="theme-color" content="#009697">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Manchester HUVR">
 <title>Manchester · Encaminhamento por Especialidade</title>
 <style>
 :root{
@@ -205,6 +208,40 @@ mark{background:#C8EBD6;color:#0c2b1e;padding:0 3px;border-radius:3px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media print{header,.toolbar,.tabs,.btn-ghost,.footer,body::before,body::after{display:none!important}body{background:#fff;color:#000}.view{display:block!important}.card,.group,.callout,.acc{break-inside:avoid;border-color:#999;background:#fff!important;color:#000;box-shadow:none}.flux,.field .v,.qrow .qv{color:#000}}
 
+/* --- UX enhancements --- */
+.pill{cursor:pointer;transition:background .15s,border-color .15s,color .15s,box-shadow .15s;appearance:none;font:inherit}
+button.pill{font-family:inherit;font-size:inherit}
+.pill:hover{border-color:var(--line-strong);background:#fff;color:var(--ink)}
+.pill:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.pill[aria-pressed="true"]{background:var(--tint);border-color:var(--green);color:var(--green-dark);box-shadow:0 0 0 2px rgba(0,149,65,.18)}
+.badge-atencao{gap:5px;background:linear-gradient(135deg,#FFF4EB,#FFC48A);color:#7A2E00;border:1.5px solid var(--accent-orange);box-shadow:0 1px 3px rgba(242,122,33,.25);padding:5px 10px}
+.badge-atencao svg{width:12px;height:12px;flex:0 0 auto}
+.btn-print{appearance:none;margin-left:auto;background:#fff;border:1px solid var(--line-strong);color:var(--green-dark);padding:5px 10px;border-radius:8px;font:inherit;font-size:11.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.btn-print:hover{border-color:var(--green);background:var(--tint)}
+.btn-print svg{width:13px;height:13px}
+.config-toggles{display:inline-flex;gap:6px;flex-wrap:wrap;margin-left:4px}
+.toggle-btn{appearance:none;font:inherit;font-size:11.5px;font-weight:700;cursor:pointer;padding:5px 11px;border-radius:999px;border:1px solid var(--line-strong);background:#fff;color:var(--ink-dim);transition:background .15s,border-color .15s,color .15s}
+.toggle-btn:hover{border-color:var(--green);color:var(--green-dark)}
+.toggle-btn[aria-pressed="true"]{background:var(--tint);border-color:var(--green);color:var(--green-dark)}
+body.photo-more::after{background:linear-gradient(105deg,rgba(232,241,238,.42) 0%,rgba(242,247,244,.22) 36%,rgba(236,244,240,.40) 68%,rgba(15,46,34,.28) 100%),linear-gradient(180deg,rgba(255,255,255,.08) 0%,rgba(242,247,244,.28) 52%,rgba(232,241,238,.55) 100%)}
+body.compact{font-size:14.5px}
+body.compact .toolbar{padding:10px 12px;margin-bottom:10px}
+body.compact .card-inner{padding:10px 12px 11px}
+body.compact .flux{font-size:16px}
+body.compact .field{padding:5px 0;gap:8px}
+body.compact .group>summary{padding:10px 12px}
+body.compact .g-body{padding:8px}
+body.compact .legend{margin-bottom:12px}
+body.compact .chip{padding:3px 8px;font-size:10.5px}
+body.printing-card header,body.printing-card .toolbar,body.printing-card .tabs,body.printing-card .legend,body.printing-card .footer,body.printing-card .config{display:none!important}
+body.printing-card .group>summary,body.printing-card .group:not(.print-keep){display:none!important}
+body.printing-card .group.print-keep{display:block!important;border:0;box-shadow:none}
+body.printing-card .group.print-keep .g-body{padding:0;background:#fff}
+body.printing-card .card:not(.print-target){display:none!important}
+body.printing-card .card.print-target{display:block!important;box-shadow:none;border:1px solid #999;break-inside:avoid}
+body.printing-card #empty,body.printing-card .btn-print{display:none!important}
+body.printing-card main{padding:12px;max-width:none}
+@media print{body.printing-card header,body.printing-card .toolbar,body.printing-card .tabs,body.printing-card .legend,body.printing-card .footer,body.printing-card .config,body.printing-card .btn-print{display:none!important}body.printing-card .card:not(.print-target),body.printing-card .group:not(.print-keep){display:none!important}body.printing-card .group.print-keep>summary{display:none!important}body.printing-card .card.print-target{display:block!important}}
 </style>
 </head>
 <body>
@@ -216,6 +253,10 @@ mark{background:#C8EBD6;color:#0c2b1e;padding:0 3px;border-radius:3px}
       <span>anos</span>
       <span class="rule-txt">— pacientes com menos de <b><span id="corteTxt">14</span> anos</b> → Pediatra em 1ª linha</span>
       <span class="badge" id="corteBadge">Pediatria: &lt; 14 anos</span>
+      <span class="config-toggles" role="group" aria-label="Preferências de visualização">
+        <button type="button" class="toggle-btn" id="togglePhoto" aria-pressed="false" title="Mostrar mais a foto do hospital">Mais foto</button>
+        <button type="button" class="toggle-btn" id="toggleCompact" aria-pressed="false" title="Modo compacto">Compacto</button>
+      </span>
     </div>
   </div>
   <div class="bar">
@@ -262,13 +303,13 @@ mark{background:#C8EBD6;color:#0c2b1e;padding:0 3px;border-radius:3px}
       <span class="count" id="count"></span>
     </div>
 
-    <div class="legend" aria-label="Legenda de especialidades">
-      <span class="pill"><span class="dot" style="background:var(--spec-clinico)"></span>Clínica Médica</span>
-      <span class="pill"><span class="dot" style="background:var(--spec-cirurgia)"></span>Cirurgia Geral</span>
-      <span class="pill"><span class="dot" style="background:var(--spec-orto)"></span>Ortopedia</span>
-      <span class="pill"><span class="dot" style="background:var(--spec-go)"></span>Ginecologia/Obstetrícia</span>
-      <span class="pill"><span class="dot" style="background:var(--spec-pediatra)"></span>Pediatria</span>
-      <span class="pill"><span class="dot" style="background:var(--spec-depende)"></span>Depende / múltiplas</span>
+    <div class="legend" aria-label="Filtrar por especialidade (legenda)" role="group">
+      <button type="button" class="pill" data-esp="clinico" aria-pressed="false"><span class="dot" style="background:var(--spec-clinico)"></span>Clínica Médica</button>
+      <button type="button" class="pill" data-esp="cirurgia" aria-pressed="false"><span class="dot" style="background:var(--spec-cirurgia)"></span>Cirurgia Geral</button>
+      <button type="button" class="pill" data-esp="orto" aria-pressed="false"><span class="dot" style="background:var(--spec-orto)"></span>Ortopedia</button>
+      <button type="button" class="pill" data-esp="go" aria-pressed="false"><span class="dot" style="background:var(--spec-go)"></span>Ginecologia/Obstetrícia</button>
+      <button type="button" class="pill" data-esp="pediatra" aria-pressed="false"><span class="dot" style="background:var(--spec-pediatra)"></span>Pediatria</button>
+      <button type="button" class="pill" data-esp="depende" aria-pressed="false"><span class="dot" style="background:var(--spec-depende)"></span>Depende / múltiplas</button>
     </div>
 
     <div id="cards"></div>
@@ -529,13 +570,13 @@ function chipsFor(d){
 
 function cardHTML(d,q){
   const badges = [];
-  if(d.atencao) badges.push('<span class="badge-atencao">Atenção</span>');
+  if(d.atencao) badges.push('<span class="badge-atencao">⚠ Atenção</span>');
   if(d.isNew) badges.push('<span class="badge-new">Novo</span>');
   if(d.updated) badges.push('<span class="badge-upd">Atualizado '+d.updated+'</span>');
   const cls = 'card' + ((d.isNew||d.updated||d.atencao)?' is-new':'');
   const border = SPEC_META[d.spec] || SPEC_META.depende;
-  let html = '<div class="'+cls+'" style="--accent:'+border.color+'">';
-  html += '<div class="card-inner"><div class="card-head"><div class="flux">'+hi(d.flux,q)+'</div>'+badges.join('')+'<div class="chips">'+chipsFor(d)+'</div></div>';
+  let html = '<div class="'+cls+'" style="--accent:'+border.color+'" data-flux="'+esc(d.flux)+'">';
+  html += '<div class="card-inner"><div class="card-head"><div class="flux">'+hi(d.flux,q)+'</div>'+badges.join('')+'<div class="chips">'+chipsFor(d)+'</div><button type="button" class="btn-print" data-print title="Imprimir este card">Imprimir</button></div>';
   html += '<div class="field disc"><div class="k">Discriminador</div><div class="v">'+hi(d.disc,q)+'</div></div>';
   html += '<div class="field"><div class="k">Especialidade</div><div class="v">'+hi(d.esp,q)+'</div></div>';
   html += '<div class="field"><div class="k">Justificativa</div><div class="v">'+hi(d.just,q)+'</div></div>';
@@ -607,17 +648,97 @@ document.querySelectorAll(".tab").forEach(t=>{
 });
 
 /* ---------- Events ---------- */
+const LS = {
+  corte: "manchester_corte_idade",
+  photo: "manchester_photo_more",
+  compact: "manchester_compact"
+};
+
 $("#q").addEventListener("input",render);
 gSel.addEventListener("change",render);
-$("#fEsp").addEventListener("change",render);
+$("#fEsp").addEventListener("change",()=>{ syncLegendFromSelect(); render(); });
 $("#expandAll").addEventListener("click",e=>{
   forceOpen=!forceOpen;
   e.target.textContent = forceOpen? "Recolher tudo":"Expandir tudo";
   render();
 });
 
-/* ---------- Corte etário (topo) ---------- */
+function syncLegendFromSelect(){
+  const fe = $("#fEsp").value;
+  document.querySelectorAll(".legend .pill").forEach(p=>{
+    p.setAttribute("aria-pressed", p.dataset.esp===fe ? "true":"false");
+  });
+}
+document.querySelectorAll(".legend .pill").forEach(p=>{
+  p.addEventListener("click",()=>{
+    const esp = p.dataset.esp;
+    const sel = $("#fEsp");
+    if(sel.value===esp){ sel.value=""; }
+    else { sel.value=esp; }
+    syncLegendFromSelect();
+    render();
+  });
+});
+syncLegendFromSelect();
+
+document.addEventListener("keydown",e=>{
+  if(e.key!=="/" || e.ctrlKey || e.metaKey || e.altKey) return;
+  const t = e.target;
+  const tag = (t && t.tagName || "").toLowerCase();
+  if(tag==="input" || tag==="textarea" || tag==="select" || (t && t.isContentEditable)) return;
+  e.preventDefault();
+  const q = $("#q");
+  q.focus();
+  q.select();
+});
+
+$("#cards").addEventListener("click",e=>{
+  const btn = e.target.closest(".btn-print");
+  if(!btn) return;
+  const card = btn.closest(".card");
+  if(!card) return;
+  const group = card.closest(".group");
+  document.querySelectorAll(".print-target,.print-keep").forEach(el=>el.classList.remove("print-target","print-keep"));
+  card.classList.add("print-target");
+  if(group){ group.open=true; group.classList.add("print-keep"); }
+  document.body.classList.add("printing-card");
+  const cleanup = ()=>{
+    document.body.classList.remove("printing-card");
+    document.querySelectorAll(".print-target,.print-keep").forEach(el=>el.classList.remove("print-target","print-keep"));
+    window.removeEventListener("afterprint", cleanup);
+  };
+  window.addEventListener("afterprint", cleanup);
+  setTimeout(()=>{ window.print(); setTimeout(cleanup, 800); }, 50);
+});
+
+/* ---------- Preferencias (foto / densidade) ---------- */
+function applyPref(key, cls, btnId, on){
+  document.body.classList.toggle(cls, on);
+  const btn = document.getElementById(btnId);
+  if(btn) btn.setAttribute("aria-pressed", on ? "true":"false");
+  try{ localStorage.setItem(key, on ? "1":"0"); }catch(_){}
+  setHH();
+}
+(function initPrefs(){
+  let photo=false, compact=false;
+  try{
+    photo = localStorage.getItem(LS.photo)==="1";
+    compact = localStorage.getItem(LS.compact)==="1";
+  }catch(_){}
+  applyPref(LS.photo, "photo-more", "togglePhoto", photo);
+  applyPref(LS.compact, "compact", "toggleCompact", compact);
+  const tp = document.getElementById("togglePhoto");
+  const tc = document.getElementById("toggleCompact");
+  if(tp) tp.addEventListener("click",()=>applyPref(LS.photo,"photo-more","togglePhoto",!document.body.classList.contains("photo-more")));
+  if(tc) tc.addEventListener("click",()=>applyPref(LS.compact,"compact","toggleCompact",!document.body.classList.contains("compact")));
+})();
+
+/* ---------- Corte etario (topo) ---------- */
 const corteInput = document.getElementById("corteIdade");
+try{
+  const saved = localStorage.getItem(LS.corte);
+  if(saved!==null && saved!=="") corteInput.value = saved;
+}catch(_){}
 function applyCorte(){
   let v = parseInt(corteInput.value,10);
   if(isNaN(v)) v = 14;
@@ -625,12 +746,13 @@ function applyCorte(){
   document.getElementById("corteTxt").textContent = v;
   const r = document.getElementById("corteRule"); if(r) r.textContent = v;
   document.getElementById("corteBadge").textContent = "Pediatria: < "+v+" anos";
+  try{ localStorage.setItem(LS.corte, String(v)); }catch(_){}
   setHH();
 }
 corteInput.addEventListener("input",applyCorte);
 corteInput.addEventListener("change",()=>{ if(corteInput.value==="") corteInput.value=14; applyCorte(); });
 
-/* ---------- Altura real do header para os elementos fixos ---------- */
+/* ---------- Altura real do header ---------- */
 function setHH(){
   const h = document.querySelector("header").offsetHeight;
   document.documentElement.style.setProperty("--hh", h+"px");
@@ -641,6 +763,12 @@ window.addEventListener("load",setHH);
 applyCorte();
 render();
 renderPerguntas(); renderCasos();
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("/sw.js").catch(()=>{});
+  });
+}
 
 /* ==================== SIMULADOR ==================== */
 const PRIO = {
