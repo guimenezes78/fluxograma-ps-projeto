@@ -6,7 +6,7 @@ export default defineTool({
   name: "get_flowchart",
   title: "Detalhar fluxograma",
   description:
-    "Retorna o detalhe completo de um fluxograma do Sistema Manchester: discriminadores, especialidade de encaminhamento, justificativa, observações e conduta pediátrica.",
+    "Retorna o detalhe completo de um fluxograma do Sistema Manchester: discriminadores, especialidade de encaminhamento, perguntas estratégicas, observação institucional e contingência.",
   inputSchema: {
     flux: z.string().trim().min(1).describe("Nome (ou parte do nome) do fluxograma, ex.: 'Dor torácica'."),
   },
@@ -29,9 +29,9 @@ export default defineTool({
       `Grupo: ${f.grupo}`,
       `Discriminadores: ${f.disc}`,
       `Encaminhamento: ${f.esp}`,
-      `Justificativa: ${f.just}`,
-      f.obs ? `Observações: ${f.obs}` : null,
-      f.ped ? `Pediatria: ${f.ped}` : null,
+      `Perguntas estratégicas: ${f.just}`,
+      f.obs ? `Observação institucional: ${f.obs}` : null,
+      f.ped ? `Contingência: ${f.ped}` : null,
     ]
       .filter(Boolean)
       .join("\n");
