@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { AiConfigError, chatJson } from "../../lib/ai/chat";
 
 type Body = {
   age?: number;
@@ -10,8 +11,6 @@ export const Route = createFileRoute("/api/triage-route")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const key = process.env.LOVABLE_API_KEY;
-        if (!key) return Response.json({ error: "NO_AI_KEY", fallback: true }, { status: 503 });
 
         let body: Body;
         try {
@@ -40,36 +39,14 @@ ${list}
 Regra: se a queixa envolver risco de vida óbvio (via aérea, hemorragia grave, rebaixamento), prefira o fluxograma correspondente. Se for algo geral/vago em adulto, use "Estado geral do adulto doente / indisposição"; em criança use "Estado geral da criança doente / indisposição".`;
 
         try {
-          const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Lovable-API-Key": key,
-              "X-Lovable-AIG-SDK": "raw-fetch",
-            },
-            body: JSON.stringify({
-              model: "google/gemini-3-flash-preview",
-              messages: [
-                { role: "system", content: system },
-                { role: "user", content: user },
-              ],
-              response_format: { type: "json_object" },
-            }),
-          });
-
-          if (!resp.ok) {
-            const t = await resp.text();
-            return new Response(t || "Gateway error", { status: resp.status });
-          }
-          const data = (await resp.json()) as {
-            choices?: { message?: { content?: string } }[];
-          };
-          const content = data.choices?.[0]?.message?.content ?? "{}";
-          let parsed: { flux?: string; reason?: string } = {};
+          let parsed: { flux?: string; reason?: string };
           try {
-            parsed = JSON.parse(content);
-          } catch {
-            parsed = {};
+            parsed = await chatJson(system, user);
+          } catch (e) {
+            if (e instanceof AiConfigError) {
+              return Response.json({ error: "NO_AI_KEY", fallback: true, message: e.message }, { status: 503 });
+            }
+            throw e;
           }
 
           // Match against catalog to guarantee a valid flux
@@ -82,7 +59,7 @@ Regra: se a queixa envolver risco de vida óbvio (via aérea, hemorragia grave, 
           if (!match) {
             return Response.json({
               error: "Não foi possível mapear a resposta da IA a um fluxograma.",
-              raw: content,
+              raw: parsed,
             }, { status: 200 });
           }
 
