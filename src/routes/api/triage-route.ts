@@ -11,7 +11,7 @@ export const Route = createFileRoute("/api/triage-route")({
     handlers: {
       POST: async ({ request }) => {
         const key = process.env.LOVABLE_API_KEY;
-        if (!key) return new Response("Missing LOVABLE_API_KEY", { status: 500 });
+        if (!key) return Response.json({ error: "NO_AI_KEY", fallback: true }, { status: 503 });
 
         let body: Body;
         try {

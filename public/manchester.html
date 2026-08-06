@@ -207,7 +207,6 @@ mark{background:#C8EBD6;color:#0c2b1e;padding:0 3px;border-radius:3px}
 @media (max-width:680px){.field{grid-template-columns:1fr;gap:2px}.field .k{padding-top:0}.qrow{grid-template-columns:1fr;gap:3px}.toolbar .selwrap{width:100%}select{flex:1 1 45%;max-width:none}.tabs{border-radius:14px}.brand-mark{width:56px;height:56px;flex-basis:56px;border-radius:14px}.brand h1{font-size:18px}.brand-kicker{font-size:11px}.brand-sub{font-size:12.5px}.sim-result-row{grid-template-columns:1fr;gap:2px}.sim-panel{padding:16px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media print{header,.toolbar,.tabs,.btn-ghost,.footer,body::before,body::after{display:none!important}body{background:#fff;color:#000}.view{display:block!important}.card,.group,.callout,.acc{break-inside:avoid;border-color:#999;background:#fff!important;color:#000;box-shadow:none}.flux,.field .v,.qrow .qv{color:#000}}
-
 /* --- UX enhancements --- */
 .pill{cursor:pointer;transition:background .15s,border-color .15s,color .15s,box-shadow .15s;appearance:none;font:inherit}
 button.pill{font-family:inherit;font-size:inherit}
@@ -278,7 +277,6 @@ body.printing-card main{padding:12px;max-width:none}
     </nav>
   </div>
 </header>
-
 <main>
   <!-- ============ MAPA ============ -->
   <section class="view active" id="view-mapa" role="tabpanel">
@@ -302,7 +300,6 @@ body.printing-card main{padding:12px;max-width:none}
       <button class="btn-ghost" id="expandAll" type="button">Expandir tudo</button>
       <span class="count" id="count"></span>
     </div>
-
     <div class="legend" aria-label="Filtrar por especialidade (legenda)" role="group">
       <button type="button" class="pill" data-esp="clinico" aria-pressed="false"><span class="dot" style="background:var(--spec-clinico)"></span>Clínica Médica</button>
       <button type="button" class="pill" data-esp="cirurgia" aria-pressed="false"><span class="dot" style="background:var(--spec-cirurgia)"></span>Cirurgia Geral</button>
@@ -311,11 +308,9 @@ body.printing-card main{padding:12px;max-width:none}
       <button type="button" class="pill" data-esp="pediatra" aria-pressed="false"><span class="dot" style="background:var(--spec-pediatra)"></span>Pediatria</button>
       <button type="button" class="pill" data-esp="depende" aria-pressed="false"><span class="dot" style="background:var(--spec-depende)"></span>Depende / múltiplas</button>
     </div>
-
     <div id="cards"></div>
     <div class="empty" id="empty" style="display:none">Nenhum fluxograma encontrado. Ajuste a busca ou os filtros.</div>
   </section>
-
   <!-- ============ LEIA PRIMEIRO ============ -->
   <section class="view" id="view-leia" role="tabpanel">
     <div class="prose">
@@ -324,12 +319,10 @@ body.printing-card main{padding:12px;max-width:none}
         <p>O Sistema Manchester classifica <strong>prioridade clínica</strong> (gravidade e tempo-alvo de espera), <strong>não</strong> define especialidade. O GBCR orienta que não cabe ao enfermeiro classificador definir conduta ou abrir protocolos assistenciais.</p>
         <p>Esta página é um <strong>protocolo institucional local</strong>, sobreposto ao MTS, para organizar o encaminhamento no seu pronto atendimento. Ela <strong>não</strong> substitui o julgamento médico e deve ser formalmente validada e assinada pelo corpo clínico e pela direção técnica antes do uso.</p>
       </div>
-
       <div class="callout">
         <h3>Como resolver o atrito relatado</h3>
         <p>As queixas do grupo médico sobre "encaminhamento errado" costumam vir de um mal-entendido de função: o classificador prioriza risco, não faz diagnóstico nem escolhe especialista. Recomenda-se: (1) formalizar este mapa como protocolo assinado; (2) definir que casos vermelho/laranja vão primeiro ao médico de porta / equipe de emergência para estabilização, com a especialidade entrando como interconsulta; (3) usar as perguntas-chave da aba correspondente para reduzir ambiguidade na escolha do fluxograma.</p>
       </div>
-
       <div class="callout rule">
         <h3>Regra-mestre 1 — Gravidade tem precedência</h3>
         <p><strong>Vermelho (imediato)</strong> e <strong>laranja (~10 min)</strong>: paciente é atendido primeiro pelo médico de porta / equipe de emergência para estabilização (ABCDE). A especialidade é acionada como interconsulta, não como "porta de entrada".</p>
@@ -343,7 +336,6 @@ body.printing-card main{padding:12px;max-width:none}
         <p>Não há na equipe: cardiologista, neurologista, psiquiatra, urologista, oftalmologista, otorrino, dermatologista, bucomaxilo/dentista, cirurgião vascular. Nesses temas, o <strong>Clínica Médica</strong> faz a abordagem inicial do adulto (e o <strong>Pediatra</strong>, da criança), com transferência para serviço de referência quando indicado.</p>
         <p style="color:var(--ink-faint)"><strong>Equipe disponível:</strong> 1 Ortopedia · 1 Ginecologia/Obstetrícia · 1 Cirurgia Geral · 3 Pediatras · 5 Clínicos Gerais.</p>
       </div>
-
       <div class="callout">
         <h3>Níveis de prioridade (cores) — tempo-alvo de referência</h3>
         <table class="prio-table">
@@ -356,12 +348,10 @@ body.printing-card main{padding:12px;max-width:none}
         </table>
         <p style="color:var(--ink-faint);margin-top:8px">Os tempos-alvo são a referência clássica do MTS; confirme os valores na edição vigente do manual GBCR adotada pela sua instituição — há pequenas variações entre edições.</p>
       </div>
-
       <div class="callout">
         <h3>Discriminadores gerais (aplicam-se a todos os fluxogramas)</h3>
         <p>Risco de morte · Dor · Hemorragia · Nível/estado de consciência · Temperatura · Agravamento (piora). Além destes, cada fluxograma tem discriminadores específicos.</p>
       </div>
-
       <div class="callout warn">
         <h3>Fontes e limites de precisão</h3>
         <p>• <strong>Nº de fluxogramas:</strong> o site oficial do GBCR informa 53; fontes acadêmicas citam 52 (7 pediátricos + 2 de catástrofe) e alguns portais citam 55 — a contagem varia conforme edição.</p>
@@ -370,7 +360,6 @@ body.printing-card main{padding:12px;max-width:none}
       </div>
     </div>
   </section>
-
   <!-- ============ SIMULADOR ============ -->
   <section class="view" id="view-sim" role="tabpanel">
     <div class="sim-wrap">
@@ -378,7 +367,6 @@ body.printing-card main{padding:12px;max-width:none}
       <div id="simPanel"></div>
     </div>
   </section>
-
   <!-- ============ CASOS ============ -->
   <section class="view" id="view-casos" role="tabpanel">
     <div class="prose">
@@ -386,7 +374,6 @@ body.printing-card main{padding:12px;max-width:none}
       <div id="casos"></div>
     </div>
   </section>
-
   <!-- ============ PERGUNTAS ============ -->
   <section class="view" id="view-perguntas" role="tabpanel">
     <div class="prose">
@@ -395,14 +382,11 @@ body.printing-card main{padding:12px;max-width:none}
     </div>
   </section>
 </main>
-
 <div class="footer">
   Protocolo institucional local de apoio à classificação de risco · baseado no Sistema Manchester (GBCR, 2ª ed.). Conteúdo representativo, não transcrição do manual oficial. Requer validação e assinatura do corpo clínico e da direção técnica antes do uso. Documento de apoio — não substitui o julgamento médico. Referência oficial: <a href="https://www.gbcr.org.br" target="_blank" rel="noopener">gbcr.org.br</a>.
 </div>
-
 <script>
 "use strict";
-
 const SPEC_META = {
   clinico:{label:"Clínica Médica", color:"var(--spec-clinico)"},
   cirurgia:{label:"Cirurgia Geral", color:"var(--spec-cirurgia)"},
@@ -411,10 +395,8 @@ const SPEC_META = {
   pediatra:{label:"Pediatria", color:"var(--spec-pediatra)"},
   depende:{label:"Depende / múltiplas", color:"var(--spec-depende)"}
 };
-
 // spec = categoria para cor/filtro (a mais indicada no adulto)
 const DATA = [
-
 {grupo:"Cirurgia Geral", flux:"Agressão", spec:"cirurgia", specs:["cirurgia", "orto"], disc:"Trauma físico por agressão", esp:"Cirurgia/Ortopedia", just:"Qual mecanismo da agressão? Houve queda, pancada na cabeça, arma branca/fogo ou estrangulamento? Perdeu consciência? Tem dor onde? Há sangramento, deformidade, ferida ou déficit neurológico? Usa anticoagulante? É criança, idoso ou gestante?", obs:"GO se gestante ou violência sexual feminina; Cirurgia/Ortopedia (na dependencia do local)", mudar:"", ped:"Cirurgia/Ortopedia", atencao:false},
 {grupo:"Clínica Médica", flux:"Autoagressão", spec:"pediatra", specs:["pediatra"], disc:"Autoagressão, tentativa de suicídio, lesão autoprovocada", esp:"Clínica/Pediatria", just:"Qual foi o método? Houve ingestão de medicamentos ou substâncias? Há ferimentos? Existe ideação suicida atual? Planejamento? Tentativas prévias? Está acompanhado? Tem doença psiquiátrica ou uso de álcool/drogas?", obs:"Cirurgia/Ortopedia se ferimento ou trauma predominante ( Mecanismo do trauma significativo, Hemorragia maior incontrilável);", mudar:"", ped:"Clínica/Pediatria", atencao:false},
 {grupo:"Clínica Médica", flux:"Alteração de comportamento", spec:"pediatra", specs:["pediatra"], disc:"Agitação, confusão, surto, delirium, alteração psiquiátrica ou orgânica", esp:"Clínica/Pediatria", just:"Início súbito ou progressivo? Febre? Trauma? Uso de álcool/drogas/medicamentos? Diabetes? Convulsão? Cefaleia? Déficit neurológico? História psiquiátrica? Risco para si ou terceiros?", obs:"", mudar:"", ped:"Clínica/Pediatria", atencao:false},
@@ -505,7 +487,6 @@ const CASOS_DUVIDA = [
 {sit:"Lesão genital feminina / corrimento / mastalgia", esp:"Ginecologia/Obstetrícia", just:"Queixa do sistema genital feminino/mama é da GO, salvo quadro clínico sistêmico predominante.", perg:"Dor pélvica? Corrimento? Lesão? Sangramento? Gestante? Lactante?", mudar:"ao será direconado para cirurgia na contingência", obs:"Lesão genital/mama não faz sentido ir para clínica como regra.", specs:["go"]},
 {sit:"Pós-operatório com dor na ferida/área operada", esp:"Cirurgia/Ortopedia/GO", just:"Queixa relacionada ao procedimento deve ser avaliada pela especialidade cirúrgica correspondente.", perg:"Qual cirurgia? Data? Dor local? Secreção? Sangramento? Febre?", mudar:"Clínica se queixa clínica geral não relacionada ao procedimento.", obs:"Evita perda de tempo e duplicidade de avaliação.", specs:["cirurgia", "orto", "go"]},
 ];
-
 const PERGUNTAS = [
  {sec:"A) Risco de morte — sempre primeiro (abordagem tipo ABCDE)", items:[
    ["Via aérea / respiração","• Está respirando com dificuldade, fazendo barulho (estridor/chiado) ou muito ofegante?\n• Consegue falar frases completas? Lábios/extremidades roxos (cianose)?\n• Qual a saturação de O2?"],
@@ -540,11 +521,9 @@ const PERGUNTAS = [
    ["Lembrete","Estas perguntas apoiam a escolha de fluxograma/discriminador e a prioridade. Não são para diagnosticar nem definir especialidade — isso é atribuição médica, conforme orientação do GBCR."]
  ]}
 ];
-
 /* ---------- Render ---------- */
 const $ = s => document.querySelector(s);
 const chevSVG = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>';
-
 function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
 function hi(text, q){
   const e = esc(text);
@@ -552,22 +531,18 @@ function hi(text, q){
   const rx = new RegExp("("+q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig");
   return e.replace(rx,"<mark>$1</mark>");
 }
-
 // grupos únicos em ordem de aparição
 const GRUPOS = [...new Set(DATA.map(d=>d.grupo))];
 const gSel = $("#fGrupo");
 GRUPOS.forEach(g=>{const o=document.createElement("option");o.value=g;o.textContent=g;gSel.appendChild(o);});
-
 function chip(spec){
   const m = SPEC_META[spec] || SPEC_META.depende;
   return '<span class="chip" style="background:'+m.color+'">'+m.label+'</span>';
 }
-
 function chipsFor(d){
   const list = (d.specs && d.specs.length) ? d.specs : [d.spec];
   return list.map(chip).join(' ');
 }
-
 function cardHTML(d,q){
   const badges = [];
   if(d.atencao) badges.push('<span class="badge-atencao">⚠ Atenção</span>');
@@ -586,9 +561,7 @@ function cardHTML(d,q){
   html += '</div></div>';
   return html;
 }
-
 let forceOpen = false;
-
 function render(){
   const q = $("#q").value.trim().toLowerCase();
   const fg = gSel.value, fe = $("#fEsp").value;
@@ -601,16 +574,13 @@ function render(){
     }
     return true;
   });
-
   const cont = $("#cards");
   cont.innerHTML="";
   const empty = $("#empty");
   empty.style.display = filtered.length? "none":"block";
-
   const byGroup = {};
   filtered.forEach(d=>{(byGroup[d.grupo]=byGroup[d.grupo]||[]).push(d);});
   const openIt = forceOpen || !!q || !!fe;
-
   GRUPOS.filter(g=>byGroup[g]).forEach(g=>{
     const det = document.createElement("details");
     det.className="group";
@@ -619,12 +589,9 @@ function render(){
       <div class="g-body">${byGroup[g].map(d=>cardHTML(d,q)).join("")}</div>`;
     cont.appendChild(det);
   });
-
   $("#count").textContent = `${filtered.length} de ${DATA.length} fluxogramas`;
 }
-
 function renderCasos(){ const c=document.getElementById("casos"); if(!c||typeof CASOS_DUVIDA==="undefined") return; c.innerHTML=CASOS_DUVIDA.map(function(x,i){return "<details class=acc"+ (i===0?" open":"") +"><summary>"+esc(x.sit)+"</summary><div class=acc-body><div class=qrow><div class=qk>Especialidade</div><div class=qv>"+esc(x.esp)+"</div></div><div class=qrow><div class=qk>Perguntas estratégicas</div><div class=qv>"+esc(x.just)+"</div></div><div class=qrow><div class=qk>Perguntas</div><div class=qv>"+esc(x.perg)+"</div></div><div class=qrow><div class=qk>Quando mudar</div><div class=qv>"+esc(x.mudar)+"</div></div><div class=qrow><div class=qk>Observação institucional</div><div class=qv>"+esc(x.obs)+"</div></div></div></details>";}).join(""); }
-
 function renderPerguntas(){
   const c = $("#perguntas");
   c.innerHTML = PERGUNTAS.map((p,i)=>`
@@ -635,7 +602,6 @@ function renderPerguntas(){
       </div>
     </details>`).join("");
 }
-
 /* ---------- Tabs ---------- */
 document.querySelectorAll(".tab").forEach(t=>{
   t.addEventListener("click",()=>{
@@ -646,14 +612,12 @@ document.querySelectorAll(".tab").forEach(t=>{
     window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});
   });
 });
-
 /* ---------- Events ---------- */
 const LS = {
   corte: "manchester_corte_idade",
   photo: "manchester_photo_more",
   compact: "manchester_compact"
 };
-
 $("#q").addEventListener("input",render);
 gSel.addEventListener("change",render);
 $("#fEsp").addEventListener("change",()=>{ syncLegendFromSelect(); render(); });
@@ -662,7 +626,6 @@ $("#expandAll").addEventListener("click",e=>{
   e.target.textContent = forceOpen? "Recolher tudo":"Expandir tudo";
   render();
 });
-
 function syncLegendFromSelect(){
   const fe = $("#fEsp").value;
   document.querySelectorAll(".legend .pill").forEach(p=>{
@@ -680,7 +643,6 @@ document.querySelectorAll(".legend .pill").forEach(p=>{
   });
 });
 syncLegendFromSelect();
-
 document.addEventListener("keydown",e=>{
   if(e.key!=="/" || e.ctrlKey || e.metaKey || e.altKey) return;
   const t = e.target;
@@ -691,7 +653,6 @@ document.addEventListener("keydown",e=>{
   q.focus();
   q.select();
 });
-
 $("#cards").addEventListener("click",e=>{
   const btn = e.target.closest(".btn-print");
   if(!btn) return;
@@ -710,7 +671,6 @@ $("#cards").addEventListener("click",e=>{
   window.addEventListener("afterprint", cleanup);
   setTimeout(()=>{ window.print(); setTimeout(cleanup, 800); }, 50);
 });
-
 /* ---------- Preferencias (foto / densidade) ---------- */
 function applyPref(key, cls, btnId, on){
   document.body.classList.toggle(cls, on);
@@ -732,7 +692,6 @@ function applyPref(key, cls, btnId, on){
   if(tp) tp.addEventListener("click",()=>applyPref(LS.photo,"photo-more","togglePhoto",!document.body.classList.contains("photo-more")));
   if(tc) tc.addEventListener("click",()=>applyPref(LS.compact,"compact","toggleCompact",!document.body.classList.contains("compact")));
 })();
-
 /* ---------- Corte etario (topo) ---------- */
 const corteInput = document.getElementById("corteIdade");
 try{
@@ -751,7 +710,6 @@ function applyCorte(){
 }
 corteInput.addEventListener("input",applyCorte);
 corteInput.addEventListener("change",()=>{ if(corteInput.value==="") corteInput.value=14; applyCorte(); });
-
 /* ---------- Altura real do header ---------- */
 function setHH(){
   const h = document.querySelector("header").offsetHeight;
@@ -759,17 +717,14 @@ function setHH(){
 }
 window.addEventListener("resize",setHH);
 window.addEventListener("load",setHH);
-
 applyCorte();
 render();
 renderPerguntas(); renderCasos();
-
 if("serviceWorker" in navigator){
   window.addEventListener("load",()=>{
     navigator.serviceWorker.register("/sw.js").catch(()=>{});
   });
 }
-
 /* ==================== SIMULADOR ==================== */
 const PRIO = {
   vermelho:{label:"VERMELHO",bg:"var(--red)",fg:"#fff",time:"Imediato (0 min)",txt:"Emergência — atendimento imediato",targetMin:0},
@@ -778,18 +733,63 @@ const PRIO = {
   verde:   {label:"VERDE",   bg:"var(--green)",fg:"#fff",time:"~120 minutos",txt:"Pouco urgente",targetMin:120},
   azul:    {label:"AZUL",    bg:"var(--blue)",fg:"#fff",time:"~240 minutos",txt:"Não urgente",targetMin:240}
 };
-
 const simState = { step:0, age:null, isPed:false, grupo:null, flux:null, discSel:[], prio:null };
-
 function simDiscList(fluxObj){
-  return fluxObj.disc.split(";").map(s=>s.trim()).filter(Boolean);
+  return String(fluxObj.disc||"").split(/[;,]+/).map(s=>s.trim()).filter(Boolean);
 }
-
+function normTxt(s){
+  return String(s||"").toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9\s]/g," ")
+    .replace(/\s+/g," ").trim();
+}
+const AI_ALIASES = [
+  [/dor de cabeca|cefaleia|enxaqueca|migranea/, "Cefaleia"],
+  [/torcicolo|cervicalgia|pescoco/, "Cervicalgia / torcicolo"],
+  [/falta de ar|dispneia|asma|dpoc|chiado|ofego/, "Dispneia / asma / DPOC"],
+  [/dor no peito|dor toracica|infarto|angina/, "Dor toracica"],
+  [/desmaio|sincope|desmaiou/, "Desmaio"],
+  [/febre|mal estar|cansado|indisposicao/, "Febre / mal-estar adulto"],
+  [/dor abdominal|dor de barriga|epigastr/, "Dor abdominal adulto"],
+  [/vomito|diarreia|gastro/, "Vomitos / diarreia"],
+  [/dor lombar|coluna|ciatica/, "Dor lombar"],
+  [/urina|disuria|infeccao urinaria|itu|hematuria/, "Problemas urinarios"],
+  [/olho|ocular|visao/, "Problemas em olhos"],
+  [/ouvido|otalgia/, "Problemas em ouvidos"],
+  [/nariz|epistaxe|sangramento nasal/, "Epistaxe"],
+  [/dente|dentaria|odonto/, "Problemas dentarios"],
+  [/joelho|tornozelo|ombro|membro|fratura|entorse/, "Problemas de extremidade"],
+  [/articula/, "Dor articular"],
+  [/avc|derrame|paralisia|fala enrolada/, "AVC / deficit neurologico"],
+  [/testiculo|escroto/, "Dor testicular / escroto agudo"],
+];
+function suggestFluxLocal(symptoms, age){
+  const q = normTxt(symptoms);
+  const tokens = q.split(" ").filter(t=>t.length>2);
+  let best=null, bestScore=-1;
+  const aliasHits = [];
+  for(const [rx, flux] of AI_ALIASES){ if(rx.test(q) && flux) aliasHits.push(flux); }
+  const corte = parseInt(document.getElementById("corteIdade").value,10)||14;
+  for(const d of DATA){
+    let score=0;
+    const fluxN = normTxt(d.flux);
+    const hay = normTxt([d.flux,d.disc,d.just,d.esp,d.obs,d.grupo,d.ped].join(" "));
+    if(aliasHits.some(a=>{ const an=normTxt(a); return an===fluxN || fluxN.includes(an) || an.includes(fluxN); })) score += 40;
+    for(const tok of tokens){ if(fluxN.includes(tok)) score += 8; else if(hay.includes(tok)) score += 2; }
+    if(age!=null && age < corte){ if(d.grupo==="Pediatria") score += 3; if(/pediatr/i.test(d.esp+" "+(d.ped||""))) score += 1; }
+    if(score>bestScore){ bestScore=score; best=d; }
+  }
+  if(!best || bestScore<6){
+    const isPed = age!=null && age < corte;
+    best = DATA.find(d=>d.flux.toLowerCase().includes(isPed?"crianca doente":"adulto doente")) || DATA[0];
+    return {grupo:best.grupo, flux:best.flux, reason:"Sugestao local (sem API). Confira o fluxograma no mapa.", local:true};
+  }
+  return {grupo:best.grupo, flux:best.flux, reason:"Sugestao local pela matriz ("+bestScore+" pts). Confira discriminadores e encaminhamento.", local:true};
+}
 // heurística simples: cada discriminador com palavra de alarme puxa cor
 const RED_RX   = /instabilidade|choque|via aérea|estridor|obstru|exsanguin|convuls|coma|anafilaxia|hipertensivo|eviscera|glote|apneia|parada|rebaixamento|pior/i;
 const ORAN_RX  = /grave|intens|sepse|peritonite|penetrante|isquem|torção|fratura exposta|neurovascular|hemorragia|petéquias|púrpura|dispneia|cauda equina|meningi|súbit|hipotens|SpO2 baixa|tiragem/i;
 const YEL_RX   = /moderad|febre|vômito|dor|desidrat|deformidade|edema|sangramento|cólica|palpitaç|tontura/i;
-
 function inferPrio(selectedDiscs){
   if(selectedDiscs.length===0) return "verde";
   const joined = selectedDiscs.join(" ; ");
@@ -798,7 +798,6 @@ function inferPrio(selectedDiscs){
   if(YEL_RX.test(joined)) return "amarelo";
   return "verde";
 }
-
 function simRenderStepper(){
   const steps = ["Idade","Grupo","Fluxograma","Discriminadores","Resultado"];
   $("#simStepper").innerHTML = steps.map((s,i)=>{
@@ -808,14 +807,11 @@ function simRenderStepper(){
     return `<div class="${cls}">${i+1}. ${s}</div>`;
   }).join("");
 }
-
 function simGo(step){ simState.step = step; renderSim(); }
-
 function renderSim(){
   simRenderStepper();
   const panel = $("#simPanel");
   const corte = parseInt(document.getElementById("corteIdade").value,10) || 14;
-
   if(simState.step===0){
     panel.innerHTML = `
       <div class="sim-panel">
@@ -839,7 +835,6 @@ function renderSim(){
     $("#simReset").onclick = simResetAll;
     return;
   }
-
   if(simState.step===1){
     const opts = GRUPOS.map(g=>{
       const sel = simState.grupo===g?" selected":"";
@@ -885,19 +880,26 @@ function renderSim(){
         aiRun.disabled = true;
         status.innerHTML = '<span style="color:var(--green-dark)">⏳ Consultando IA…</span>';
         try{
-          const catalog = DATA.map(d=>({grupo:d.grupo, flux:d.flux, disc:d.disc}));
-          const r = await fetch("/api/triage-route",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body: JSON.stringify({age:simState.age, symptoms:txt, catalog})
-          });
-          if(!r.ok){ throw new Error(await r.text()); }
-          const j = await r.json();
-          if(j.error){ status.innerHTML = '<span style="color:var(--red)">'+esc(j.error)+'</span>'; aiRun.disabled=false; return; }
+          let j = null;
+          try{
+            const catalog = DATA.map(d=>({grupo:d.grupo, flux:d.flux, disc:d.disc}));
+            const r = await fetch("/api/triage-route",{
+              method:"POST",
+              headers:{"Content-Type":"application/json"},
+              body: JSON.stringify({age:simState.age, symptoms:txt, catalog})
+            });
+            if(r.ok){
+              const parsed = await r.json();
+              if(!parsed.error && parsed.flux) j = parsed;
+            }
+          }catch(_api){}
+          if(!j) j = suggestFluxLocal(txt, simState.age);
           simState.grupo = j.grupo;
           simState.flux = j.flux;
           simState.discSel = [];
           simState.aiReason = j.reason || "";
+          const via = j.local ? " (local)" : " (IA)";
+          status.innerHTML = '<span style="color:var(--green-dark)">Fluxograma: <b>'+esc(j.flux)+'</b>'+via+'</span>';
           simGo(3);
         }catch(e){
           status.innerHTML = '<span style="color:var(--red)">Falha: '+esc(String(e.message||e))+'</span>';
@@ -909,7 +911,6 @@ function renderSim(){
     $("#simNext1").onclick=()=>simGo(2);
     return;
   }
-
   if(simState.step===2){
     const fluxos = DATA.filter(d=>d.grupo===simState.grupo);
     const opts = fluxos.map(d=>{
@@ -933,7 +934,6 @@ function renderSim(){
     $("#simNext2").onclick=()=>simGo(3);
     return;
   }
-
   if(simState.step===3){
     const fluxObj = DATA.find(d=>d.grupo===simState.grupo && d.flux===simState.flux);
     const discs = simDiscList(fluxObj);
@@ -948,7 +948,7 @@ function renderSim(){
     panel.innerHTML = `
       <div class="sim-panel">
         <h2>4. Quais discriminadores estão presentes?</h2>
-        <p class="hint">Fluxograma: <b>${esc(simState.flux)}</b>. Marque todos que se aplicam — a prioridade adotará o pior discriminador.</p>
+        <p class="hint">Fluxograma: <b>${esc(simState.flux)}</b>. Itens da coluna Discriminador da matriz. Marque os presentes — a prioridade adotará o pior discriminador.</p>
         ${aiNote}
         <div class="sim-opts">${opts}</div>
         <div class="sim-actions">
@@ -968,16 +968,19 @@ function renderSim(){
     $("#simNext3").onclick=()=>{ simState.prio = inferPrio(simState.discSel); simGo(4); };
     return;
   }
-
   // step 4 — resultado
   const fluxObj = DATA.find(d=>d.grupo===simState.grupo && d.flux===simState.flux);
   const p = PRIO[simState.prio];
-  const especialidade = simState.isPed
-    ? `<b>Pediatra</b> em 1ª linha${fluxObj.spec!=='pediatra'?` (em conjunto com: ${esc(fluxObj.esp)})`:''}`
-    : esc(fluxObj.esp);
-  const alertHi = (simState.prio==='vermelho'||simState.prio==='laranja')
-    ? `<div class="rv" style="color:var(--red);font-weight:600;margin-top:4px">⚠ Prioridade alta: estabilização imediata pelo médico de porta / equipe de emergência (ABCDE). A especialidade entra como interconsulta.</div>`
-    : '';
+  const especialidade = esc(fluxObj.esp || "");
+  const contingencia = (fluxObj.ped && String(fluxObj.ped).trim())
+    ? esc(fluxObj.ped)
+    : (simState.isPed ? "Pediatra em 1a linha (regra institucional)" : "");
+  const pedNote = simState.isPed
+    ? `<div class="rv" style="color:var(--ink-dim);margin-top:4px">Paciente pediatrico: <b>Pediatra</b> em 1a linha; especialidade da matriz permanece como referencia.</div>`
+    : "";
+  const alertHi = (simState.prio==="vermelho"||simState.prio==="laranja")
+    ? `<div class="rv" style="color:var(--red);font-weight:600;margin-top:4px">Prioridade alta: estabilizacao imediata pelo medico de porta / equipe de emergencia (ABCDE). A especialidade entra como interconsulta.</div>`
+    : "";
   panel.innerHTML = `
     <div class="sim-result">
       <div class="sim-prio-band" style="background:${p.bg};color:${p.fg}">
@@ -998,9 +1001,10 @@ function renderSim(){
         <div class="sim-result-row"><div class="rk">Idade</div><div class="rv">${simState.age} anos ${simState.isPed?'(pediátrico)':'(adulto)'}</div></div>
         <div class="sim-result-row"><div class="rk">Fluxograma</div><div class="rv">${esc(simState.flux)} <span style="color:var(--ink-faint)">· ${esc(simState.grupo)}</span></div></div>
         <div class="sim-result-row"><div class="rk">Discriminadores</div><div class="rv">${simState.discSel.length?simState.discSel.map(esc).join('<br>'):'<span style="color:var(--ink-faint)">Nenhum marcado</span>'}</div></div>
-        <div class="sim-result-row"><div class="rk">Especialidade sugerida</div><div class="rv">${especialidade}${alertHi}</div></div>
+        <div class="sim-result-row"><div class="rk">Especialidade</div><div class="rv">${especialidade}${pedNote}${alertHi}</div></div>
+        ${contingencia ? `<div class="sim-result-row"><div class="rk">Contingencia</div><div class="rv">${contingencia}</div></div>` : ""}
         <div class="sim-result-row"><div class="rk">Perguntas estratégicas</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.just)}</div></div>
-        <div class="sim-result-row"><div class="rk">Observações</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.obs)}</div></div>
+        <div class="sim-result-row"><div class="rk">Observação institucional</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.obs)}</div></div>
       </div>
       <div class="sim-reeval" id="reBox">
         <span class="re-label">🔁 Reavaliar em</span>
@@ -1026,13 +1030,11 @@ function renderSim(){
   startCountdown(p.targetMin);
   wireReeval();
 }
-
 function simResetAll(){
   simState.step=0; simState.age=null; simState.isPed=false;
   simState.grupo=null; simState.flux=null; simState.discSel=[]; simState.prio=null; simState.aiReason=null;
   renderSim();
 }
-
 /* ---------- Countdown (tempo-alvo) ---------- */
 let cdInterval = null;
 function stopCountdown(){ if(cdInterval){ clearInterval(cdInterval); cdInterval=null; } }
@@ -1062,7 +1064,6 @@ function startCountdown(targetMin){
   tick();
   cdInterval = setInterval(tick, 1000);
 }
-
 /* ---------- Reavaliação (lembrete) ---------- */
 let reTimeout = null;
 let reCountdown = null;
@@ -1124,7 +1125,6 @@ function wireReeval(){
     status.textContent = "Lembrete cancelado.";
   };
 }
-
 renderSim();
 </script>
 </body>
