@@ -580,7 +580,7 @@ function cardHTML(d,q){
   html += '<div class="field disc"><div class="k">Discriminador</div><div class="v">'+hi(d.disc,q)+'</div></div>';
   html += '<div class="field"><div class="k">Especialidade</div><div class="v">'+hi(d.esp,q)+'</div></div>';
   html += '<div class="field"><div class="k">Perguntas estratégicas</div><div class="v">'+hi(d.just,q)+'</div></div>';
-  html += '<div class="field obs"><div class="k">Observação institucional</div><div class="v">'+hi(d.obs||'',q)+'</div></div>';
+  if(d.obs) html += '<div class="field obs"><div class="k">Observação institucional</div><div class="v">'+hi(d.obs,q)+'</div></div>';
   if(d.mudar) html += '<div class="field"><div class="k">Quando mudar</div><div class="v">'+hi(d.mudar,q)+'</div></div>';
   if(d.ped) html += '<div class="field"><div class="k">Contingência</div><div class="v ped">'+hi(d.ped,q)+'</div></div>';
   html += '</div></div>';
@@ -786,7 +786,7 @@ function simDiscList(fluxObj){
 }
 
 // heurística simples: cada discriminador com palavra de alarme puxa cor
-const RED_RX   = /instabilidade|choque|via aérea|estridor|obstru|exsanguin|convuls|coma|anafilaxia|hipertensivo|eviscera|glote|apneia|parada|rebaixamento|"pior/i;
+const RED_RX   = /instabilidade|choque|via aérea|estridor|obstru|exsanguin|convuls|coma|anafilaxia|hipertensivo|eviscera|glote|apneia|parada|rebaixamento|pior/i;
 const ORAN_RX  = /grave|intens|sepse|peritonite|penetrante|isquem|torção|fratura exposta|neurovascular|hemorragia|petéquias|púrpura|dispneia|cauda equina|meningi|súbit|hipotens|SpO2 baixa|tiragem/i;
 const YEL_RX   = /moderad|febre|vômito|dor|desidrat|deformidade|edema|sangramento|cólica|palpitaç|tontura/i;
 
