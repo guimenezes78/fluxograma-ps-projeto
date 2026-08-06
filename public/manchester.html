@@ -784,7 +784,7 @@ function suggestFluxLocal(symptoms, age){
     best = DATA.find(d=>d.flux.toLowerCase().includes(isPed?"crianca doente":"adulto doente")) || DATA[0];
     return {grupo:best.grupo, flux:best.flux, reason:"Sugestao local (sem API). Confira o fluxograma no mapa.", local:true};
   }
-  return {grupo:best.grupo, flux:best.flux, reason:"Sugestao local pela matriz ("+bestScore+" pts). Confira discriminadores e encaminhamento.", local:true};
+  return {grupo:best.grupo, flux:best.flux, reason:"Sugestao local pela matriz ("+bestScore+" pts). Confira o fluxograma e o encaminhamento da matriz.", local:true};
 }
 // heurística simples: cada discriminador com palavra de alarme puxa cor
 const RED_RX   = /instabilidade|choque|via aérea|estridor|obstru|exsanguin|convuls|coma|anafilaxia|hipertensivo|eviscera|glote|apneia|parada|rebaixamento|pior/i;
@@ -799,7 +799,7 @@ function inferPrio(selectedDiscs){
   return "verde";
 }
 function simRenderStepper(){
-  const steps = ["Idade","Grupo","Fluxograma","Discriminadores","Resultado"];
+  const steps = ["Idade","Grupo","Fluxograma","Pistas","Encaminhamento"];
   $("#simStepper").innerHTML = steps.map((s,i)=>{
     let cls="sim-step-dot";
     if(i<simState.step) cls+=" done";
@@ -915,7 +915,7 @@ function renderSim(){
     const fluxos = DATA.filter(d=>d.grupo===simState.grupo);
     const opts = fluxos.map(d=>{
       const sel = simState.flux===d.flux?" selected":"";
-      return `<button class="sim-opt${sel}" data-f="${esc(d.flux)}">${esc(d.flux)}</button>`;
+      return `<button class="sim-opt${sel}" data-f="${esc(d.flux)}" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;justify-content:space-between"><span>${esc(d.flux)}</span><span class="chips">${chipsFor(d)}</span></button>`;
     }).join("");
     panel.innerHTML = `
       <div class="sim-panel">
@@ -940,6 +940,16 @@ function renderSim(){
     const aiNote = simState.aiReason
       ? `<div class="hint" style="background:var(--tint);border:1px dashed var(--green);padding:10px 12px;border-radius:10px;margin-bottom:12px;color:var(--green-dark)"><b>🤖 Sugestão da IA:</b> ${esc(simState.aiReason)}</div>`
       : '';
+    const justShort = String(fluxObj.just||"").trim();
+    const justPreview = justShort.length>220 ? justShort.slice(0,220).trim()+"…" : justShort;
+    const dash = '<span style="color:var(--ink-faint)">—</span>';
+    const matrizResumo = `
+      <div class="sim-result-body" style="margin:0 0 14px;border:1px solid var(--line);border-radius:12px;padding:4px 0;background:var(--tint)">
+        <div class="sim-result-row"><div class="rk">Fluxograma</div><div class="rv">${esc(simState.flux)} <span style="color:var(--ink-faint)">· ${esc(simState.grupo)}</span> <span class="chips" style="display:inline-flex;margin-left:6px">${chipsFor(fluxObj)}</span></div></div>
+        <div class="sim-result-row"><div class="rk">Especialidade</div><div class="rv">${esc(fluxObj.esp||"—")}</div></div>
+        <div class="sim-result-row"><div class="rk">Contingência</div><div class="rv">${fluxObj.ped && String(fluxObj.ped).trim() ? esc(fluxObj.ped) : dash}</div></div>
+        <div class="sim-result-row"><div class="rk">Perguntas estratégicas</div><div class="rv" style="color:var(--ink-dim)">${justPreview ? esc(justPreview) : dash}</div></div>
+      </div>`;
     const opts = discs.map((s,i)=>{
       const checked = simState.discSel.includes(s)?' checked':'';
       const sel = simState.discSel.includes(s)?' selected':'';
@@ -947,13 +957,15 @@ function renderSim(){
     }).join("");
     panel.innerHTML = `
       <div class="sim-panel">
-        <h2>4. Quais discriminadores estão presentes?</h2>
-        <p class="hint">Fluxograma: <b>${esc(simState.flux)}</b>. Itens da coluna Discriminador da matriz. Marque os presentes — a prioridade adotará o pior discriminador.</p>
+        <h2>4. Quais sinais da matriz estão presentes?</h2>
+        <p class="hint">Itens da coluna Discriminador da matriz — orientam o encaminhamento e ajudam a estimar a prioridade (não são discriminadores oficiais MTS coloridos).</p>
         ${aiNote}
-        <div class="sim-opts">${opts}</div>
+        ${matrizResumo}
+        <p class="hint" style="margin-top:0">Marque os sinais presentes:</p>
+        <div class="sim-opts">${opts||'<p class="hint">Nenhum item na coluna Discriminador para este fluxograma.</p>'}</div>
         <div class="sim-actions">
           <button class="sim-btn ghost" id="simBack">← Voltar</button>
-          <button class="sim-btn" id="simNext3">Classificar →</button>
+          <button class="sim-btn" id="simNext3">Ver encaminhamento →</button>
         </div>
       </div>`;
     panel.querySelectorAll('input[type=checkbox]').forEach(cb=>{
@@ -968,21 +980,37 @@ function renderSim(){
     $("#simNext3").onclick=()=>{ simState.prio = inferPrio(simState.discSel); simGo(4); };
     return;
   }
-  // step 4 — resultado
+  // step 4 — encaminhamento (espelha o mapa)
   const fluxObj = DATA.find(d=>d.grupo===simState.grupo && d.flux===simState.flux);
   const p = PRIO[simState.prio];
   const especialidade = esc(fluxObj.esp || "");
-  const contingencia = (fluxObj.ped && String(fluxObj.ped).trim())
-    ? esc(fluxObj.ped)
-    : (simState.isPed ? "Pediatra em 1a linha (regra institucional)" : "");
+  const contingenciaMatriz = (fluxObj.ped && String(fluxObj.ped).trim()) ? esc(fluxObj.ped) : "";
+  const pedExtra = contingenciaMatriz ? `; Contingência da matriz: <b>${contingenciaMatriz}</b>` : "";
   const pedNote = simState.isPed
-    ? `<div class="rv" style="color:var(--ink-dim);margin-top:4px">Paciente pediatrico: <b>Pediatra</b> em 1a linha; especialidade da matriz permanece como referencia.</div>`
+    ? `<div class="rv" style="color:var(--ink-dim);margin-top:4px">Paciente pediátrico: <b>Pediatra</b> em 1ª linha${pedExtra}. Especialidade da matriz permanece como referência.</div>`
     : "";
   const alertHi = (simState.prio==="vermelho"||simState.prio==="laranja")
-    ? `<div class="rv" style="color:var(--red);font-weight:600;margin-top:4px">Prioridade alta: estabilizacao imediata pelo medico de porta / equipe de emergencia (ABCDE). A especialidade entra como interconsulta.</div>`
+    ? `<div class="rv" style="color:var(--red);font-weight:600;margin-top:4px">Prioridade alta estimada: estabilização imediata pelo médico de porta / equipe de emergência (ABCDE). A especialidade entra como interconsulta.</div>`
+    : "";
+  const obsRow = (fluxObj.obs && String(fluxObj.obs).trim())
+    ? `<div class="sim-result-row"><div class="rk">Observação institucional</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.obs)}</div></div>`
+    : "";
+  const mudarRow = (fluxObj.mudar && String(fluxObj.mudar).trim())
+    ? `<div class="sim-result-row"><div class="rk">Quando mudar</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.mudar)}</div></div>`
     : "";
   panel.innerHTML = `
     <div class="sim-result">
+      <div class="sim-result-body" style="margin:0 0 14px">
+        <div class="sim-result-row"><div class="rk">Idade</div><div class="rv">${simState.age} anos ${simState.isPed?'(pediátrico)':'(adulto)'}</div></div>
+        <div class="sim-result-row"><div class="rk">Fluxograma</div><div class="rv">${esc(simState.flux)} <span style="color:var(--ink-faint)">· ${esc(simState.grupo)}</span> <span class="chips" style="display:inline-flex;margin-left:6px">${chipsFor(fluxObj)}</span></div></div>
+        <div class="sim-result-row"><div class="rk">Especialidade</div><div class="rv">${especialidade}${pedNote}${alertHi}</div></div>
+        ${contingenciaMatriz ? `<div class="sim-result-row"><div class="rk">Contingência</div><div class="rv">${contingenciaMatriz}</div></div>` : ""}
+        <div class="sim-result-row"><div class="rk">Perguntas estratégicas</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.just||"—")}</div></div>
+        ${obsRow}
+        ${mudarRow}
+        <div class="sim-result-row"><div class="rk">Sinais marcados</div><div class="rv">${simState.discSel.length?simState.discSel.map(esc).join('<br>'):'<span style="color:var(--ink-faint)">Nenhum marcado</span>'}</div></div>
+      </div>
+      <p class="hint" style="margin:0 0 8px;font-weight:600">Estimativa de prioridade (não substitui MTS)</p>
       <div class="sim-prio-band" style="background:${p.bg};color:${p.fg}">
         <span class="label">${p.label}</span>
         <span>${p.txt}</span>
@@ -997,15 +1025,6 @@ function renderSim(){
         <div class="cd-bar"><div class="cd-fill" id="cdFill" style="width:100%"></div></div>
         <div class="cd-label" id="cdMeta" style="text-align:right">alvo ${p.targetMin} min</div>
       </div>` : ''}
-      <div class="sim-result-body">
-        <div class="sim-result-row"><div class="rk">Idade</div><div class="rv">${simState.age} anos ${simState.isPed?'(pediátrico)':'(adulto)'}</div></div>
-        <div class="sim-result-row"><div class="rk">Fluxograma</div><div class="rv">${esc(simState.flux)} <span style="color:var(--ink-faint)">· ${esc(simState.grupo)}</span></div></div>
-        <div class="sim-result-row"><div class="rk">Discriminadores</div><div class="rv">${simState.discSel.length?simState.discSel.map(esc).join('<br>'):'<span style="color:var(--ink-faint)">Nenhum marcado</span>'}</div></div>
-        <div class="sim-result-row"><div class="rk">Especialidade</div><div class="rv">${especialidade}${pedNote}${alertHi}</div></div>
-        ${contingencia ? `<div class="sim-result-row"><div class="rk">Contingencia</div><div class="rv">${contingencia}</div></div>` : ""}
-        <div class="sim-result-row"><div class="rk">Perguntas estratégicas</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.just)}</div></div>
-        <div class="sim-result-row"><div class="rk">Observação institucional</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.obs)}</div></div>
-      </div>
       <div class="sim-reeval" id="reBox">
         <span class="re-label">🔁 Reavaliar em</span>
         <button class="re-btn" data-min="5">5 min</button>
@@ -1017,10 +1036,10 @@ function renderSim(){
       </div>
     </div>
     <div class="sim-panel" style="margin-top:14px">
-      <p class="hint" style="margin:0 0 12px"><b>Aviso:</b> a prioridade sugerida é uma estimativa a partir dos discriminadores marcados. O julgamento clínico do enfermeiro classificador (MTS) sempre prevalece.</p>
+      <p class="hint" style="margin:0 0 12px"><b>Aviso:</b> a faixa de cor e o tempo-alvo são apenas estimativa a partir dos sinais da matriz marcados. Não substituem a classificação Manchester (MTS). O julgamento clínico do enfermeiro classificador sempre prevalece.</p>
       <div class="sim-actions" style="margin-top:0">
-        <button class="sim-btn ghost" id="simBack">← Ajustar discriminadores</button>
-        <button class="sim-btn" id="simReset">Nova classificação</button>
+        <button class="sim-btn ghost" id="simBack">← Ajustar pistas</button>
+        <button class="sim-btn" id="simReset">Novo encaminhamento</button>
       </div>
     </div>`;
   $("#simBack").onclick=()=>simGo(3);
