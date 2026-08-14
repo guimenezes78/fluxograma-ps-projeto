@@ -1,0 +1,14 @@
+{
+  "source": "public/manchester.html",
+  "counts": {
+    "DATA": 77,
+    "CASOS_DUVIDA": 14,
+    "PERGUNTAS": 6
+  },
+  "sha256": {
+    "DATA": "c2bf7d90466bb26f730b655070813018ab3b71b019c4a6d78178c515d947474e",
+    "CASOS_DUVIDA": "22d4dbf9eff2486f5189ca66e9f7392d728388e323d5e40cb93390efd8ecd48c",
+    "PERGUNTAS": "53893c21c25675174dd6aa4b643c50afcfb3e44fe842eb98a90504d6ca91800d",
+    "combined": "bfcab0a3d66d59cb2b728380f0858061110e7eb93d25153b9974c35b904dad82"
+  }
+}

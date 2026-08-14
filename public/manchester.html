@@ -3,9 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="/brand/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
@@ -16,13 +13,13 @@
 <title>Manchester · Encaminhamento por Especialidade</title>
 <style>
 :root{
-  --green:#009541; --green-dark:#007A3D; --green-light:#98C93C; --teal:#009697; --accent-orange:#F27A21;
+  --green:#007A3D; --green-dark:#005E30; --green-light:#98C93C; --teal:#006F73; --accent-orange:#C6530C;
   --tint:#E8F5EE; --tint2:#F1F8F4; --tint3:#F7FBF8;
   --card:#FFFFFF; --surface:#F2F7F4; --line:#D0E0D6; --line-strong:#A9C4B4;
-  --ink:#0F2E22; --ink-dim:#3A5A4A; --ink-faint:#6E8779;
-  --red:#C93B30; --orange:#D97706; --yellow:#EAB308; --blue:#2563EB;
-  --spec-clinico:#2563EB; --spec-cirurgia:#C93B30; --spec-orto:#7C3AED;
-  --spec-go:#DB2777; --spec-pediatra:#059669; --spec-depende:#B45309;
+  --ink:#0F2E22; --ink-dim:#3A5A4A; --ink-faint:#526C5E;
+  --red:#B62F26; --orange:#A84E00; --yellow:#EAB308; --blue:#2563EB;
+  --spec-clinico:#1D4ED8; --spec-cirurgia:#B62F26; --spec-orto:#6D28D9;
+  --spec-go:#BE185D; --spec-pediatra:#047857; --spec-depende:#92400E;
   --shadow:0 1px 2px rgba(15,46,34,.04), 0 8px 24px rgba(15,46,34,.08);
   --shadow-sm:0 1px 2px rgba(15,46,34,.05), 0 4px 12px rgba(15,46,34,.06);
   --accent:var(--green); --radius:12px; --radius-sm:8px;
@@ -32,7 +29,7 @@
 html{scroll-behavior:smooth}
 body{
   margin:0; color:var(--ink); min-height:100vh; position:relative;
-  font-family:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
   font-size:15.5px; line-height:1.55; background-color:#E8F1EE;
 }
 body::before{
@@ -48,15 +45,20 @@ body::after{
 }
 h1,h2,h3,.display{font-family:inherit; letter-spacing:-.01em}
 a{color:var(--green-dark)}
+:where(button,input,select,textarea,summary,a):focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.skip-link{position:fixed;left:12px;top:8px;z-index:100;background:#fff;color:var(--green-dark);padding:10px 14px;border:2px solid var(--green-dark);border-radius:8px;transform:translateY(-150%);transition:transform .15s}
+.skip-link:focus{transform:translateY(0)}
 header{
   position:sticky; top:0; z-index:40;
+  display:flex;flex-direction:column;
   background:rgba(255,255,255,.78);
   border-bottom:1px solid var(--line);
   backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
   box-shadow:0 1px 0 rgba(0,122,77,.12);
 }
 header::before{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--teal),var(--green),var(--green-light),var(--accent-orange));}
-.bar{max-width:1180px;margin:0 auto;padding:16px 22px 14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.bar{width:100%;max-width:1180px;margin:0 auto;padding:16px 22px 14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:14px;min-width:0}
 .brand-mark{width:64px;height:64px;flex:0 0 64px;border-radius:16px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm),0 0 0 4px rgba(0,150,151,.08);display:grid;place-items:center;overflow:hidden;padding:3px}
 .brand-mark img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
@@ -70,7 +72,8 @@ header::before{content:"";display:block;height:3px;background:linear-gradient(90
 .tab:hover{color:var(--ink);background:rgba(255,255,255,.65)}
 .tab[aria-selected="true"]{background:#fff;color:var(--teal);font-weight:700;box-shadow:var(--shadow-sm)}
 .tab:focus-visible{outline:2px solid var(--green);outline-offset:2px}
-.config{background:rgba(232,245,238,.78);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.config{width:100%;background:rgba(232,245,238,.78);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.config-mobile-toggle{display:none}
 .config-in{max-width:1180px;margin:0 auto;padding:9px 22px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-dim)}
 .config label{color:var(--green-dark);font-size:12px;font-weight:700}
 .config input{width:62px;padding:6px 8px;border-radius:var(--radius-sm);border:1px solid var(--line-strong);background:#fff;color:var(--ink);font:inherit;font-size:14px;font-weight:700;text-align:center}
@@ -116,7 +119,9 @@ select:focus{outline:none;border-color:var(--green);box-shadow:var(--focus)}
 .card-inner{padding:14px 16px 15px}
 .card:last-child{margin-bottom:0}
 .card-head{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.flux{font-family:inherit;font-size:18px;font-weight:750;color:var(--ink);flex:1 1 auto;min-width:0;letter-spacing:-.02em;line-height:1.25}
+.flux-wrap{flex:1 1 260px;min-width:0}
+.flux{font-family:inherit;font-size:18px;font-weight:750;color:var(--ink);min-width:0;letter-spacing:-.02em;line-height:1.25}
+.flux-context{margin-top:3px;color:var(--ink-faint);font-size:12.5px;font-weight:650;line-height:1.35}
 .chip{font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap;color:#fff;letter-spacing:.01em;box-shadow:0 1px 2px rgba(15,46,34,.12)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .field{display:grid;grid-template-columns:128px 1fr;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
@@ -132,54 +137,8 @@ mark{background:#C8EBD6;color:#0c2b1e;padding:0 3px;border-radius:3px}
 .badge-atencao{background:linear-gradient(135deg,#FFF1E6,#FFD8B5);color:#9A3F0A;border:1px solid #F5B983;font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:4px 8px;border-radius:999px;white-space:nowrap;line-height:1;display:inline-flex;align-items:center}
 .badge-upd{background:#fff;color:var(--green-dark);border:1px solid var(--green)}
 .card.is-new{box-shadow:var(--shadow-sm),0 0 0 1px rgba(0,122,77,.18)}
-.sim-wrap{max-width:820px;margin:0 auto}
-.sim-stepper{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
-.sim-step-dot{flex:1 1 90px;min-width:70px;text-align:center;padding:9px 6px;border-radius:10px;border:1px solid var(--line-strong);background:#fff;color:var(--ink-faint);font-size:11px;font-weight:700;letter-spacing:.02em}
-.sim-step-dot.done{background:var(--tint);color:var(--green-dark);border-color:var(--green-light)}
-.sim-step-dot.active{background:var(--green);color:#fff;border-color:var(--green);box-shadow:0 4px 12px rgba(0,122,77,.25)}
-.sim-panel{border:1px solid var(--line);border-radius:14px;background:#fff;padding:22px;box-shadow:var(--shadow);margin-bottom:14px}
-.sim-panel h2{margin:0 0 4px;font-size:18px;color:var(--ink);font-weight:700;letter-spacing:-.02em}
-.sim-panel .hint{margin:0 0 16px;color:var(--ink-faint);font-size:13px}
-.sim-opts{display:grid;gap:8px}
-.sim-opt{display:flex;align-items:center;gap:10px;padding:13px 14px;border:1px solid var(--line-strong);border-radius:11px;background:#fff;cursor:pointer;font:inherit;font-size:14px;color:var(--ink);text-align:left;transition:border-color .15s,background .15s,box-shadow .15s,transform .15s;width:100%}
-.sim-opt:hover{border-color:var(--green);background:var(--tint2);transform:translateY(-1px)}
-.sim-opt.selected{border-color:var(--green);background:var(--tint);color:var(--green-dark);font-weight:650;box-shadow:var(--shadow-sm)}
-.sim-opt input{margin:0}
-.sim-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.sim-btn{appearance:none;font:inherit;font-size:14px;font-weight:700;cursor:pointer;padding:11px 18px;border-radius:10px;border:1px solid var(--green);background:var(--green);color:#fff;transition:background .15s,transform .15s;box-shadow:0 4px 12px rgba(0,122,77,.22)}
-.sim-btn:hover{background:var(--green-dark);border-color:var(--green-dark)}
-.sim-btn:active{transform:translateY(1px)}
-.sim-btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
-.sim-btn.ghost{background:#fff;color:var(--green-dark);box-shadow:none}
-.sim-btn.ghost:hover{background:var(--tint)}
-.sim-input{width:120px;padding:11px 12px;border-radius:10px;border:1px solid var(--line-strong);background:#fff;color:var(--ink);font:inherit;font-size:16px;font-weight:700;text-align:center}
-.sim-input:focus{outline:none;border-color:var(--green);box-shadow:var(--focus)}
-.sim-result{border:1px solid var(--line);border-radius:14px;background:#fff;padding:0;overflow:hidden;box-shadow:var(--shadow)}
-.sim-prio-band{padding:20px 22px;color:#fff;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.sim-prio-band .label{font-size:24px;font-weight:800;letter-spacing:.04em}
-.sim-prio-band .time{margin-left:auto;font-size:12.5px;opacity:.95;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-.sim-result-body{padding:18px 22px;display:grid;gap:12px}
-.sim-result-row{display:grid;grid-template-columns:140px 1fr;gap:10px;align-items:start}
-.sim-result-row .rk{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
-.sim-result-row .rv{font-size:14px;color:var(--ink);line-height:1.5}
-.sim-countdown{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:16px 22px;background:linear-gradient(180deg,var(--tint2),#fff);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.sim-countdown .cd-label{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
-.sim-countdown .cd-time{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.sim-countdown .cd-time.warn{color:var(--orange)}
-.sim-countdown .cd-time.over{color:var(--red)}
-.sim-countdown .cd-bar{flex:1 1 200px;height:10px;background:#fff;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden;min-width:160px}
-.sim-countdown .cd-fill{height:100%;background:var(--green);transition:width .5s linear,background-color .3s}
-.sim-countdown .cd-fill.warn{background:var(--orange)}
-.sim-countdown .cd-fill.over{background:var(--red)}
-.sim-reeval{padding:14px 22px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--line);background:#fff}
-.sim-reeval .re-label{font-size:12px;color:var(--ink-dim);font-weight:650}
-.re-btn{appearance:none;font:inherit;font-size:12.5px;font-weight:650;cursor:pointer;padding:7px 14px;border-radius:999px;border:1px solid var(--line-strong);background:#fff;color:var(--green-dark);transition:background .15s,border-color .15s}
-.re-btn:hover{border-color:var(--green);background:var(--tint)}
-.re-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
-.sim-reeval .re-status{margin-left:auto;font-size:12.5px;color:var(--ink-dim)}
-.sim-reeval .re-status.on{color:var(--green-dark);font-weight:650}
-@keyframes reevalPulse{0%,100%{box-shadow:0 0 0 0 rgba(201,59,48,.55)}50%{box-shadow:0 0 0 12px rgba(201,59,48,0)}}
-.sim-reeval.firing{background:#FEF2F2;animation:reevalPulse 1.2s ease-in-out infinite}
+.form-error{display:block;margin:7px 0 0;color:var(--red);font-size:13px;font-weight:650}
+.form-error:empty{display:none}
 .prose{max-width:900px}
 .callout{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:0 0 16px;background:#fff;box-shadow:var(--shadow-sm)}
 .callout.warn{background:linear-gradient(180deg,#FEF2F2,#fff);border-color:#F0B4AE}
@@ -204,7 +163,43 @@ mark{background:#C8EBD6;color:#0c2b1e;padding:0 3px;border-radius:3px}
 .empty{text-align:center;color:var(--ink-faint);padding:56px 20px;border:1px dashed var(--line-strong);border-radius:14px;background:rgba(255,255,255,.8)}
 .footer{max-width:1180px;margin:0 auto;padding:0 22px 40px;color:var(--ink-faint);font-size:11.5px;line-height:1.6}
 .footer a{color:var(--green-dark)}
-@media (max-width:680px){.field{grid-template-columns:1fr;gap:2px}.field .k{padding-top:0}.qrow{grid-template-columns:1fr;gap:3px}.toolbar .selwrap{width:100%}select{flex:1 1 45%;max-width:none}.tabs{border-radius:14px}.brand-mark{width:56px;height:56px;flex-basis:56px;border-radius:14px}.brand h1{font-size:18px}.brand-kicker{font-size:11px}.brand-sub{font-size:12.5px}.sim-result-row{grid-template-columns:1fr;gap:2px}.sim-panel{padding:16px}}
+.app-version{display:inline-flex;margin-left:8px;padding:2px 7px;border:1px solid var(--line-strong);border-radius:999px;background:rgba(255,255,255,.78);color:var(--ink-dim);font-weight:700;white-space:nowrap}
+.update-notice{position:fixed;right:16px;bottom:16px;z-index:80;max-width:380px;display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line-strong);border-radius:12px;background:#fff;color:var(--ink);box-shadow:var(--shadow)}
+.update-notice[hidden]{display:none}
+.update-notice button{min-height:40px;border:1px solid var(--green-dark);border-radius:8px;background:var(--green-dark);color:#fff;padding:8px 12px;font-weight:700;cursor:pointer;white-space:nowrap}
+@media (max-width:680px){
+  header::before{order:0}
+  .bar{order:1;padding:10px 14px 8px;gap:10px}
+  .config{order:2}
+  .config-mobile-toggle{display:flex;align-items:center;justify-content:space-between;width:calc(100% - 28px);min-height:44px;margin:6px 14px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:10px;background:#fff;color:var(--green-dark);font-weight:700;cursor:pointer}
+  .config-in{display:none;padding:8px 14px 12px}
+  .config.open .config-in{display:flex}
+  .config .badge{margin-left:0}
+  .brand{gap:10px}
+  .brand-mark{width:48px;height:48px;flex-basis:48px;border-radius:12px}
+  .brand h1{font-size:18px}
+  .brand-kicker{font-size:11px}
+  .brand-sub{font-size:12.5px}
+  .spacer{display:none}
+  .tabs{width:100%;flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;border-radius:12px;padding:3px}
+  .tabs::-webkit-scrollbar{height:4px}
+  .tabs::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:999px}
+  .config-mobile-toggle span:last-child{transition:transform .15s}
+  .config.open .config-mobile-toggle span:last-child{transform:rotate(180deg)}
+  .tab{flex:0 0 auto;min-height:44px;white-space:nowrap;scroll-snap-align:start;padding:9px 13px}
+  main{padding:14px 14px 72px}
+  .toolbar{padding:12px;gap:8px}
+  .search{flex-basis:100%;min-width:0}
+  .toolbar .selwrap{width:100%}
+  select{flex:1 1 100%;max-width:none;min-height:44px}
+  .search input,.config input{min-height:44px}
+  .btn-ghost,.pill,.toggle-btn,.btn-print{min-height:44px}
+  .legend{gap:6px}
+  .field{grid-template-columns:1fr;gap:2px}
+  .field .k{padding-top:0}
+  .qrow{grid-template-columns:1fr;gap:3px}
+  .update-notice{left:12px;right:12px;bottom:12px;max-width:none;align-items:flex-start}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media print{header,.toolbar,.tabs,.btn-ghost,.footer,body::before,body::after{display:none!important}body{background:#fff;color:#000}.view{display:block!important}.card,.group,.callout,.acc{break-inside:avoid;border-color:#999;background:#fff!important;color:#000;box-shadow:none}.flux,.field .v,.qrow .qv{color:#000}}
 /* --- UX enhancements --- */
@@ -227,6 +222,7 @@ body.compact{font-size:14.5px}
 body.compact .toolbar{padding:10px 12px;margin-bottom:10px}
 body.compact .card-inner{padding:10px 12px 11px}
 body.compact .flux{font-size:16px}
+body.compact .flux-context{font-size:11.5px}
 body.compact .field{padding:5px 0;gap:8px}
 body.compact .group>summary{padding:10px 12px}
 body.compact .g-body{padding:8px}
@@ -244,14 +240,19 @@ body.printing-card main{padding:12px;max-width:none}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#mainContent">Pular para o conteúdo</a>
 <header>
   <div class="config">
-    <div class="config-in">
+    <button type="button" class="config-mobile-toggle" id="configToggle" aria-expanded="false" aria-controls="configOptions">
+      <span>Configurações</span><span aria-hidden="true">⌄</span>
+    </button>
+    <div class="config-in" id="configOptions">
       <label for="corteIdade">Corte etário pediátrico</label>
-      <input id="corteIdade" type="number" min="0" max="18" step="1" value="14" inputmode="numeric" aria-label="Idade de corte pediátrico, em anos">
+      <input id="corteIdade" type="number" min="0" max="18" step="1" value="14" inputmode="numeric" aria-label="Idade de corte pediátrico, em anos" aria-describedby="corteHelp corteError">
       <span>anos</span>
-      <span class="rule-txt">— pacientes com menos de <b><span id="corteTxt">14</span> anos</b> → Pediatra em 1ª linha</span>
+      <span class="rule-txt" id="corteHelp">— pacientes com menos de <b><span id="corteTxt">14</span> anos</b> → Pediatra em 1ª linha</span>
       <span class="badge" id="corteBadge">Pediatria: &lt; 14 anos</span>
+      <span class="form-error" id="corteError" role="status" aria-live="polite"></span>
       <span class="config-toggles" role="group" aria-label="Preferências de visualização">
         <button type="button" class="toggle-btn" id="togglePhoto" aria-pressed="false" title="Mostrar mais a foto do hospital">Mais foto</button>
         <button type="button" class="toggle-btn" id="toggleCompact" aria-pressed="false" title="Modo compacto">Compacto</button>
@@ -269,17 +270,17 @@ body.printing-card main{padding:12px;max-width:none}
     </div>
     <div class="spacer"></div>
     <nav class="tabs" role="tablist" aria-label="Seções">
-      <button class="tab" role="tab" aria-selected="false" data-view="leia">Leia primeiro</button>
-      <button class="tab" role="tab" aria-selected="true" data-view="mapa">Mapa de encaminhamento</button>
-      <button class="tab" role="tab" aria-selected="false" data-view="sim">Simulador</button>
-      <button class="tab" role="tab" aria-selected="false" data-view="perguntas">Perguntas-chave</button>
-      <button class="tab" role="tab" aria-selected="false" data-view="casos">Casos de dúvida</button>
+      <button type="button" class="tab" id="tab-leia" role="tab" aria-selected="false" aria-controls="view-leia" tabindex="-1" data-view="leia">Leia primeiro</button>
+      <button type="button" class="tab" id="tab-mapa" role="tab" aria-selected="true" aria-controls="view-mapa" tabindex="0" data-view="mapa">Mapa de encaminhamento</button>
+      <button type="button" class="tab" id="tab-perguntas" role="tab" aria-selected="false" aria-controls="view-perguntas" tabindex="-1" data-view="perguntas">Perguntas-chave</button>
+      <button type="button" class="tab" id="tab-casos" role="tab" aria-selected="false" aria-controls="view-casos" tabindex="-1" data-view="casos">Casos de dúvida</button>
     </nav>
   </div>
 </header>
-<main>
+<main id="mainContent" tabindex="-1">
   <!-- ============ MAPA ============ -->
-  <section class="view active" id="view-mapa" role="tabpanel">
+  <section class="view active" id="view-mapa" role="tabpanel" aria-labelledby="tab-mapa" tabindex="-1">
+    <h2 class="sr-only">Mapa de encaminhamento</h2>
     <div class="toolbar">
       <div class="search">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -298,21 +299,22 @@ body.printing-card main{padding:12px;max-width:none}
         </select>
       </div>
       <button class="btn-ghost" id="expandAll" type="button">Expandir tudo</button>
-      <span class="count" id="count"></span>
+      <span class="count" id="count" role="status" aria-live="polite" aria-atomic="true"></span>
     </div>
     <div class="legend" aria-label="Filtrar por especialidade (legenda)" role="group">
-      <button type="button" class="pill" data-esp="clinico" aria-pressed="false"><span class="dot" style="background:var(--spec-clinico)"></span>Clínica Médica</button>
-      <button type="button" class="pill" data-esp="cirurgia" aria-pressed="false"><span class="dot" style="background:var(--spec-cirurgia)"></span>Cirurgia Geral</button>
-      <button type="button" class="pill" data-esp="orto" aria-pressed="false"><span class="dot" style="background:var(--spec-orto)"></span>Ortopedia</button>
-      <button type="button" class="pill" data-esp="go" aria-pressed="false"><span class="dot" style="background:var(--spec-go)"></span>Ginecologia/Obstetrícia</button>
-      <button type="button" class="pill" data-esp="pediatra" aria-pressed="false"><span class="dot" style="background:var(--spec-pediatra)"></span>Pediatria</button>
-      <button type="button" class="pill" data-esp="depende" aria-pressed="false"><span class="dot" style="background:var(--spec-depende)"></span>Depende / múltiplas</button>
+      <button type="button" class="pill" data-esp="clinico" aria-pressed="false"><span class="dot" aria-hidden="true" style="background:var(--spec-clinico)"></span>Clínica Médica</button>
+      <button type="button" class="pill" data-esp="cirurgia" aria-pressed="false"><span class="dot" aria-hidden="true" style="background:var(--spec-cirurgia)"></span>Cirurgia Geral</button>
+      <button type="button" class="pill" data-esp="orto" aria-pressed="false"><span class="dot" aria-hidden="true" style="background:var(--spec-orto)"></span>Ortopedia</button>
+      <button type="button" class="pill" data-esp="go" aria-pressed="false"><span class="dot" aria-hidden="true" style="background:var(--spec-go)"></span>Ginecologia/Obstetrícia</button>
+      <button type="button" class="pill" data-esp="pediatra" aria-pressed="false"><span class="dot" aria-hidden="true" style="background:var(--spec-pediatra)"></span>Pediatria</button>
+      <button type="button" class="pill" data-esp="depende" aria-pressed="false"><span class="dot" aria-hidden="true" style="background:var(--spec-depende)"></span>Depende / múltiplas</button>
     </div>
     <div id="cards"></div>
     <div class="empty" id="empty" style="display:none">Nenhum fluxograma encontrado. Ajuste a busca ou os filtros.</div>
   </section>
   <!-- ============ LEIA PRIMEIRO ============ -->
-  <section class="view" id="view-leia" role="tabpanel">
+  <section class="view" id="view-leia" role="tabpanel" aria-labelledby="tab-leia" tabindex="-1" hidden>
+    <h2 class="sr-only">Leia primeiro</h2>
     <div class="prose">
       <div class="callout warn">
         <h3>Aviso técnico crítico</h3>
@@ -360,30 +362,30 @@ body.printing-card main{padding:12px;max-width:none}
       </div>
     </div>
   </section>
-  <!-- ============ SIMULADOR ============ -->
-  <section class="view" id="view-sim" role="tabpanel">
-    <div class="sim-wrap">
-      <div class="sim-stepper" id="simStepper"></div>
-      <div id="simPanel"></div>
-    </div>
-  </section>
   <!-- ============ CASOS ============ -->
-  <section class="view" id="view-casos" role="tabpanel">
+  <section class="view" id="view-casos" role="tabpanel" aria-labelledby="tab-casos" tabindex="-1" hidden>
     <div class="prose">
+      <h2 class="sr-only">Casos de dúvida</h2>
       <p style="color:var(--ink-dim);margin:0 0 16px">Situações frequentes de dúvida no direcionamento.</p>
       <div id="casos"></div>
     </div>
   </section>
   <!-- ============ PERGUNTAS ============ -->
-  <section class="view" id="view-perguntas" role="tabpanel">
+  <section class="view" id="view-perguntas" role="tabpanel" aria-labelledby="tab-perguntas" tabindex="-1" hidden>
     <div class="prose">
+      <h2 class="sr-only">Perguntas-chave</h2>
       <p style="color:var(--ink-dim);margin:0 0 16px">Objetivo: escolher o <strong style="color:var(--ink)">fluxograma</strong> e o <strong style="color:var(--ink)">discriminador</strong> corretos — não diagnosticar. Foco em risco, tempo, sintomas associados e fatores de risco.</p>
       <div id="perguntas"></div>
     </div>
   </section>
 </main>
-<div class="footer">
+<div class="footer" role="contentinfo">
   Protocolo institucional local de apoio à classificação de risco · baseado no Sistema Manchester (GBCR, 2ª ed.). Conteúdo representativo, não transcrição do manual oficial. Requer validação e assinatura do corpo clínico e da direção técnica antes do uso. Documento de apoio — não substitui o julgamento médico. Referência oficial: <a href="https://www.gbcr.org.br" target="_blank" rel="noopener">gbcr.org.br</a>.
+  <span class="app-version" aria-label="Versão da interface">Interface v8</span>
+</div>
+<div class="update-notice" id="updateNotice" role="status" aria-live="polite" hidden>
+  <span>Uma nova versão da interface está disponível.</span>
+  <button type="button" id="reloadApp">Atualizar agora</button>
 </div>
 <script>
 "use strict";
@@ -469,7 +471,11 @@ const DATA = [
 {grupo:"Cirurgia Geral", flux:"Caroço", spec:"cirurgia", specs:["cirurgia"], disc:"Nodulo único, com ou sem alteração infecciosa", esp:"Cirurgia/Clínica", just:"Tempo de evolução? Dor? Vermelhidão? Calor?", obs:"", mudar:"", ped:"Cirurgia/Clínica", atencao:true},
 {grupo:"Cirurgia Geral", flux:"Pé diabético", spec:"cirurgia", specs:["cirurgia"], disc:"Ferida do pé diabético: Fluxograma de ferida", esp:"Cirurgia", just:"Tempo de evolução? Sintomas associados? Tem secreção? Dor?", obs:"Cirurgia se o motivo que levou o paciente ao atendimento for a ferida", mudar:"", ped:"Clínica", atencao:false},
 {grupo:"Cirurgia Geral", flux:"Corpo estranho (nariz/ouvido/olho)", spec:"cirurgia", specs:["cirurgia"], disc:"Trauma ocular?, Ingestão de objeto perigoso?Inflamação local? Hemorragia?", esp:"Cirurgia", just:"Local do corpo estranho? Mecanismo? Tempo de evolução?Qual objeto?", obs:"Corpo estranho que tem possibilidade de ser retirada pelo plantonista de cirurgia sem a necessidade e especialista fora", mudar:"", ped:"Clínica/Peditria", atencao:false},
-{grupo:"Pediatria", flux:"Corpo estranho (ingestão)", spec:"cirurgia", specs:["cirurgia", "pediatra"], disc:"Ingestão de objeto perigoso?IDor? Hemorragia?", esp:"Pediatria/Cirurgia", just:"Local do corpo estranho? Mecanismo do trauma? Tempo de evolução?Qual objeto?", obs:"Cirurgia em caso de adulto", mudar:"", ped:"Pediatria/Clínica", atencao:false}
+{grupo:"Pediatria", flux:"Corpo estranho (ingestão)", spec:"cirurgia", specs:["cirurgia", "pediatra"], disc:"Ingestão de objeto perigoso?IDor? Hemorragia?", esp:"Pediatria/Cirurgia", just:"Local do corpo estranho? Mecanismo do trauma? Tempo de evolução?Qual objeto?", obs:"Cirurgia em caso de adulto", mudar:"", ped:"Pediatria/Clínica", atencao:false},
+{grupo:"Cirurgia Geral", flux:"Pós-colonoscopia ou pós-endoscopia", contexto:"Sintomas relacionados ao procedimento", spec:"cirurgia", specs:["cirurgia"], disc:"Dor abdominal ou distensão, sangramento anal/hematoquezia, hematêmese ou melena após o procedimento", esp:"Cirurgia", just:"Quando realizou o exame? A dor começou após o procedimento? Está piorando? Há distensão abdominal, febre ou vômitos? Qual a quantidade de sangue? O sangramento persiste? Qual a cor do sangue? Há dificuldade ou dor para engolir (nos casos de EDA)? Tem vômito? O procedimento foi apenas diagnóstico ou houve retirada de pólipo, biópsia, dilatação, cauterização ou outro procedimento terapêutico?", obs:"REGRA GERAL: procedimento endoscópico recente + dor importante/progressiva, sangramento, distensão importante, disfagia/odinofagia importante desde a endoscopia ou suspeita de perfuração → Cirurgia Geral. Sintomas predominantemente relacionados à sedação → Clínica Médica. Instabilidade → atendimento imediato/Sala Vermelha.", mudar:"", ped:"Pediatria/Clínica", atencao:false},
+{grupo:"Clínica Médica", flux:"Pós-colonoscopia ou pós-endoscopia", contexto:"Sintomas relacionados à sedação ou sem relação com o procedimento", spec:"clinico", specs:["clinico"], disc:"Dispneia, dessaturação, sonolência excessiva, rebaixamento da consciência ou hipotensão após sedação; sintomas respiratórios, sintomas urinários, febre isolada ou outros sintomas sem relação com o local do exame", esp:"Clínica Médica", just:"Quando terminou o exame? Qual sedação foi utilizada, se souber? Há falta de ar, tosse, dessaturação, vômitos ou suspeita de broncoaspiração? Há dor torácica? Há sintomas urinários, como dor ou ardência ao urinar, aumento da frequência ou sangue na urina? A febre está isolada ou associada a dor abdominal, distensão, sangramento, vômitos ou dificuldade para engolir? Houve retirada de pólipo, biópsia, dilatação, cauterização ou outro procedimento terapêutico?", obs:"REGRA GERAL: procedimento endoscópico recente + dor importante/progressiva, sangramento, distensão importante, disfagia/odinofagia importante desde a endoscopia ou suspeita de perfuração → Cirurgia Geral. Sintomas predominantemente relacionados à sedação → Clínica Médica. Instabilidade → atendimento imediato/Sala Vermelha.", mudar:"", ped:"Clínica Médica", atencao:false},
+{grupo:"Clínica Médica", flux:"Pós-operatório de cirurgia neurológica", spec:"clinico", specs:["clinico", "pediatra", "cirurgia"], disc:"Rebaixamento do nível de consciência, confusão ou sonolência; déficit neurológico focal novo; cefaleia intensa, vômitos ou piora neurológica; queixa clínica sem alteração neurológica ou da ferida; febre, secreção ou alteração da ferida craniana", esp:"Clínica/Pediatria/Cirurgia", just:"Quando foi o procedimento? Qual procedimento? A queixa começou após a cirurgia? Há outras queixas associadas? Há alteração na ferida operatória?", obs:"Cirurgia se houver qualquer alteração na ferida operatória; os demais sintomas serão direcionados para Clínica ou Pediatria.", mudar:"", ped:"Clínica/Pediatria", atencao:false},
+{grupo:"Clínica Médica", flux:"Pós-operatório de cirurgia cardíaca", spec:"clinico", specs:["clinico", "pediatra", "cirurgia"], disc:"Dor torácica; dispneia ou hipoxemia; palpitação, taquicardia ou bradicardia; febre ou suspeita de infecção; ferida esternal com secreção, abertura ou crepitação", esp:"Clínica/Pediatria/Cirurgia", just:"Quando foi o procedimento? Qual procedimento? A queixa começou após a cirurgia? Há outras queixas associadas? Há alteração na ferida operatória?", obs:"Cirurgia se houver qualquer alteração na ferida operatória; os demais sintomas serão direcionados para Clínica ou Pediatria.", mudar:"", ped:"Clínica/Pediatria", atencao:false}
 ];
 const CASOS_DUVIDA = [
 {sit:"Ferida aberta no pé sem diabetes", esp:"Cirurgia Geral", just:"Avaliação de profundidade, necessidade de sutura, limpeza, desbridamento e risco de infecção.", perg:"Tempo? Profundidade? Contaminação? Exposição óssea/tendínea? Sangramento?", mudar:"Avaliação em conjunto Ortopedia se fratura/exposição óssea/lesão tendínea; Clínica se sepse/comorbidades graves.", obs:"Não é queixa clínica apenas por necessitar antibiótico.", specs:["cirurgia"]},
@@ -551,7 +557,8 @@ function cardHTML(d,q){
   const cls = 'card' + ((d.isNew||d.updated||d.atencao)?' is-new':'');
   const border = SPEC_META[d.spec] || SPEC_META.depende;
   let html = '<div class="'+cls+'" style="--accent:'+border.color+'" data-flux="'+esc(d.flux)+'">';
-  html += '<div class="card-inner"><div class="card-head"><div class="flux">'+hi(d.flux,q)+'</div>'+badges.join('')+'<div class="chips">'+chipsFor(d)+'</div><button type="button" class="btn-print" data-print title="Imprimir este card">Imprimir</button></div>';
+  const context = d.contexto ? '<div class="flux-context">'+hi(d.contexto,q)+'</div>' : '';
+  html += '<div class="card-inner"><div class="card-head"><div class="flux-wrap"><div class="flux">'+hi(d.flux,q)+'</div>'+context+'</div>'+badges.join('')+'<div class="chips">'+chipsFor(d)+'</div><button type="button" class="btn-print" data-print title="Imprimir este card">Imprimir</button></div>';
   html += '<div class="field disc"><div class="k">Discriminador</div><div class="v">'+hi(d.disc,q)+'</div></div>';
   html += '<div class="field"><div class="k">Especialidade</div><div class="v">'+hi(d.esp,q)+'</div></div>';
   html += '<div class="field"><div class="k">Perguntas estratégicas</div><div class="v">'+hi(d.just,q)+'</div></div>';
@@ -569,7 +576,7 @@ function render(){
     if(fg && d.grupo!==fg) return false;
     if(fe && !(d.specs||[d.spec]).includes(fe)) return false;
     if(q){
-      const hay = (d.flux+" "+d.disc+" "+d.esp+" "+d.just+" "+d.obs+" "+d.ped+" "+d.grupo).toLowerCase();
+      const hay = (d.flux+" "+(d.contexto||"")+" "+d.disc+" "+d.esp+" "+d.just+" "+d.obs+" "+d.ped+" "+d.grupo).toLowerCase();
       if(!hay.includes(q)) return false;
     }
     return true;
@@ -603,13 +610,32 @@ function renderPerguntas(){
     </details>`).join("");
 }
 /* ---------- Tabs ---------- */
-document.querySelectorAll(".tab").forEach(t=>{
-  t.addEventListener("click",()=>{
-    document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected","false"));
-    t.setAttribute("aria-selected","true");
-    document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
-    $("#view-"+t.dataset.view).classList.add("active");
-    window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});
+const tabElements = [...document.querySelectorAll(".tab")];
+function activateTab(tab, moveFocus=false){
+  tabElements.forEach(item=>{
+    const selected = item===tab;
+    item.setAttribute("aria-selected", selected ? "true" : "false");
+    item.tabIndex = selected ? 0 : -1;
+  });
+  document.querySelectorAll(".view").forEach(view=>{
+    const active = view.id==="view-"+tab.dataset.view;
+    view.classList.toggle("active", active);
+    view.hidden = !active;
+  });
+  if(moveFocus) tab.focus();
+  window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});
+}
+tabElements.forEach((tab,index)=>{
+  tab.addEventListener("click",()=>activateTab(tab));
+  tab.addEventListener("keydown",event=>{
+    let targetIndex = null;
+    if(event.key==="ArrowRight") targetIndex = (index+1)%tabElements.length;
+    if(event.key==="ArrowLeft") targetIndex = (index-1+tabElements.length)%tabElements.length;
+    if(event.key==="Home") targetIndex = 0;
+    if(event.key==="End") targetIndex = tabElements.length-1;
+    if(targetIndex===null) return;
+    event.preventDefault();
+    activateTab(tabElements[targetIndex], true);
   });
 });
 /* ---------- Events ---------- */
@@ -619,6 +645,11 @@ const LS = {
   compact: "manchester_compact"
 };
 $("#q").addEventListener("input",render);
+$("#q").addEventListener("keydown",event=>{
+  if(event.key!=="Escape" || !event.currentTarget.value) return;
+  event.currentTarget.value="";
+  render();
+});
 gSel.addEventListener("change",render);
 $("#fEsp").addEventListener("change",()=>{ syncLegendFromSelect(); render(); });
 $("#expandAll").addEventListener("click",e=>{
@@ -650,6 +681,8 @@ document.addEventListener("keydown",e=>{
   if(tag==="input" || tag==="textarea" || tag==="select" || (t && t.isContentEditable)) return;
   e.preventDefault();
   const q = $("#q");
+  const mapTab = $("#tab-mapa");
+  if(mapTab.getAttribute("aria-selected")!=="true") activateTab(mapTab);
   q.focus();
   q.select();
 });
@@ -672,6 +705,15 @@ $("#cards").addEventListener("click",e=>{
   setTimeout(()=>{ window.print(); setTimeout(cleanup, 800); }, 50);
 });
 /* ---------- Preferencias (foto / densidade) ---------- */
+const configToggle = document.getElementById("configToggle");
+const configPanel = document.querySelector(".config");
+if(configToggle && configPanel){
+  configToggle.addEventListener("click",()=>{
+    const open = configPanel.classList.toggle("open");
+    configToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    setHH();
+  });
+}
 function applyPref(key, cls, btnId, on){
   document.body.classList.toggle(cls, on);
   const btn = document.getElementById(btnId);
@@ -698,18 +740,28 @@ try{
   const saved = localStorage.getItem(LS.corte);
   if(saved!==null && saved!=="") corteInput.value = saved;
 }catch(_){}
-function applyCorte(){
-  let v = parseInt(corteInput.value,10);
+function applyCorte(normalizeInput=false){
+  const raw = parseInt(corteInput.value,10);
+  let v = raw;
   if(isNaN(v)) v = 14;
   if(v<0) v = 0; if(v>18) v = 18;
+  const invalid = isNaN(raw) || raw<0 || raw>18;
+  if(normalizeInput){
+    corteInput.value = String(v);
+    corteInput.setAttribute("aria-invalid","false");
+    document.getElementById("corteError").textContent = "";
+  }else{
+    corteInput.setAttribute("aria-invalid", invalid ? "true" : "false");
+    document.getElementById("corteError").textContent = invalid ? "Use um valor entre 0 e 18 anos." : "";
+  }
   document.getElementById("corteTxt").textContent = v;
   const r = document.getElementById("corteRule"); if(r) r.textContent = v;
   document.getElementById("corteBadge").textContent = "Pediatria: < "+v+" anos";
   try{ localStorage.setItem(LS.corte, String(v)); }catch(_){}
   setHH();
 }
-corteInput.addEventListener("input",applyCorte);
-corteInput.addEventListener("change",()=>{ if(corteInput.value==="") corteInput.value=14; applyCorte(); });
+corteInput.addEventListener("input",()=>applyCorte(false));
+corteInput.addEventListener("change",()=>applyCorte(true));
 /* ---------- Altura real do header ---------- */
 function setHH(){
   const h = document.querySelector("header").offsetHeight;
@@ -717,434 +769,37 @@ function setHH(){
 }
 window.addEventListener("resize",setHH);
 window.addEventListener("load",setHH);
-applyCorte();
+applyCorte(true);
 render();
 renderPerguntas(); renderCasos();
 if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("/sw.js").catch(()=>{});
+  window.addEventListener("load",async()=>{
+    try{
+      const registration = await navigator.serviceWorker.register("/sw.js");
+      const notice = document.getElementById("updateNotice");
+      const reloadButton = document.getElementById("reloadApp");
+      const showUpdate = ()=>{ notice.hidden=false; };
+      if(registration.waiting && navigator.serviceWorker.controller) showUpdate();
+      registration.addEventListener("updatefound",()=>{
+        const worker = registration.installing;
+        if(!worker) return;
+        worker.addEventListener("statechange",()=>{
+          if(worker.state==="installed" && navigator.serviceWorker.controller) showUpdate();
+        });
+      });
+      reloadButton.addEventListener("click",()=>{
+        if(registration.waiting) registration.waiting.postMessage({type:"SKIP_WAITING"});
+        else window.location.reload();
+      });
+      let refreshing=false;
+      navigator.serviceWorker.addEventListener("controllerchange",()=>{
+        if(refreshing) return;
+        refreshing=true;
+        window.location.reload();
+      });
+    }catch(_){ }
   });
 }
-/* ==================== SIMULADOR ==================== */
-const PRIO = {
-  vermelho:{label:"VERMELHO",bg:"var(--red)",fg:"#fff",time:"Imediato (0 min)",txt:"Emergência — atendimento imediato",targetMin:0},
-  laranja: {label:"LARANJA", bg:"var(--orange)",fg:"#fff",time:"~10 minutos",txt:"Muito urgente",targetMin:10},
-  amarelo: {label:"AMARELO", bg:"var(--yellow)",fg:"#1a1a1a",time:"~60 minutos",txt:"Urgente",targetMin:60},
-  verde:   {label:"VERDE",   bg:"var(--green)",fg:"#fff",time:"~120 minutos",txt:"Pouco urgente",targetMin:120},
-  azul:    {label:"AZUL",    bg:"var(--blue)",fg:"#fff",time:"~240 minutos",txt:"Não urgente",targetMin:240}
-};
-const simState = { step:0, age:null, isPed:false, grupo:null, flux:null, discSel:[], prio:null };
-function simDiscList(fluxObj){
-  return String(fluxObj.disc||"").split(/[;,]+/).map(s=>s.trim()).filter(Boolean);
-}
-function normTxt(s){
-  return String(s||"").toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-    .replace(/[^a-z0-9\s]/g," ")
-    .replace(/\s+/g," ").trim();
-}
-const AI_ALIASES = [
-  [/dor de cabeca|cefaleia|enxaqueca|migranea/, "Cefaleia"],
-  [/torcicolo|cervicalgia|pescoco/, "Cervicalgia / torcicolo"],
-  [/falta de ar|dispneia|asma|dpoc|chiado|ofego/, "Dispneia / asma / DPOC"],
-  [/dor no peito|dor toracica|infarto|angina/, "Dor toracica"],
-  [/desmaio|sincope|desmaiou/, "Desmaio"],
-  [/febre|mal estar|cansado|indisposicao/, "Febre / mal-estar adulto"],
-  [/dor abdominal|dor de barriga|epigastr/, "Dor abdominal adulto"],
-  [/vomito|diarreia|gastro/, "Vomitos / diarreia"],
-  [/dor lombar|coluna|ciatica/, "Dor lombar"],
-  [/urina|disuria|infeccao urinaria|itu|hematuria/, "Problemas urinarios"],
-  [/olho|ocular|visao/, "Problemas em olhos"],
-  [/ouvido|otalgia/, "Problemas em ouvidos"],
-  [/nariz|epistaxe|sangramento nasal/, "Epistaxe"],
-  [/dente|dentaria|odonto/, "Problemas dentarios"],
-  [/joelho|tornozelo|ombro|membro|fratura|entorse/, "Problemas de extremidade"],
-  [/articula/, "Dor articular"],
-  [/avc|derrame|paralisia|fala enrolada/, "AVC / deficit neurologico"],
-  [/testiculo|escroto/, "Dor testicular / escroto agudo"],
-];
-function suggestFluxLocal(symptoms, age){
-  const q = normTxt(symptoms);
-  const tokens = q.split(" ").filter(t=>t.length>2);
-  let best=null, bestScore=-1;
-  const aliasHits = [];
-  for(const [rx, flux] of AI_ALIASES){ if(rx.test(q) && flux) aliasHits.push(flux); }
-  const corte = parseInt(document.getElementById("corteIdade").value,10)||14;
-  for(const d of DATA){
-    let score=0;
-    const fluxN = normTxt(d.flux);
-    const hay = normTxt([d.flux,d.disc,d.just,d.esp,d.obs,d.grupo,d.ped].join(" "));
-    if(aliasHits.some(a=>{ const an=normTxt(a); return an===fluxN || fluxN.includes(an) || an.includes(fluxN); })) score += 40;
-    for(const tok of tokens){ if(fluxN.includes(tok)) score += 8; else if(hay.includes(tok)) score += 2; }
-    if(age!=null && age < corte){ if(d.grupo==="Pediatria") score += 3; if(/pediatr/i.test(d.esp+" "+(d.ped||""))) score += 1; }
-    if(score>bestScore){ bestScore=score; best=d; }
-  }
-  if(!best || bestScore<6){
-    const isPed = age!=null && age < corte;
-    best = DATA.find(d=>d.flux.toLowerCase().includes(isPed?"crianca doente":"adulto doente")) || DATA[0];
-    return {grupo:best.grupo, flux:best.flux, reason:"Sugestao local (sem API). Confira o fluxograma no mapa.", local:true};
-  }
-  return {grupo:best.grupo, flux:best.flux, reason:"Sugestao local pela matriz ("+bestScore+" pts). Confira o fluxograma e o encaminhamento da matriz.", local:true};
-}
-// heurística simples: cada discriminador com palavra de alarme puxa cor
-const RED_RX   = /instabilidade|choque|via aérea|estridor|obstru|exsanguin|convuls|coma|anafilaxia|hipertensivo|eviscera|glote|apneia|parada|rebaixamento|pior/i;
-const ORAN_RX  = /grave|intens|sepse|peritonite|penetrante|isquem|torção|fratura exposta|neurovascular|hemorragia|petéquias|púrpura|dispneia|cauda equina|meningi|súbit|hipotens|SpO2 baixa|tiragem/i;
-const YEL_RX   = /moderad|febre|vômito|dor|desidrat|deformidade|edema|sangramento|cólica|palpitaç|tontura/i;
-function inferPrio(selectedDiscs){
-  if(selectedDiscs.length===0) return "verde";
-  const joined = selectedDiscs.join(" ; ");
-  if(RED_RX.test(joined)) return "vermelho";
-  if(ORAN_RX.test(joined)) return "laranja";
-  if(YEL_RX.test(joined)) return "amarelo";
-  return "verde";
-}
-function simRenderStepper(){
-  const steps = ["Idade","Grupo","Fluxograma","Pistas","Encaminhamento"];
-  $("#simStepper").innerHTML = steps.map((s,i)=>{
-    let cls="sim-step-dot";
-    if(i<simState.step) cls+=" done";
-    if(i===simState.step) cls+=" active";
-    return `<div class="${cls}">${i+1}. ${s}</div>`;
-  }).join("");
-}
-function simGo(step){ simState.step = step; renderSim(); }
-function renderSim(){
-  simRenderStepper();
-  const panel = $("#simPanel");
-  const corte = parseInt(document.getElementById("corteIdade").value,10) || 14;
-  if(simState.step===0){
-    panel.innerHTML = `
-      <div class="sim-panel">
-        <h2>1. Qual a idade do paciente?</h2>
-        <p class="hint">Corte pediátrico atual: <b>&lt; ${corte} anos</b> → 1ª linha Pediatra.</p>
-        <label class="hint" style="display:block;margin-bottom:6px">Idade (anos)</label>
-        <input class="sim-input" type="number" min="0" max="120" id="simAge" value="${simState.age??''}" placeholder="ex.: 34">
-        <div class="sim-actions">
-          <button class="sim-btn" id="simNext0">Avançar →</button>
-          <button class="sim-btn ghost" id="simReset">Reiniciar</button>
-        </div>
-      </div>`;
-    $("#simAge").focus();
-    $("#simNext0").onclick = ()=>{
-      const v = parseInt($("#simAge").value,10);
-      if(isNaN(v)||v<0||v>120){ $("#simAge").focus(); return; }
-      simState.age = v;
-      simState.isPed = v < corte;
-      simGo(1);
-    };
-    $("#simReset").onclick = simResetAll;
-    return;
-  }
-  if(simState.step===1){
-    const opts = GRUPOS.map(g=>{
-      const sel = simState.grupo===g?" selected":"";
-      return `<button class="sim-opt${sel}" data-g="${esc(g)}">${esc(g)}</button>`;
-    }).join("");
-    const aiSel = simState.grupo==='__ai__'?" selected":"";
-    panel.innerHTML = `
-      <div class="sim-panel">
-        <h2>2. Qual o grupo da queixa principal?</h2>
-        <p class="hint">Escolha a categoria mais próxima do motivo do atendimento.</p>
-        <div class="sim-opts">
-          ${opts}
-          <button class="sim-opt${aiSel}" data-g="__ai__" style="border-style:dashed;color:var(--green-dark);font-weight:600">
-            🤖 Inespecífico / não sei — usar IA para sugerir fluxograma
-          </button>
-        </div>
-        <div id="aiBox" style="display:${simState.grupo==='__ai__'?'block':'none'};margin-top:14px">
-          <label class="hint" style="display:block;margin-bottom:6px"><b>Descreva a queixa livremente</b> (ex.: "está muito cansado, sem apetite e com tontura há 2 dias"):</label>
-          <textarea id="aiSymptoms" rows="3" style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line-strong);font:inherit;font-size:14px;resize:vertical" placeholder="Descreva sinais, sintomas, tempo de início…"></textarea>
-          <div class="sim-actions" style="margin-top:10px">
-            <button class="sim-btn" id="aiRun">Analisar com IA →</button>
-          </div>
-          <div id="aiStatus" style="margin-top:10px;font-size:13px;color:var(--ink-dim)"></div>
-        </div>
-        <div class="sim-actions">
-          <button class="sim-btn ghost" id="simBack">← Voltar</button>
-          <button class="sim-btn" id="simNext1" ${simState.grupo && simState.grupo!=='__ai__'?'':'disabled'}>Avançar →</button>
-        </div>
-      </div>`;
-    panel.querySelectorAll(".sim-opt").forEach(b=>{
-      b.onclick=()=>{
-        simState.grupo = b.dataset.g;
-        simState.flux=null; simState.discSel=[];
-        renderSim();
-      };
-    });
-    const aiRun = document.getElementById("aiRun");
-    if(aiRun){
-      aiRun.onclick = async ()=>{
-        const txt = document.getElementById("aiSymptoms").value.trim();
-        const status = document.getElementById("aiStatus");
-        if(!txt){ status.textContent = "Descreva a queixa antes de analisar."; return; }
-        aiRun.disabled = true;
-        status.innerHTML = '<span style="color:var(--green-dark)">⏳ Consultando IA…</span>';
-        try{
-          let j = null;
-          try{
-            const catalog = DATA.map(d=>({grupo:d.grupo, flux:d.flux, disc:d.disc}));
-            const r = await fetch("/api/triage-route",{
-              method:"POST",
-              headers:{"Content-Type":"application/json"},
-              body: JSON.stringify({age:simState.age, symptoms:txt, catalog})
-            });
-            if(r.ok){
-              const parsed = await r.json();
-              if(!parsed.error && parsed.flux) j = parsed;
-            }
-          }catch(_api){}
-          if(!j) j = suggestFluxLocal(txt, simState.age);
-          simState.grupo = j.grupo;
-          simState.flux = j.flux;
-          simState.discSel = [];
-          simState.aiReason = j.reason || "";
-          const via = j.local ? " (local)" : " (IA)";
-          status.innerHTML = '<span style="color:var(--green-dark)">Fluxograma: <b>'+esc(j.flux)+'</b>'+via+'</span>';
-          simGo(3);
-        }catch(e){
-          status.innerHTML = '<span style="color:var(--red)">Falha: '+esc(String(e.message||e))+'</span>';
-          aiRun.disabled=false;
-        }
-      };
-    }
-    $("#simBack").onclick=()=>simGo(0);
-    $("#simNext1").onclick=()=>simGo(2);
-    return;
-  }
-  if(simState.step===2){
-    const fluxos = DATA.filter(d=>d.grupo===simState.grupo);
-    const opts = fluxos.map(d=>{
-      const sel = simState.flux===d.flux?" selected":"";
-      return `<button class="sim-opt${sel}" data-f="${esc(d.flux)}" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;justify-content:space-between"><span>${esc(d.flux)}</span><span class="chips">${chipsFor(d)}</span></button>`;
-    }).join("");
-    panel.innerHTML = `
-      <div class="sim-panel">
-        <h2>3. Qual fluxograma se aplica?</h2>
-        <p class="hint">Grupo: <b>${esc(simState.grupo)}</b></p>
-        <div class="sim-opts">${opts}</div>
-        <div class="sim-actions">
-          <button class="sim-btn ghost" id="simBack">← Voltar</button>
-          <button class="sim-btn" id="simNext2" ${simState.flux?'':'disabled'}>Avançar →</button>
-        </div>
-      </div>`;
-    panel.querySelectorAll(".sim-opt").forEach(b=>{
-      b.onclick=()=>{ simState.flux = b.dataset.f; simState.discSel=[]; renderSim(); };
-    });
-    $("#simBack").onclick=()=>simGo(1);
-    $("#simNext2").onclick=()=>simGo(3);
-    return;
-  }
-  if(simState.step===3){
-    const fluxObj = DATA.find(d=>d.grupo===simState.grupo && d.flux===simState.flux);
-    const discs = simDiscList(fluxObj);
-    const aiNote = simState.aiReason
-      ? `<div class="hint" style="background:var(--tint);border:1px dashed var(--green);padding:10px 12px;border-radius:10px;margin-bottom:12px;color:var(--green-dark)"><b>🤖 Sugestão da IA:</b> ${esc(simState.aiReason)}</div>`
-      : '';
-    const justShort = String(fluxObj.just||"").trim();
-    const justPreview = justShort.length>220 ? justShort.slice(0,220).trim()+"…" : justShort;
-    const dash = '<span style="color:var(--ink-faint)">—</span>';
-    const matrizResumo = `
-      <div class="sim-result-body" style="margin:0 0 14px;border:1px solid var(--line);border-radius:12px;padding:4px 0;background:var(--tint)">
-        <div class="sim-result-row"><div class="rk">Fluxograma</div><div class="rv">${esc(simState.flux)} <span style="color:var(--ink-faint)">· ${esc(simState.grupo)}</span> <span class="chips" style="display:inline-flex;margin-left:6px">${chipsFor(fluxObj)}</span></div></div>
-        <div class="sim-result-row"><div class="rk">Especialidade</div><div class="rv">${esc(fluxObj.esp||"—")}</div></div>
-        <div class="sim-result-row"><div class="rk">Contingência</div><div class="rv">${fluxObj.ped && String(fluxObj.ped).trim() ? esc(fluxObj.ped) : dash}</div></div>
-        <div class="sim-result-row"><div class="rk">Perguntas estratégicas</div><div class="rv" style="color:var(--ink-dim)">${justPreview ? esc(justPreview) : dash}</div></div>
-      </div>`;
-    const opts = discs.map((s,i)=>{
-      const checked = simState.discSel.includes(s)?' checked':'';
-      const sel = simState.discSel.includes(s)?' selected':'';
-      return `<label class="sim-opt${sel}"><input type="checkbox" data-d="${i}"${checked}> <span>${esc(s)}</span></label>`;
-    }).join("");
-    panel.innerHTML = `
-      <div class="sim-panel">
-        <h2>4. Quais sinais da matriz estão presentes?</h2>
-        <p class="hint">Itens da coluna Discriminador da matriz — orientam o encaminhamento e ajudam a estimar a prioridade (não são discriminadores oficiais MTS coloridos).</p>
-        ${aiNote}
-        ${matrizResumo}
-        <p class="hint" style="margin-top:0">Marque os sinais presentes:</p>
-        <div class="sim-opts">${opts||'<p class="hint">Nenhum item na coluna Discriminador para este fluxograma.</p>'}</div>
-        <div class="sim-actions">
-          <button class="sim-btn ghost" id="simBack">← Voltar</button>
-          <button class="sim-btn" id="simNext3">Ver encaminhamento →</button>
-        </div>
-      </div>`;
-    panel.querySelectorAll('input[type=checkbox]').forEach(cb=>{
-      cb.onchange=()=>{
-        const s = discs[+cb.dataset.d];
-        if(cb.checked) simState.discSel.push(s);
-        else simState.discSel = simState.discSel.filter(x=>x!==s);
-        cb.closest(".sim-opt").classList.toggle("selected", cb.checked);
-      };
-    });
-    $("#simBack").onclick=()=>simGo(2);
-    $("#simNext3").onclick=()=>{ simState.prio = inferPrio(simState.discSel); simGo(4); };
-    return;
-  }
-  // step 4 — encaminhamento (espelha o mapa)
-  const fluxObj = DATA.find(d=>d.grupo===simState.grupo && d.flux===simState.flux);
-  const p = PRIO[simState.prio];
-  const especialidade = esc(fluxObj.esp || "");
-  const contingenciaMatriz = (fluxObj.ped && String(fluxObj.ped).trim()) ? esc(fluxObj.ped) : "";
-  const pedExtra = contingenciaMatriz ? `; Contingência da matriz: <b>${contingenciaMatriz}</b>` : "";
-  const pedNote = simState.isPed
-    ? `<div class="rv" style="color:var(--ink-dim);margin-top:4px">Paciente pediátrico: <b>Pediatra</b> em 1ª linha${pedExtra}. Especialidade da matriz permanece como referência.</div>`
-    : "";
-  const alertHi = (simState.prio==="vermelho"||simState.prio==="laranja")
-    ? `<div class="rv" style="color:var(--red);font-weight:600;margin-top:4px">Prioridade alta estimada: estabilização imediata pelo médico de porta / equipe de emergência (ABCDE). A especialidade entra como interconsulta.</div>`
-    : "";
-  const obsRow = (fluxObj.obs && String(fluxObj.obs).trim())
-    ? `<div class="sim-result-row"><div class="rk">Observação institucional</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.obs)}</div></div>`
-    : "";
-  const mudarRow = (fluxObj.mudar && String(fluxObj.mudar).trim())
-    ? `<div class="sim-result-row"><div class="rk">Quando mudar</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.mudar)}</div></div>`
-    : "";
-  panel.innerHTML = `
-    <div class="sim-result">
-      <div class="sim-result-body" style="margin:0 0 14px">
-        <div class="sim-result-row"><div class="rk">Idade</div><div class="rv">${simState.age} anos ${simState.isPed?'(pediátrico)':'(adulto)'}</div></div>
-        <div class="sim-result-row"><div class="rk">Fluxograma</div><div class="rv">${esc(simState.flux)} <span style="color:var(--ink-faint)">· ${esc(simState.grupo)}</span> <span class="chips" style="display:inline-flex;margin-left:6px">${chipsFor(fluxObj)}</span></div></div>
-        <div class="sim-result-row"><div class="rk">Especialidade</div><div class="rv">${especialidade}${pedNote}${alertHi}</div></div>
-        ${contingenciaMatriz ? `<div class="sim-result-row"><div class="rk">Contingência</div><div class="rv">${contingenciaMatriz}</div></div>` : ""}
-        <div class="sim-result-row"><div class="rk">Perguntas estratégicas</div><div class="rv" style="color:var(--ink-dim)">${esc(fluxObj.just||"—")}</div></div>
-        ${obsRow}
-        ${mudarRow}
-        <div class="sim-result-row"><div class="rk">Sinais marcados</div><div class="rv">${simState.discSel.length?simState.discSel.map(esc).join('<br>'):'<span style="color:var(--ink-faint)">Nenhum marcado</span>'}</div></div>
-      </div>
-      <p class="hint" style="margin:0 0 8px;font-weight:600">Estimativa de prioridade (não substitui MTS)</p>
-      <div class="sim-prio-band" style="background:${p.bg};color:${p.fg}">
-        <span class="label">${p.label}</span>
-        <span>${p.txt}</span>
-        <span class="time">Tempo-alvo: ${p.time}</span>
-      </div>
-      ${p.targetMin>0 ? `
-      <div class="sim-countdown" id="cdBox">
-        <div>
-          <div class="cd-label">Tempo-alvo restante</div>
-          <div class="cd-time" id="cdTime">--:--</div>
-        </div>
-        <div class="cd-bar"><div class="cd-fill" id="cdFill" style="width:100%"></div></div>
-        <div class="cd-label" id="cdMeta" style="text-align:right">alvo ${p.targetMin} min</div>
-      </div>` : ''}
-      <div class="sim-reeval" id="reBox">
-        <span class="re-label">🔁 Reavaliar em</span>
-        <button class="re-btn" data-min="5">5 min</button>
-        <button class="re-btn" data-min="10">10 min</button>
-        <button class="re-btn" data-min="15">15 min</button>
-        <button class="re-btn" data-min="30">30 min</button>
-        <button class="re-btn" id="reCancel" style="display:none">Cancelar</button>
-        <span class="re-status" id="reStatus">Nenhum lembrete ativo.</span>
-      </div>
-    </div>
-    <div class="sim-panel" style="margin-top:14px">
-      <p class="hint" style="margin:0 0 12px"><b>Aviso:</b> a faixa de cor e o tempo-alvo são apenas estimativa a partir dos sinais da matriz marcados. Não substituem a classificação Manchester (MTS). O julgamento clínico do enfermeiro classificador sempre prevalece.</p>
-      <div class="sim-actions" style="margin-top:0">
-        <button class="sim-btn ghost" id="simBack">← Ajustar pistas</button>
-        <button class="sim-btn" id="simReset">Novo encaminhamento</button>
-      </div>
-    </div>`;
-  $("#simBack").onclick=()=>simGo(3);
-  const goBack = $("#simBack").onclick;
-  $("#simBack").onclick=()=>{ stopCountdown(); stopReeval(); goBack(); };
-  $("#simReset").onclick=()=>{ stopCountdown(); stopReeval(); simResetAll(); };
-  startCountdown(p.targetMin);
-  wireReeval();
-}
-function simResetAll(){
-  simState.step=0; simState.age=null; simState.isPed=false;
-  simState.grupo=null; simState.flux=null; simState.discSel=[]; simState.prio=null; simState.aiReason=null;
-  renderSim();
-}
-/* ---------- Countdown (tempo-alvo) ---------- */
-let cdInterval = null;
-function stopCountdown(){ if(cdInterval){ clearInterval(cdInterval); cdInterval=null; } }
-function startCountdown(targetMin){
-  stopCountdown();
-  if(!targetMin) return;
-  const totalMs = targetMin*60*1000;
-  const start = Date.now();
-  const el = document.getElementById("cdTime");
-  const fill = document.getElementById("cdFill");
-  const meta = document.getElementById("cdMeta");
-  if(!el) return;
-  const tick = ()=>{
-    const elapsed = Date.now()-start;
-    const rem = totalMs - elapsed;
-    const over = rem<0;
-    const absRem = Math.abs(rem);
-    const mm = Math.floor(absRem/60000);
-    const ss = Math.floor((absRem%60000)/1000);
-    el.textContent = (over?"+ ":"") + String(mm).padStart(2,"0")+":"+String(ss).padStart(2,"0");
-    const pct = Math.max(0, Math.min(100, (rem/totalMs)*100));
-    fill.style.width = pct+"%";
-    el.classList.remove("warn","over"); fill.classList.remove("warn","over");
-    if(over){ el.classList.add("over"); fill.classList.add("over"); fill.style.width="100%"; meta.textContent="⚠ ATRASADO"; }
-    else if(pct<25){ el.classList.add("warn"); fill.classList.add("warn"); }
-  };
-  tick();
-  cdInterval = setInterval(tick, 1000);
-}
-/* ---------- Reavaliação (lembrete) ---------- */
-let reTimeout = null;
-let reCountdown = null;
-function stopReeval(){
-  if(reTimeout){ clearTimeout(reTimeout); reTimeout=null; }
-  if(reCountdown){ clearInterval(reCountdown); reCountdown=null; }
-  const box = document.getElementById("reBox");
-  if(box) box.classList.remove("firing");
-}
-function beep(){
-  try{
-    const AC = window.AudioContext||window.webkitAudioContext;
-    const ctx = new AC();
-    const o = ctx.createOscillator(), g = ctx.createGain();
-    o.type="sine"; o.frequency.value=880;
-    g.gain.setValueAtTime(0.001,ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.35,ctx.currentTime+0.02);
-    g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.8);
-    o.connect(g).connect(ctx.destination);
-    o.start(); o.stop(ctx.currentTime+0.85);
-  }catch(e){}
-}
-function wireReeval(){
-  const box = document.getElementById("reBox");
-  if(!box) return;
-  const status = document.getElementById("reStatus");
-  const cancel = document.getElementById("reCancel");
-  box.querySelectorAll(".re-btn[data-min]").forEach(b=>{
-    b.onclick = ()=>{
-      stopReeval();
-      box.querySelectorAll(".re-btn").forEach(x=>x.classList.remove("active"));
-      b.classList.add("active");
-      const mins = parseInt(b.dataset.min,10);
-      if("Notification"in window && Notification.permission==="default") Notification.requestPermission();
-      let rem = mins*60;
-      const upd = ()=>{
-        const mm = Math.floor(rem/60), ss = rem%60;
-        status.classList.add("on");
-        status.textContent = `⏰ Reavaliação em ${String(mm).padStart(2,"0")}:${String(ss).padStart(2,"0")}`;
-      };
-      upd();
-      cancel.style.display="";
-      reCountdown = setInterval(()=>{ rem--; if(rem<=0){ clearInterval(reCountdown); reCountdown=null; } else upd(); }, 1000);
-      reTimeout = setTimeout(()=>{
-        box.classList.add("firing");
-        status.textContent = "⚠ Hora de reavaliar o paciente!";
-        beep(); setTimeout(beep,900); setTimeout(beep,1800);
-        if("Notification"in window && Notification.permission==="granted"){
-          try{ new Notification("Reavaliação Manchester", {body:`Reavaliar paciente (${simState.flux||""})`}); }catch(e){}
-        }
-      }, mins*60*1000);
-    };
-  });
-  cancel.onclick = ()=>{
-    stopReeval();
-    box.querySelectorAll(".re-btn").forEach(x=>x.classList.remove("active"));
-    cancel.style.display="none";
-    status.classList.remove("on");
-    status.textContent = "Lembrete cancelado.";
-  };
-}
-renderSim();
 </script>
 </body>
 </html>
